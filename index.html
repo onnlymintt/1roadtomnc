@@ -5,383 +5,467 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Road to MNC - Chương trình Luyện MT & Thực tập</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <style>
         body { font-family: 'Inter', sans-serif; }
         .hide-scroll-bar::-webkit-scrollbar { display: none; }
         .hide-scroll-bar { -ms-overflow-style: none; scrollbar-width: none; }
+        
         /* Nền pattern tinh tế cho Hero Section */
         .bg-grid-pattern {
             background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
             background-size: 32px 32px;
         }
+
+        /* Hiệu ứng trôi nổi (Floating) cho các khối Mockup */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 5s ease-in-out infinite;
+        }
+        
+        /* Hiệu ứng trôi nổi chậm hơn */
+        .animate-float-slow {
+            animation: float 7s ease-in-out infinite;
+        }
     </style>
 </head>
-<body class="text-slate-800 bg-slate-50 antialiased">
+<body class="text-slate-800 bg-slate-50 antialiased overflow-x-hidden">
 
-    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-slate-200/80 shadow-sm transition-all duration-300">
+    <nav id="navbar" class="fixed w-full top-0 z-50 bg-white/50 backdrop-blur-md border-b border-transparent transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+            <div class="flex justify-between items-center h-20 transition-all duration-300" id="nav-container">
+                <div class="flex-shrink-0 flex items-center cursor-pointer transform transition hover:scale-105" onclick="window.scrollTo(0,0)">
                     <span class="font-extrabold text-2xl text-emerald-900 tracking-tighter">🎓 ROAD TO MNC</span>
                 </div>
                 <div class="hidden md:flex space-x-8 items-center">
-                    <a href="#chuong-trinh" class="text-slate-600 hover:text-emerald-700 font-semibold transition">Khóa học & Lộ trình</a>
-                    <a href="#mentor" class="text-slate-600 hover:text-emerald-700 font-semibold transition">Đội ngũ Mentor</a>
-                    <a href="#tai-lieu" class="text-slate-600 hover:text-emerald-700 font-semibold transition">Tài liệu</a>
-                    <a href="#dang-ky" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2.5 rounded-full font-bold shadow-lg shadow-emerald-600/20 transition-all transform hover:-translate-y-0.5">ĐĂNG KÝ TƯ VẤN</a>
+                    <a href="#chuong-trinh" class="text-slate-600 hover:text-emerald-600 font-semibold transition-colors">Khóa học & Lộ trình</a>
+                    <a href="#mentor" class="text-slate-600 hover:text-emerald-600 font-semibold transition-colors">Đội ngũ Mentor</a>
+                    <a href="#tai-lieu" class="text-slate-600 hover:text-emerald-600 font-semibold transition-colors">Tài liệu</a>
+                    <a href="#dang-ky" class="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2.5 rounded-full font-bold shadow-[0_0_15px_rgba(5,150,105,0.3)] hover:shadow-[0_0_25px_rgba(5,150,105,0.5)] transition-all transform hover:-translate-y-0.5">ĐĂNG KÝ TƯ VẤN</a>
                 </div>
                 <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-emerald-900 focus:outline-none">
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-emerald-900 focus:outline-none transition-transform hover:rotate-90">
                         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                     </button>
                 </div>
             </div>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 px-4 pt-2 pb-6 space-y-2 shadow-2xl absolute w-full left-0">
-            <a href="#chuong-trinh" class="block px-4 py-3 text-slate-700 font-semibold hover:bg-emerald-50 hover:text-emerald-700 rounded-xl transition">Khóa học & Lộ trình</a>
-            <a href="#mentor" class="block px-4 py-3 text-slate-700 font-semibold hover:bg-emerald-50 hover:text-emerald-700 rounded-xl transition">Đội ngũ Mentor</a>
-            <a href="#tai-lieu" class="block px-4 py-3 text-slate-700 font-semibold hover:bg-emerald-50 hover:text-emerald-700 rounded-xl transition">Tài liệu</a>
-            <a href="#dang-ky" class="block text-center mt-6 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-4 rounded-xl font-bold shadow-lg">ĐĂNG KÝ TƯ VẤN</a>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 px-4 pt-2 pb-6 space-y-2 shadow-2xl absolute w-full left-0 origin-top animate-fade-in-down">
+            <a href="#chuong-trinh" class="block px-4 py-3 text-slate-700 font-semibold hover:bg-emerald-50 hover:text-emerald-700 rounded-xl transition-colors">Khóa học & Lộ trình</a>
+            <a href="#mentor" class="block px-4 py-3 text-slate-700 font-semibold hover:bg-emerald-50 hover:text-emerald-700 rounded-xl transition-colors">Đội ngũ Mentor</a>
+            <a href="#tai-lieu" class="block px-4 py-3 text-slate-700 font-semibold hover:bg-emerald-50 hover:text-emerald-700 rounded-xl transition-colors">Tài liệu</a>
+            <a href="#dang-ky" class="block text-center mt-6 bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-4 rounded-xl font-bold shadow-lg">ĐĂNG KÝ TƯ VẤN</a>
         </div>
     </nav>
 
-    <section class="relative pt-20 pb-24 lg:pt-32 lg:pb-40 overflow-hidden bg-gradient-to-b from-white to-slate-50 border-b border-slate-200">
-        <div class="absolute inset-0 bg-grid-pattern opacity-[0.4] z-0"></div>
+    <section class="relative pt-32 pb-24 lg:pt-40 lg:pb-40 overflow-hidden bg-gradient-to-b from-emerald-50/50 to-white border-b border-slate-200">
+        <div class="absolute inset-0 bg-grid-pattern opacity-40 z-0"></div>
+        <div class="absolute top-20 left-10 w-72 h-72 bg-emerald-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float"></div>
+        <div class="absolute top-40 right-10 w-72 h-72 bg-emerald-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float-slow"></div>
+        
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div class="max-w-2xl">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-100/50 text-emerald-800 font-bold text-sm mb-6 border border-emerald-200 backdrop-blur-sm shadow-sm">
-                        <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                <div class="max-w-2xl" data-aos="fade-right" data-aos-duration="1000">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white text-emerald-800 font-bold text-sm mb-6 border border-emerald-200 shadow-sm hover:shadow-md transition-shadow cursor-default">
+                        <svg class="w-4 h-4 text-emerald-600 animate-pulse" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
                         ĐỒNG HÀNH ĐẾN KHI CÓ OFFER
                     </div>
-                    <h1 class="text-4xl lg:text-5xl font-extrabold text-slate-900 leading-[1.15] mb-6 tracking-tight">
-                        Bạn đã học nhiều khóa Business nhưng <span class="text-emerald-600">vẫn chưa có job</span> như ý?
+                    <h1 class="text-4xl lg:text-5xl xl:text-6xl font-extrabold text-slate-900 leading-[1.15] mb-6 tracking-tight">
+                        Học nhiều khóa Business nhưng <span class="text-emerald-600 relative inline-block">vẫn chưa có job<svg class="absolute w-full h-3 -bottom-1 left-0 text-emerald-200" viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0 15 Q 50 0 100 15" fill="none" stroke="currentColor" stroke-width="4"/></svg></span> như ý?
                     </h1>
                     <p class="text-lg text-slate-600 mb-8 leading-relaxed font-medium">
-                        Mentoring 1-1 kết hợp Masterclass tạo ra hệ sinh thái ứng tuyển toàn diện. Phát triển năng lực thực chiến và từng bước chinh phục các tập đoàn đa quốc gia.
+                        Mentoring 1-1 kết hợp Masterclass tạo ra hệ sinh thái ứng tuyển toàn diện. Đập bỏ tư duy cũ, phát triển năng lực thực chiến để chinh phục các tập đoàn đa quốc gia.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="#dang-ky" class="inline-flex justify-center items-center bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl shadow-emerald-600/20 transition transform hover:-translate-y-1">
+                        <a href="#dang-ky" class="inline-flex justify-center items-center bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-[0_10px_25px_rgba(5,150,105,0.3)] transition-all transform hover:-translate-y-1 hover:scale-105 active:scale-95">
                             Nhận Phác Đồ Miễn Phí
                         </a>
-                        <a href="#chuong-trinh" class="inline-flex justify-center items-center bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 px-8 py-4 rounded-xl font-bold text-lg shadow-sm transition">
+                        <a href="#chuong-trinh" class="inline-flex justify-center items-center bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 px-8 py-4 rounded-xl font-bold text-lg shadow-sm hover:shadow-md transition-all">
                             Xem Lộ Trình
                         </a>
                     </div>
                 </div>
-                <div class="hidden lg:block relative">
-                    <div class="relative rounded-3xl shadow-2xl overflow-hidden bg-white border border-slate-200 transform rotate-1 hover:rotate-0 transition duration-500">
-                        <div class="h-8 bg-slate-100 border-b border-slate-200 flex items-center px-4 gap-2">
-                            <div class="w-3 h-3 rounded-full bg-red-400"></div>
-                            <div class="w-3 h-3 rounded-full bg-amber-400"></div>
-                            <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                <div class="hidden lg:block relative" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
+                    <div class="relative rounded-[2rem] shadow-2xl overflow-hidden bg-white border border-slate-200 transform rotate-2 hover:rotate-0 transition-transform duration-500 animate-float z-10">
+                        <div class="h-10 bg-slate-100/80 backdrop-blur border-b border-slate-200 flex items-center px-4 gap-2">
+                            <div class="w-3.5 h-3.5 rounded-full bg-red-400 hover:bg-red-500 cursor-pointer transition-colors"></div>
+                            <div class="w-3.5 h-3.5 rounded-full bg-amber-400 hover:bg-amber-500 cursor-pointer transition-colors"></div>
+                            <div class="w-3.5 h-3.5 rounded-full bg-green-400 hover:bg-green-500 cursor-pointer transition-colors"></div>
+                            <div class="ml-4 text-xs font-semibold text-slate-400">road-to-mnc-1-on-1-mentoring</div>
                         </div>
-                        <div class="aspect-w-4 aspect-h-3 bg-slate-50 flex items-center justify-center p-8">
-                            <div class="text-center">
-                                <div class="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <svg class="w-10 h-10 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        <div class="aspect-w-4 aspect-h-3 bg-slate-50 flex items-center justify-center p-8 relative group">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-emerald-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div class="text-center relative z-10 transform group-hover:scale-105 transition-transform duration-500">
+                                <div class="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner relative">
+                                    <div class="absolute inset-0 border-4 border-emerald-500 rounded-full animate-ping opacity-20"></div>
+                                    <svg class="w-12 h-12 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                                 </div>
-                                <span class="text-slate-500 font-bold text-lg">[ Hình ảnh Mockup 1-1 Mentoring ]</span>
+                                <span class="text-slate-700 font-extrabold text-xl">Mô phỏng Phỏng Vấn </span>
+                                <p class="text-sm text-slate-500 mt-2 font-medium">Bật audio để nghe Mentor feedback</p>
                             </div>
                         </div>
                     </div>
+                    <div class="absolute -bottom-6 -left-6 w-24 h-24 bg-emerald-500 rounded-2xl shadow-xl transform -rotate-12 -z-10 animate-float-slow"></div>
+                    <div class="absolute -top-6 -right-6 w-32 h-32 bg-emerald-200 rounded-full shadow-lg -z-10 animate-float"></div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 bg-slate-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">4 Quan niệm khiến hành trình tìm việc trở nên khó khăn hơn</h2>
-            </div>
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 hover:shadow-xl hover:border-emerald-200 transition-all duration-300 group">
-                    <div class="text-5xl font-black text-slate-100 mb-4 group-hover:text-emerald-50 transition-colors">01</div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-3">Nghiên cứu học thuật quá nhiều</h3>
-                    <p class="text-slate-600 leading-relaxed font-medium">Nếu không theo ngách học thuật, nhà tuyển dụng đánh giá cao trải nghiệm thực tập và HĐNK hơn là thành tích nghiên cứu khoa học.</p>
-                </div>
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 hover:shadow-xl hover:border-emerald-200 transition-all duration-300 group">
-                    <div class="text-5xl font-black text-slate-100 mb-4 group-hover:text-emerald-50 transition-colors">02</div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-3">Tôn thờ điểm số (GPA)</h3>
-                    <p class="text-slate-600 leading-relaxed font-medium">Đối với phần lớn vị trí Business, GPA > 3.3/4.0 chỉ giúp bạn qua vòng gửi xe. Các vòng sau đánh giá năng lực thực tế và tư duy giải quyết vấn đề.</p>
-                </div>
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 hover:shadow-xl hover:border-emerald-200 transition-all duration-300 group">
-                    <div class="text-5xl font-black text-slate-100 mb-4 group-hover:text-emerald-50 transition-colors">03</div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-3">Chỉ tập trung một ngành duy nhất</h3>
-                    <p class="text-slate-600 leading-relaxed font-medium">Việc quá kén chọn làm giảm đáng kể khả năng nhận offer. Một chiến lược apply đa dạng cho top các công việc yêu thích mang lại hiệu quả tốt hơn.</p>
-                </div>
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 hover:shadow-xl hover:border-emerald-200 transition-all duration-300 group">
-                    <div class="text-5xl font-black text-slate-100 mb-4 group-hover:text-emerald-50 transition-colors">04</div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-3">Nghĩ rằng nộp vài chục đơn là đủ</h3>
-                    <p class="text-slate-600 leading-relaxed font-medium">Trong thị trường khốc liệt, nếu chưa được phản hồi tức là bạn apply chưa đủ nhiều. Việc rải 100-200 jobs và cold-message HR là hoàn toàn bình thường.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="mentor" class="py-24 bg-white overflow-hidden border-b border-slate-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 tracking-tight">Đội Ngũ Mentor Trực Tiếp Từ MBB & Top MNCs</h2>
-                <p class="text-lg text-slate-600 font-medium">Tất cả mentor đều đã trực tiếp trải qua những quy trình tuyển dụng cạnh tranh nhất trên thị trường. Họ không chỉ chia sẻ kinh nghiệm thực chiến mà còn giúp bạn hiểu rõ doanh nghiệp đang tìm kiếm điều gì ở một ứng viên tiềm năng.</p>
-            </div>
-            
-            <div class="flex overflow-x-auto hide-scroll-bar snap-x snap-mandatory gap-6 pb-8 px-4 -mx-4">
-                <div class="snap-start shrink-0 w-80 bg-white border border-slate-200 rounded-3xl p-8 shadow-lg shadow-slate-200/50 hover:-translate-y-1 transition-transform">
-                    <div class="h-8 mb-6 font-black text-xl text-emerald-900 tracking-tighter">HEINEKEN</div>
-                    <h4 class="text-2xl font-bold text-slate-900 mb-1">Harry Nguyễn</h4>
-                    <p class="text-sm font-bold text-emerald-600 mb-6 uppercase tracking-wide">Digital Strategy & PMO Lead</p>
-                    <ul class="text-sm text-slate-600 space-y-3 font-medium">
-                        <li class="flex items-start gap-2"><svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Đang công tác tại Heineken</li>
-                        <li class="flex items-start gap-2"><svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Cựu Trade MT tại BAT</li>
-                    </ul>
-                </div>
-                <div class="snap-start shrink-0 w-80 bg-white border border-slate-200 rounded-3xl p-8 shadow-lg shadow-slate-200/50 hover:-translate-y-1 transition-transform">
-                    <div class="h-8 mb-6 font-black text-xl text-emerald-900 tracking-tighter">McKinsey & Co.</div>
-                    <h4 class="text-2xl font-bold text-slate-900 mb-1">Bùi Hà Phương</h4>
-                    <p class="text-sm font-bold text-emerald-600 mb-6 uppercase tracking-wide">Cựu Consultant</p>
-                    <ul class="text-sm text-slate-600 space-y-3 font-medium">
-                        <li class="flex items-start gap-2"><svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> MBA tại Columbia Southern University</li>
-                    </ul>
-                </div>
-                <div class="snap-start shrink-0 w-80 bg-white border border-slate-200 rounded-3xl p-8 shadow-lg shadow-slate-200/50 hover:-translate-y-1 transition-transform">
-                    <div class="h-8 mb-6 font-black text-xl text-emerald-900 tracking-tighter">PRUDENTIAL</div>
-                    <h4 class="text-2xl font-bold text-slate-900 mb-1">David Trấn</h4>
-                    <p class="text-sm font-bold text-emerald-600 mb-6 uppercase tracking-wide">Business Expansion Mgr</p>
-                    <ul class="text-sm text-slate-600 space-y-3 font-medium">
-                        <li class="flex items-start gap-2"><svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Cựu MT tại Prudential</li>
-                    </ul>
-                </div>
-                <div class="snap-start shrink-0 w-80 bg-white border border-slate-200 rounded-3xl p-8 shadow-lg shadow-slate-200/50 hover:-translate-y-1 transition-transform">
-                    <div class="h-8 mb-6 font-black text-xl text-emerald-900 tracking-tighter">UNILEVER</div>
-                    <h4 class="text-2xl font-bold text-slate-900 mb-1">Daniel Ngô</h4>
-                    <p class="text-sm font-bold text-emerald-600 mb-6 uppercase tracking-wide">Brand Manager</p>
-                    <ul class="text-sm text-slate-600 space-y-3 font-medium">
-                        <li class="flex items-start gap-2"><svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Cựu Marketing UFLP MT</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 bg-emerald-950 text-white relative overflow-hidden">
-        <div class="absolute -top-24 -right-24 w-96 h-96 bg-emerald-800/50 rounded-full blur-3xl"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center max-w-3xl mx-auto mb-20">
-                <h2 class="text-3xl md:text-4xl font-extrabold mb-6 tracking-tight">Không có lộ trình chung dành cho tất cả.<br><span class="text-emerald-400">Chỉ có lộ trình riêng phù hợp với bạn.</span></h2>
-            </div>
-            <div class="grid lg:grid-cols-3 gap-6">
-                <div class="bg-emerald-900/40 p-8 rounded-3xl border border-emerald-800/50 backdrop-blur-sm">
-                    <div class="w-14 h-14 bg-emerald-800 rounded-2xl flex items-center justify-center mb-6 shadow-inner">
-                        <svg class="w-7 h-7 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Kết Nối Chuyên Gia</h3>
-                    <p class="text-emerald-100/80 leading-relaxed font-medium">Mentor hỗ trợ bạn mở rộng mạng lưới nghề nghiệp thông qua các buổi chia sẻ, networking và kết nối với những anh chị đang làm việc trong lĩnh vực mục tiêu.</p>
-                </div>
-                <div class="bg-emerald-900/40 p-8 rounded-3xl border border-emerald-800/50 backdrop-blur-sm relative overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-br from-emerald-600/20 to-transparent"></div>
-                    <div class="w-14 h-14 bg-emerald-500 rounded-2xl flex items-center justify-center mb-6 shadow-lg relative z-10">
-                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4 relative z-10">Đồng hành theo từng vòng tuyển dụng</h3>
-                    <p class="text-emerald-50 leading-relaxed font-medium relative z-10">Lộ trình được điều chỉnh linh hoạt theo các thử thách thực tế bạn đang đối mặt, từ CV Screening, Aptitude Test cho đến Assessment Center và Final Interview.</p>
-                </div>
-                <div class="bg-emerald-900/40 p-8 rounded-3xl border border-emerald-800/50 backdrop-blur-sm">
-                    <div class="w-14 h-14 bg-emerald-800 rounded-2xl flex items-center justify-center mb-6 shadow-inner">
-                        <svg class="w-7 h-7 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Cá nhân hoá theo năng lực</h3>
-                    <p class="text-emerald-100/80 leading-relaxed font-medium">Ngay từ những buổi đầu tiên, mentor sẽ đánh giá hồ sơ hiện tại, xác định khoảng cách cần cải thiện và xây dựng kế hoạch phát triển phù hợp với mục tiêu nghề nghiệp của riêng bạn.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 bg-slate-50 border-b border-slate-200" id="chuong-trinh">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-emerald-600 font-bold uppercase tracking-wider text-sm mb-4 block">Hệ Sinh Thái All-in-One</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Trọn Bộ 1 Chương Trình.<br>Đóng Gói Bằng 2 Trụ Cột Cốt Lõi.</h2>
-            </div>
-            
-            <div class="grid lg:grid-cols-2 gap-8 items-stretch relative">
-                
-                <div class="bg-white rounded-[2rem] p-8 md:p-10 border border-slate-200 shadow-xl shadow-slate-200/40 relative">
-                    <div class="absolute -top-4 left-10 bg-emerald-100 border border-emerald-200 text-emerald-800 px-5 py-1.5 rounded-full font-bold text-sm uppercase tracking-wider shadow-sm">
-                        Nền tảng tư duy
-                    </div>
-                    <h3 class="text-2xl font-bold text-slate-900 mt-6 mb-3">7 Buổi Masterclass Chuyên Sâu</h3>
-                    <p class="text-slate-600 mb-8 font-medium">Trang bị toàn bộ framework chuẩn chỉnh, mindset giải case và kỹ năng hệ thống trước khi bước vào thực chiến.</p>
-                    
-                    <ul class="space-y-4 text-slate-700 font-medium">
-                        <li class="flex gap-4 items-start">
-                            <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div>
-                            <span>Framework & Kỹ năng giải Business Case.</span>
-                        </li>
-                        <li class="flex gap-4 items-start">
-                            <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div>
-                            <span>Mô phỏng chân thực Assessment Center.</span>
-                        </li>
-                        <li class="flex gap-4 items-start">
-                            <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div>
-                            <span>Tư duy trả lời Cultural Fit Interview.</span>
-                        </li>
-                        <li class="flex gap-4 items-start">
-                            <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div>
-                            <span>Quy trình Data Analysis cơ bản.</span>
-                        </li>
-                        <li class="flex gap-4 items-start">
-                            <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div>
-                            <span>Kỹ năng Làm Slide & Presentation hiệu quả.</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 bg-emerald-600 rounded-full items-center justify-center shadow-xl border-4 border-slate-50 z-10 text-white font-black text-2xl">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
-                </div>
-                <div class="lg:hidden flex justify-center -my-4 relative z-10">
-                    <div class="w-12 h-12 bg-emerald-600 rounded-full flex items-center justify-center shadow-lg border-4 border-slate-50 text-white font-black">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
-                    </div>
-                </div>
-
-                <div class="bg-emerald-950 rounded-[2rem] p-8 md:p-10 border border-emerald-900 shadow-2xl relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-600/20 rounded-full blur-3xl"></div>
-                    
-                    <div class="absolute -top-4 left-10 bg-emerald-500 border border-emerald-400 text-white px-5 py-1.5 rounded-full font-bold text-sm uppercase tracking-wider shadow-sm relative z-10">
-                        Thực chiến cá nhân
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mt-6 mb-3 relative z-10">10 Hợp Phần Mentoring 1-1</h3>
-                    <p class="text-emerald-100/80 mb-8 font-medium relative z-10">May đo chiến lược trên chính CV và ngành mục tiêu của bạn. Đồng hành đến khi nhận Offer.</p>
-                    
-                    <div class="grid sm:grid-cols-2 gap-x-6 gap-y-4 text-emerald-50 font-medium relative z-10">
-                        <div class="flex gap-3 items-center">
-                            <span class="text-emerald-400 font-bold bg-emerald-900/50 w-7 h-7 rounded flex items-center justify-center text-sm">1</span> Career Roadmap
-                        </div>
-                        <div class="flex gap-3 items-center">
-                            <span class="text-emerald-400 font-bold bg-emerald-900/50 w-7 h-7 rounded flex items-center justify-center text-sm">2</span> Tối ưu hóa CV
-                        </div>
-                        <div class="flex gap-3 items-center">
-                            <span class="text-emerald-400 font-bold bg-emerald-900/50 w-7 h-7 rounded flex items-center justify-center text-sm">3</span> Luyện Aptitude Test
-                        </div>
-                        <div class="flex gap-3 items-center">
-                            <span class="text-emerald-400 font-bold bg-emerald-900/50 w-7 h-7 rounded flex items-center justify-center text-sm">4</span> Phỏng vấn Hành vi
-                        </div>
-                        <div class="flex gap-3 items-center">
-                            <span class="text-emerald-400 font-bold bg-emerald-900/50 w-7 h-7 rounded flex items-center justify-center text-sm">5</span> Chốt Target Company
-                        </div>
-                        <div class="flex gap-3 items-center">
-                            <span class="text-emerald-400 font-bold bg-emerald-900/50 w-7 h-7 rounded flex items-center justify-center text-sm">6</span> Networking
-                        </div>
-                        <div class="flex gap-3 items-center">
-                            <span class="text-emerald-400 font-bold bg-emerald-900/50 w-7 h-7 rounded flex items-center justify-center text-sm">7</span> Portfolio Building
-                        </div>
-                        <div class="flex gap-3 items-center">
-                            <span class="text-emerald-400 font-bold bg-emerald-900/50 w-7 h-7 rounded flex items-center justify-center text-sm">8</span> Business Case 1-1
-                        </div>
-                        <div class="flex gap-3 items-center">
-                            <span class="text-emerald-400 font-bold bg-emerald-900/50 w-7 h-7 rounded flex items-center justify-center text-sm">9</span> Giả lập vòng AC
-                        </div>
-                        <div class="flex gap-3 items-center">
-                            <span class="text-emerald-400 font-bold bg-emerald-900/50 w-7 h-7 rounded flex items-center justify-center text-sm">10</span> Industry Knowledge
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
 
     <section class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 max-w-3xl mx-auto">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">Mọi Tiến Độ Đều Được Đo Lường Bằng Số Liệu</h2>
+            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+                <span class="text-emerald-600 font-bold uppercase tracking-wider text-sm mb-3 block">Chẩn đoán vấn đề</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">4 Quan niệm khiến bạn gặp khó khăn khi apply </h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6 lg:gap-8">
+                <div class="bg-white p-8 rounded-[2rem] shadow-lg shadow-slate-200/50 border border-slate-100 hover:border-emerald-300 hover:shadow-2xl hover:shadow-emerald-900/10 transition-all duration-300 group transform hover:-translate-y-2 relative overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute -right-6 -top-6 text-9xl font-black text-slate-50 group-hover:text-emerald-50 transition-colors duration-500">1</div>
+                    <div class="relative z-10">
+                        <div class="w-12 h-12 bg-slate-100 group-hover:bg-emerald-100 rounded-xl flex items-center justify-center mb-6 transition-colors">
+                            <svg class="w-6 h-6 text-slate-500 group-hover:text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-emerald-800 transition-colors">Nghiên cứu học thuật quá nhiều</h3>
+                        <p class="text-slate-600 leading-relaxed font-medium">Đối với phần lớn vị trí Business, nhà tuyển dụng thường đánh giá cao trải nghiệm thực tập, hoạt động ngoại khóa và các dự án thực tế hơn là thành tích nghiên cứu.</p>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-[2rem] shadow-lg shadow-slate-200/50 border border-slate-100 hover:border-emerald-300 hover:shadow-2xl hover:shadow-emerald-900/10 transition-all duration-300 group transform hover:-translate-y-2 relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute -right-6 -top-6 text-9xl font-black text-slate-50 group-hover:text-emerald-50 transition-colors duration-500">2</div>
+                    <div class="relative z-10">
+                        <div class="w-12 h-12 bg-slate-100 group-hover:bg-emerald-100 rounded-xl flex items-center justify-center mb-6 transition-colors">
+                            <svg class="w-6 h-6 text-slate-500 group-hover:text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-emerald-800 transition-colors">Xem GPA là yếu tố quyết định</h3>
+                        <p class="text-slate-600 leading-relaxed font-medium">Với Business, GPA > 3.3/4.0 chỉ giúp bạn qua vòng hồ sơ. Các vòng sau đánh giá hoàn toàn dựa trên tư duy xử lý tình huống thực tế.</p>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-[2rem] shadow-lg shadow-slate-200/50 border border-slate-100 hover:border-emerald-300 hover:shadow-2xl hover:shadow-emerald-900/10 transition-all duration-300 group transform hover:-translate-y-2 relative overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                    <div class="absolute -right-6 -top-6 text-9xl font-black text-slate-50 group-hover:text-emerald-50 transition-colors duration-500">3</div>
+                    <div class="relative z-10">
+                        <div class="w-12 h-12 bg-slate-100 group-hover:bg-emerald-100 rounded-xl flex items-center justify-center mb-6 transition-colors">
+                            <svg class="w-6 h-6 text-slate-500 group-hover:text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-emerald-800 transition-colors">Chỉ tập trung vào một ngành nghề duy nhất</h3>
+                        <p class="text-slate-600 leading-relaxed font-medium">Việc giới hạn cơ hội trong một nhóm vị trí quá hẹp có thể khiến quá trình tìm việc kéo dài hơn. Một chiến lược ứng tuyển linh hoạt thường mang lại nhiều cơ hội hơn.</p>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-[2rem] shadow-lg shadow-slate-200/50 border border-slate-100 hover:border-emerald-300 hover:shadow-2xl hover:shadow-emerald-900/10 transition-all duration-300 group transform hover:-translate-y-2 relative overflow-hidden" data-aos="fade-up" data-aos-delay="400">
+                    <div class="absolute -right-6 -top-6 text-9xl font-black text-slate-50 group-hover:text-emerald-50 transition-colors duration-500">4</div>
+                    <div class="relative z-10">
+                        <div class="w-12 h-12 bg-slate-100 group-hover:bg-emerald-100 rounded-xl flex items-center justify-center mb-6 transition-colors">
+                            <svg class="w-6 h-6 text-slate-500 group-hover:text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-emerald-800 transition-colors">Cho rằng nộp vài chục đơn là đủ</h3>
+                        <p class="text-slate-600 leading-relaxed font-medium">Trong thị trường tuyển dụng cạnh tranh, việc ứng tuyển với số lượng lớn và chủ động kết nối với recruiter là điều hoàn toàn bình thường.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="mentor" class="py-24 bg-slate-50 overflow-hidden border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+                <span class="text-emerald-600 font-bold uppercase tracking-wider text-sm mb-3 block">Bảo chứng uy tín</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 tracking-tight">Đội Ngũ Mentor Trực Tiếp Từ MBB & Top MNCs</h2>
+                <p class="text-lg text-slate-600 font-medium">Họ đã trực tiếp trải qua những quy trình tuyển dụng cạnh tranh nhất thị trường. Với kinh nghiệm thực chiến từ Consulting, Management Trainee và MNC, các mentor sẽ giúp bạn rút ngắn đáng kể hành trình đến offer đầu tiên.</p>
+            </div>
+            
+            <div class="flex overflow-x-auto hide-scroll-bar snap-x snap-mandatory gap-6 pb-8 px-4 -mx-4 cursor-grab active:cursor-grabbing" id="mentor-slider" data-aos="fade-up" data-aos-delay="200">
+                <div class="snap-start shrink-0 w-[340px] bg-white border border-slate-200 rounded-3xl p-8 shadow-md hover:shadow-2xl hover:border-emerald-300 hover:-translate-y-2 transition-all duration-300">
+                    <div class="h-8 mb-6 font-black text-2xl text-emerald-900/20 tracking-tighter uppercase relative">
+                        <span class="absolute inset-0 bg-gradient-to-r from-emerald-800 to-emerald-500 bg-clip-text text-transparent">HEINEKEN</span>
+                    </div>
+                    <h4 class="text-2xl font-extrabold text-slate-900 mb-1">Harry Nguyễn</h4>
+                    <p class="text-sm font-bold text-emerald-600 mb-6 uppercase tracking-wide bg-emerald-50 inline-block px-3 py-1 rounded-md">Digital Strategy Lead</p>
+                    <ul class="text-sm text-slate-600 space-y-3 font-medium">
+                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Đang công tác tại Heineken</li>
+                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Cựu Trade MT tại BAT</li>
+                    </ul>
+                </div>
+                <div class="snap-start shrink-0 w-[340px] bg-white border border-slate-200 rounded-3xl p-8 shadow-md hover:shadow-2xl hover:border-emerald-300 hover:-translate-y-2 transition-all duration-300">
+                    <div class="h-8 mb-6 font-black text-2xl text-emerald-900/20 tracking-tighter uppercase relative">
+                        <span class="absolute inset-0 bg-gradient-to-r from-emerald-800 to-emerald-500 bg-clip-text text-transparent">McKinsey & Co.</span>
+                    </div>
+                    <h4 class="text-2xl font-extrabold text-slate-900 mb-1">Bùi Hà Phương</h4>
+                    <p class="text-sm font-bold text-emerald-600 mb-6 uppercase tracking-wide bg-emerald-50 inline-block px-3 py-1 rounded-md">Cựu Consultant</p>
+                    <ul class="text-sm text-slate-600 space-y-3 font-medium">
+                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Từng làm việc tại McKinsey</li>
+                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> MBA tại Columbia Southern Univ.</li>
+                    </ul>
+                </div>
+                <div class="snap-start shrink-0 w-[340px] bg-white border border-slate-200 rounded-3xl p-8 shadow-md hover:shadow-2xl hover:border-emerald-300 hover:-translate-y-2 transition-all duration-300">
+                    <div class="h-8 mb-6 font-black text-2xl text-emerald-900/20 tracking-tighter uppercase relative">
+                        <span class="absolute inset-0 bg-gradient-to-r from-emerald-800 to-emerald-500 bg-clip-text text-transparent">PRUDENTIAL</span>
+                    </div>
+                    <h4 class="text-2xl font-extrabold text-slate-900 mb-1">David Trấn</h4>
+                    <p class="text-sm font-bold text-emerald-600 mb-6 uppercase tracking-wide bg-emerald-50 inline-block px-3 py-1 rounded-md">Business Expansion Mgr</p>
+                    <ul class="text-sm text-slate-600 space-y-3 font-medium">
+                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Đang công tác tại Prudential</li>
+                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Cựu MT tại Prudential</li>
+                    </ul>
+                </div>
+                <div class="snap-start shrink-0 w-[340px] bg-white border border-slate-200 rounded-3xl p-8 shadow-md hover:shadow-2xl hover:border-emerald-300 hover:-translate-y-2 transition-all duration-300">
+                    <div class="h-8 mb-6 font-black text-2xl text-emerald-900/20 tracking-tighter uppercase relative">
+                        <span class="absolute inset-0 bg-gradient-to-r from-emerald-800 to-emerald-500 bg-clip-text text-transparent">UNILEVER</span>
+                    </div>
+                    <h4 class="text-2xl font-extrabold text-slate-900 mb-1">Daniel Ngô</h4>
+                    <p class="text-sm font-bold text-emerald-600 mb-6 uppercase tracking-wide bg-emerald-50 inline-block px-3 py-1 rounded-md">Brand Manager</p>
+                    <ul class="text-sm text-slate-600 space-y-3 font-medium">
+                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Đang công tác tại Unilever</li>
+                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Cựu Marketing UFLP MT</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-8 flex justify-center items-center gap-4 hidden md:flex">
+                <button class="w-10 h-10 rounded-full border border-slate-300 flex items-center justify-center hover:bg-emerald-50 hover:border-emerald-500 hover:text-emerald-600 transition-colors" onclick="document.getElementById('mentor-slider').scrollBy({left: -350, behavior: 'smooth'})">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                </button>
+                <button class="w-10 h-10 rounded-full border border-slate-300 flex items-center justify-center hover:bg-emerald-50 hover:border-emerald-500 hover:text-emerald-600 transition-colors" onclick="document.getElementById('mentor-slider').scrollBy({left: 350, behavior: 'smooth'})">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-emerald-950 text-white relative overflow-hidden">
+        <div class="absolute -top-40 -right-40 w-[500px] h-[500px] bg-emerald-800/40 rounded-full blur-3xl animate-float-slow"></div>
+        <div class="absolute -bottom-40 -left-40 w-[500px] h-[500px] bg-emerald-900/60 rounded-full blur-3xl animate-float"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-20" data-aos="zoom-in">
+                <h2 class="text-3xl md:text-5xl font-extrabold mb-6 tracking-tight leading-tight">Không Có Lộ Trình Mẫu.<br><span class="text-emerald-400">Chỉ Có Giải Pháp May Đo Tận Gốc.</span></h2>
+                <p class="text-emerald-100/80 text-lg">Hệ thống vận hành như một phòng khám chuyên khoa. Phân tích Profile, bẻ khóa điểm nghẽn và đưa ra phác đồ duy nhất dành cho bạn.</p>
+            </div>
+            
+            <div class="grid lg:grid-cols-3 gap-6">
+                <div class="bg-white/5 p-10 rounded-[2.5rem] border border-white/10 backdrop-blur-md hover:bg-white/10 transition-colors duration-500 group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-emerald-500/30 transform group-hover:-rotate-6 transition-transform">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Kết Nối Chuyên Gia</h3>
+                    <p class="text-emerald-100/70 leading-relaxed font-medium">Mentor hỗ trợ mở rộng mạng lưới nghề nghiệp thông qua những kết nối phù hợp, giúp bạn hiểu rõ hơn về ngành nghề, doanh nghiệp và các cơ hội phát triển.</p>
+                </div>
+                <div class="bg-gradient-to-b from-emerald-600/20 to-white/5 p-10 rounded-[2.5rem] border border-emerald-500/30 backdrop-blur-md hover:border-emerald-400/60 transition-colors duration-500 group relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-300 to-emerald-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-8 shadow-xl shadow-white/10 transform group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8 text-emerald-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-emerald-50">Đồng Hành Theo Từng Vòng Tuyển Dụng</h3>
+                    <p class="text-emerald-100/80 leading-relaxed font-medium">Lộ trình được điều chỉnh theo những thử thách thực tế bạn đang đối mặt. Assessment Center, Case Interview hay Final Interview đều trở thành trọng tâm hỗ trợ khi cần thiết.</p>
+                </div>
+                <div class="bg-white/5 p-10 rounded-[2.5rem] border border-white/10 backdrop-blur-md hover:bg-white/10 transition-colors duration-500 group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-emerald-500/30 transform group-hover:rotate-6 transition-transform">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Cá Nhân Hóa Theo Năng Lực Và Mục Tiêu</h3>
+                    <p class="text-emerald-100/70 leading-relaxed font-medium">Ngay từ những buổi đầu tiên, mentor sẽ đánh giá hồ sơ hiện tại, xác định khoảng cách cần cải thiện và xây dựng kế hoạch phát triển phù hợp với mục tiêu nghề nghiệp của bạn.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 bg-white" id="chuong-trinh">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-20" data-aos="fade-up">
+                <span class="inline-block py-1 px-3 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-bold uppercase tracking-wider text-xs mb-4">Hệ Sinh Thái Khép Kín</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">Trọn Bộ 1 Chương Trình.<br>Đóng Gói Bằng 2 Trụ Cột Cốt Lõi.</h2>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-8 items-stretch relative">
+                
+                <div class="bg-slate-50 rounded-[2.5rem] p-10 md:p-12 border border-slate-200 hover:shadow-xl transition-shadow duration-300 relative group" data-aos="fade-right">
+                    <div class="absolute -top-5 left-12 bg-white border-2 border-emerald-200 text-emerald-800 px-6 py-2 rounded-full font-black text-sm uppercase tracking-widest shadow-md group-hover:scale-105 transition-transform">
+                        Nền tảng tư duy
+                    </div>
+                    <h3 class="text-3xl font-extrabold text-slate-900 mt-6 mb-4">7 Buổi Masterclass</h3>
+                    <p class="text-slate-600 mb-10 font-medium text-lg">Trang bị toàn bộ framework chuẩn chỉnh, mindset logic và kỹ năng hệ thống trước khi bước vào thực chiến.</p>
+                    
+                    <ul class="space-y-6 text-slate-700 font-semibold text-lg">
+                        <li class="flex gap-4 items-start group/item">
+                            <div class="w-8 h-8 rounded-full bg-white border border-emerald-200 shadow-sm text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-emerald-500 group-hover/item:text-white transition-colors"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg></div>
+                            <span class="group-hover/item:text-emerald-700 transition-colors">Framework giải quyết Business Case.</span>
+                        </li>
+                        <li class="flex gap-4 items-start group/item">
+                            <div class="w-8 h-8 rounded-full bg-white border border-emerald-200 shadow-sm text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-emerald-500 group-hover/item:text-white transition-colors"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg></div>
+                            <span class="group-hover/item:text-emerald-700 transition-colors">Mô phỏng Assessment Center (AC).</span>
+                        </li>
+                        <li class="flex gap-4 items-start group/item">
+                            <div class="w-8 h-8 rounded-full bg-white border border-emerald-200 shadow-sm text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-emerald-500 group-hover/item:text-white transition-colors"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg></div>
+                            <span class="group-hover/item:text-emerald-700 transition-colors">Tư duy Cultural Fit Interview (S.T.A.R).</span>
+                        </li>
+                        <li class="flex gap-4 items-start group/item">
+                            <div class="w-8 h-8 rounded-full bg-white border border-emerald-200 shadow-sm text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-emerald-500 group-hover/item:text-white transition-colors"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg></div>
+                            <span class="group-hover/item:text-emerald-700 transition-colors">Data Analysis & Rút Insight cơ bản.</span>
+                        </li>
+                        <li class="flex gap-4 items-start group/item">
+                            <div class="w-8 h-8 rounded-full bg-white border border-emerald-200 shadow-sm text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-emerald-500 group-hover/item:text-white transition-colors"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg></div>
+                            <span class="group-hover/item:text-emerald-700 transition-colors">Kỹ năng Làm Slide & Presentation.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-emerald-500 hover:bg-emerald-600 rounded-full items-center justify-center shadow-[0_0_30px_rgba(5,150,105,0.4)] border-[6px] border-white z-10 text-white transform hover:scale-110 transition-all duration-300">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
+                </div>
+                <div class="lg:hidden flex justify-center -my-6 relative z-10">
+                    <div class="w-14 h-14 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg border-[6px] border-white text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
+                    </div>
+                </div>
+
+                <div class="bg-emerald-950 rounded-[2.5rem] p-10 md:p-12 border border-emerald-900 shadow-2xl relative overflow-hidden group" data-aos="fade-left">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-600/30 rounded-full blur-[80px] group-hover:bg-emerald-500/40 transition-colors duration-500"></div>
+                    
+                    <div class="absolute -top-5 left-12 bg-emerald-500 border border-emerald-400 text-white px-6 py-2 rounded-full font-black text-sm uppercase tracking-widest shadow-lg relative z-10 group-hover:scale-105 transition-transform">
+                        Thực chiến cá nhân
+                    </div>
+                    <h3 class="text-3xl font-extrabold text-white mt-6 mb-4 relative z-10">10 Học Phần Mentoring 1-1</h3>
+                    <p class="text-emerald-100/80 mb-10 font-medium text-lg relative z-10">Mỗi học viên được xây dựng lộ trình riêng dựa trên hồ sơ, mục tiêu và tiến độ phát triển thực tế.</p>
+                    
+                    <div class="grid sm:grid-cols-2 gap-x-6 gap-y-5 text-emerald-50 font-semibold relative z-10">
+                        <div class="flex gap-3 items-center hover:text-white transition-colors cursor-default">
+                            <span class="text-emerald-950 font-black bg-emerald-400 w-8 h-8 rounded-lg flex items-center justify-center text-sm shadow-inner">1</span> Career Roadmap
+                        </div>
+                        <div class="flex gap-3 items-center hover:text-white transition-colors cursor-default">
+                            <span class="text-emerald-400 font-black bg-emerald-900/80 border border-emerald-800 w-8 h-8 rounded-lg flex items-center justify-center text-sm">2</span> Tối ưu hóa CV
+                        </div>
+                        <div class="flex gap-3 items-center hover:text-white transition-colors cursor-default">
+                            <span class="text-emerald-400 font-black bg-emerald-900/80 border border-emerald-800 w-8 h-8 rounded-lg flex items-center justify-center text-sm">3</span> Luyện Test
+                        </div>
+                        <div class="flex gap-3 items-center hover:text-white transition-colors cursor-default">
+                            <span class="text-emerald-400 font-black bg-emerald-900/80 border border-emerald-800 w-8 h-8 rounded-lg flex items-center justify-center text-sm">4</span> Phỏng vấn Hành vi
+                        </div>
+                        <div class="flex gap-3 items-center hover:text-white transition-colors cursor-default">
+                            <span class="text-emerald-400 font-black bg-emerald-900/80 border border-emerald-800 w-8 h-8 rounded-lg flex items-center justify-center text-sm">5</span> Chốt Target List
+                        </div>
+                        <div class="flex gap-3 items-center hover:text-white transition-colors cursor-default">
+                            <span class="text-emerald-400 font-black bg-emerald-900/80 border border-emerald-800 w-8 h-8 rounded-lg flex items-center justify-center text-sm">6</span> Networking
+                        </div>
+                        <div class="flex gap-3 items-center hover:text-white transition-colors cursor-default">
+                            <span class="text-emerald-400 font-black bg-emerald-900/80 border border-emerald-800 w-8 h-8 rounded-lg flex items-center justify-center text-sm">7</span> Portfolio Build
+                        </div>
+                        <div class="flex gap-3 items-center hover:text-white transition-colors cursor-default">
+                            <span class="text-emerald-950 font-black bg-emerald-400 w-8 h-8 rounded-lg flex items-center justify-center text-sm shadow-[0_0_15px_rgba(52,211,153,0.5)]">8</span> Giải Case 1-1
+                        </div>
+                        <div class="flex gap-3 items-center hover:text-white transition-colors cursor-default">
+                            <span class="text-emerald-950 font-black bg-emerald-400 w-8 h-8 rounded-lg flex items-center justify-center text-sm shadow-[0_0_15px_rgba(52,211,153,0.5)]">9</span> Giả lập AC
+                        </div>
+                        <div class="flex gap-3 items-center hover:text-white transition-colors cursor-default">
+                            <span class="text-emerald-400 font-black bg-emerald-900/80 border border-emerald-800 w-8 h-8 rounded-lg flex items-center justify-center text-sm">10</span> Insider Insight
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 max-w-3xl mx-auto" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">Mọi Tiến Độ Đều Được Trình Bày Bằng Số Liệu</h2>
                 <p class="text-lg text-slate-600 font-medium">Chúng tôi không đánh giá bằng cảm tính. Sự tiến bộ của bạn được tracking chặt chẽ qua hệ thống quản lý độc lập.</p>
             </div>
             <div class="grid md:grid-cols-2 gap-10">
-                <div class="bg-slate-50 p-8 rounded-[2rem] border border-slate-200">
-                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-8">
-                        <div class="bg-slate-100 border-b border-slate-200 px-4 py-2 flex items-center gap-2">
-                            <div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div><div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div><div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
-                            <div class="ml-2 text-xs font-semibold text-slate-400 uppercase tracking-wider">Application_Tracker.xlsx</div>
+                <div class="bg-white p-8 rounded-[2.5rem] border border-slate-200 shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group" data-aos="fade-right">
+                    <div class="bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden mb-8 transform group-hover:scale-[1.02] transition-transform duration-500">
+                        <div class="bg-slate-200/50 border-b border-slate-200 px-4 py-3 flex items-center gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-400"></div><div class="w-3 h-3 rounded-full bg-amber-400"></div><div class="w-3 h-3 rounded-full bg-green-400"></div>
+                            <div class="ml-3 text-xs font-bold text-slate-500 uppercase tracking-widest">App_Tracker.xls</div>
                         </div>
-                        <div class="p-4 space-y-2">
-                            <div class="h-3 bg-emerald-100 rounded w-full"></div>
-                            <div class="h-3 bg-slate-100 rounded w-5/6"></div>
-                            <div class="h-3 bg-slate-100 rounded w-4/6"></div>
+                        <div class="p-6 space-y-4">
+                            <div class="flex justify-between items-end mb-2">
+                                <div class="w-1/2 h-4 bg-slate-200 rounded"></div>
+                                <div class="w-16 h-8 bg-emerald-100 rounded text-emerald-600 flex items-center justify-center font-bold text-xs">+15/th</div>
+                            </div>
+                            <div class="h-3 bg-emerald-400 rounded-full w-full shadow-[0_0_10px_rgba(52,211,153,0.4)]"></div>
+                            <div class="h-3 bg-slate-200 rounded-full w-5/6"></div>
+                            <div class="h-3 bg-slate-200 rounded-full w-4/6"></div>
                         </div>
                     </div>
-                    <h3 class="text-2xl font-bold text-slate-900 mb-3">Application Tracker</h3>
-                    <p class="text-slate-600 font-medium leading-relaxed">Quản lý toàn bộ phễu ứng tuyển. Theo dõi số lượng CV đã nộp, tỷ lệ chuyển đổi từng vòng để nhanh chóng khoanh vùng điểm nghẽn.</p>
+                    <h3 class="text-2xl font-extrabold text-slate-900 mb-3">Application Tracker</h3>
+                    <p class="text-slate-600 font-medium leading-relaxed">Theo dõi toàn bộ hành trình ứng tuyển trên một hệ thống tập trung, từ số lượng đơn ứng tuyển đến tỷ lệ chuyển đổi ở từng vòng.</p>
                 </div>
-                <div class="bg-slate-50 p-8 rounded-[2rem] border border-slate-200">
-                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-8">
-                        <div class="bg-slate-100 border-b border-slate-200 px-4 py-2 flex items-center gap-2">
-                            <div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div><div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div><div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
-                            <div class="ml-2 text-xs font-semibold text-slate-400 uppercase tracking-wider">Mentor_Session_Log.crm</div>
+                <div class="bg-white p-8 rounded-[2.5rem] border border-slate-200 shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group" data-aos="fade-left">
+                    <div class="bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden mb-8 transform group-hover:scale-[1.02] transition-transform duration-500">
+                        <div class="bg-slate-200/50 border-b border-slate-200 px-4 py-3 flex items-center gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-400"></div><div class="w-3 h-3 rounded-full bg-amber-400"></div><div class="w-3 h-3 rounded-full bg-green-400"></div>
+                            <div class="ml-3 text-xs font-bold text-slate-500 uppercase tracking-widest">Mentor_Log.crm</div>
                         </div>
-                        <div class="p-4 space-y-3">
-                            <div class="flex items-center gap-3"><div class="w-6 h-6 rounded bg-emerald-100 shrink-0"></div><div class="h-2 bg-slate-200 rounded w-full"></div></div>
-                            <div class="flex items-center gap-3"><div class="w-6 h-6 rounded bg-emerald-100 shrink-0"></div><div class="h-2 bg-slate-200 rounded w-full"></div></div>
+                        <div class="p-6 space-y-5">
+                            <div class="flex gap-4">
+                                <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">B1</div>
+                                <div class="space-y-2 w-full"><div class="h-3 bg-slate-300 rounded w-full"></div><div class="h-2 bg-slate-200 rounded w-2/3"></div></div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">B2</div>
+                                <div class="space-y-2 w-full"><div class="h-3 bg-slate-300 rounded w-full"></div><div class="h-2 bg-slate-200 rounded w-1/2"></div></div>
+                            </div>
                         </div>
                     </div>
-                    <h3 class="text-2xl font-bold text-slate-900 mb-3">Hệ Thống Mentor Log</h3>
-                    <p class="text-slate-600 font-medium leading-relaxed">Sau mỗi buổi mentoring, mentor cập nhật nội dung làm việc, phản hồi và kế hoạch hành động tiếp theo nhằm đảm bảo sự đồng hành nhất quán trong suốt chương trình.</p>
+                    <h3 class="text-2xl font-extrabold text-slate-900 mb-3">Hệ Thống Mentor Log</h3>
+                    <p class="text-slate-600 font-medium leading-relaxed">Sau mỗi buổi mentoring, mentor cập nhật nội dung làm việc, phản hồi và kế hoạch hành động tiếp theo nhằm đảm bảo sự đồng hành xuyên suốt và nhất quán.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-24 bg-slate-900 text-white">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-extrabold mb-4 tracking-tight">Định Vị Giai Đoạn Của Bạn</h2>
-                <p class="text-slate-400 text-lg">Cả 2 gói đều bao trọn hệ sinh thái Masterclass + Mentoring 1-1.</p>
+    <section class="py-32 bg-slate-900 text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-black mb-6 tracking-tight">Định Vị Lại Bản Thân</h2>
+                <p class="text-slate-400 text-xl font-medium">Bất kể là gói nào, bạn đều sở hữu trọn bộ hệ sinh thái Masterclass + Mentoring 1-1.</p>
             </div>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-slate-800 border border-slate-700 rounded-[2rem] p-8 md:p-10 hover:border-emerald-500 transition-colors duration-300 flex flex-col">
-                    <h3 class="text-3xl font-black text-white mb-2 tracking-tight">GÓI INTERNSHIP</h3>
-                    <p class="text-emerald-400 font-bold mb-8 text-lg">Hành trình 4 tháng</p>
-                    <div class="space-y-5 text-slate-300 flex-grow mb-10 font-medium">
-                        <div class="flex gap-3"><svg class="w-6 h-6 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> <p><strong class="text-white">Đối tượng:</strong> Sinh viên năm 2 - năm 4.</p></div>
-                        <div class="flex gap-3"><svg class="w-6 h-6 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> <p><strong class="text-white">Mục tiêu:</strong> Tìm kiếm cơ hội thực tập cốt lõi và định hướng Career Path.</p></div>
+            <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+                <div class="bg-slate-800/80 backdrop-blur-xl border border-slate-700 rounded-[2.5rem] p-10 hover:border-emerald-500/50 hover:bg-slate-800 transition-all duration-500 flex flex-col group" data-aos="zoom-in" data-aos-delay="100">
+                    <h3 class="text-3xl font-black text-white mb-2 tracking-tight group-hover:text-emerald-50 transition-colors">GÓI INTERNSHIP</h3>
+                    <p class="text-emerald-400 font-bold mb-10 text-xl tracking-wide">Hành trình 4 tháng</p>
+                    <div class="space-y-6 text-slate-300 flex-grow mb-12 font-medium text-lg">
+                        <div class="flex gap-4 items-start"><svg class="w-6 h-6 text-slate-500 shrink-0 mt-0.5 group-hover:text-emerald-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> <span><strong class="text-white">Đối tượng:</strong> Sinh viên năm 2 - năm 4.</span></div>
+                        <div class="flex gap-4 items-start"><svg class="w-6 h-6 text-slate-500 shrink-0 mt-0.5 group-hover:text-emerald-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> <span><strong class="text-white">Mục tiêu:</strong> Lấy job thực tập danh giá đầu tiên, làm đẹp hồ sơ, mở rộng Network.</span></div>
                     </div>
-                    <a href="#dang-ky" class="block w-full text-center bg-slate-700 hover:bg-emerald-600 text-white font-bold py-4 rounded-xl transition-colors">NHẬN TƯ VẤN GÓI NÀY</a>
+                    <a href="#dang-ky" class="block w-full text-center bg-slate-700 hover:bg-emerald-600 text-white font-bold py-5 rounded-2xl transition-all hover:scale-[1.02] active:scale-95 text-lg">NHẬN TƯ VẤN</a>
                 </div>
-                <div class="bg-gradient-to-b from-emerald-900 to-emerald-950 border border-emerald-700 rounded-[2rem] p-8 md:p-10 relative flex flex-col shadow-2xl shadow-emerald-900/50">
-                    <div class="absolute -top-4 right-8 bg-emerald-500 text-white text-xs font-bold px-4 py-1.5 rounded-full tracking-wider uppercase shadow-lg">Highly Recommended</div>
+                <div class="bg-gradient-to-b from-emerald-900 to-emerald-950 border border-emerald-600 rounded-[2.5rem] p-10 relative flex flex-col shadow-[0_0_40px_rgba(5,150,105,0.2)] transform hover:-translate-y-2 transition-all duration-500" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="absolute -top-5 right-10 bg-emerald-400 text-emerald-950 text-sm font-black px-6 py-2 rounded-full tracking-widest uppercase shadow-[0_0_20px_rgba(52,211,153,0.5)]">Highly Recommended</div>
                     <h3 class="text-3xl font-black text-white mb-2 tracking-tight">GÓI MT & ENTRY</h3>
-                    <p class="text-emerald-300 font-bold mb-8 text-lg">Hành trình 6 tháng</p>
-                    <div class="space-y-5 text-emerald-50/80 flex-grow mb-10 font-medium">
-                        <div class="flex gap-3"><svg class="w-6 h-6 text-emerald-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> <p><strong class="text-white">Đối tượng:</strong> Sinh viên năm 3-4 và người < 2 năm kinh nghiệm (đã có base thực tập).</p></div>
-                        <div class="flex gap-3"><svg class="w-6 h-6 text-emerald-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> <p><strong class="text-white">Mục tiêu:</strong> Đánh bại tỷ lệ chọi khốc liệt của MT Programs và vị trí chính thức.</p></div>
+                    <p class="text-emerald-300 font-bold mb-10 text-xl tracking-wide">Hành trình 6 tháng</p>
+                    <div class="space-y-6 text-emerald-50/90 flex-grow mb-12 font-medium text-lg">
+                        <div class="flex gap-4 items-start"><svg class="w-6 h-6 text-emerald-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> <span><strong class="text-white">Đối tượng:</strong> Sinh viên năm 3-4 và < 2 năm kinh nghiệm (đã từng đi thực tập).</span></div>
+                        <div class="flex gap-4 items-start"><svg class="w-6 h-6 text-emerald-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> <span><strong class="text-white">Mục tiêu:</strong> Đánh bại tỷ lệ chọi 1/1000 của các kỳ thi MT khốc liệt nhất thị trường.</span></div>
                     </div>
-                    <a href="#dang-ky" class="block w-full text-center bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-4 rounded-xl transition-colors shadow-lg shadow-emerald-500/30">NHẬN TƯ VẤN GÓI NÀY</a>
+                    <a href="#dang-ky" class="block w-full text-center bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-black py-5 rounded-2xl transition-all shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:shadow-[0_0_30px_rgba(16,185,129,0.6)] hover:scale-[1.02] active:scale-95 text-lg">CHỐT GÓI NÀY</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-20 bg-white">
+    <section class="py-24 bg-white">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-extrabold text-center text-slate-900 mb-12 tracking-tight">Bộ Lọc Học Viên</h2>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center text-slate-900 mb-16 tracking-tight" data-aos="fade-up">Bộ Lọc Học Viên</h2>
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-emerald-50/50 p-8 rounded-[2rem] border border-emerald-100">
+                <div class="bg-emerald-50/80 p-10 rounded-[2.5rem] border border-emerald-100 hover:shadow-xl hover:border-emerald-200 transition-all duration-300" data-aos="fade-right">
                     <div class="flex items-center gap-4 mb-6">
-                        <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xl">✓</div>
-                        <h4 class="font-bold text-xl text-slate-900">Chương trình dành cho:</h4>
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-black text-2xl shadow-inner">✓</div>
+                        <h4 class="font-extrabold text-2xl text-slate-900">Program dành cho:</h4>
                     </div>
-                    <p class="text-slate-600 font-medium leading-relaxed">Những người chủ động học hỏi, sẵn sàng đầu tư thời gian để phát triển bản thân và nghiêm túc với mục tiêu nghề nghiệp dài hạn.</p>
+                    <p class="text-slate-700 font-medium leading-relaxed text-lg">Những người chủ động học hỏi, sẵn sàng đầu tư thời gian cho việc phát triển bản thân và nghiêm túc với mục tiêu nghề nghiệp dài hạn.</p>
                 </div>
-                <div class="bg-red-50/50 p-8 rounded-[2rem] border border-red-100">
+                <div class="bg-red-50/80 p-10 rounded-[2.5rem] border border-red-100 hover:shadow-xl hover:border-red-200 transition-all duration-300" data-aos="fade-left">
                     <div class="flex items-center gap-4 mb-6">
-                        <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold text-xl">✕</div>
-                        <h4 class="font-bold text-xl text-slate-900">Không phù hợp với:</h4>
+                        <div class="w-12 h-12 rounded-2xl bg-red-100 text-red-600 flex items-center justify-center font-black text-2xl shadow-inner">✕</div>
+                        <h4 class="font-extrabold text-2xl text-slate-900">Không dành cho:</h4>
                     </div>
-                    <p class="text-slate-600 font-medium leading-relaxed">Những người tìm kiếm giải pháp ngắn hạn hoặc kỳ vọng kết quả đến mà không cần nỗ lực cải thiện năng lực của chính mình.</p>
+                    <p class="text-slate-700 font-medium leading-relaxed text-lg">Những người tìm kiếm kết quả tức thời nhưng không sẵn sàng hành động, thực hành hoặc chủ động cải thiện năng lực của mình.</p>
                 </div>
             </div>
         </div>
@@ -389,49 +473,57 @@
 
     <section class="py-24 bg-slate-50 border-t border-slate-200">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-extrabold text-center text-slate-900 mb-12 tracking-tight">Câu Hỏi Thường Gặp</h2>
-            <div class="space-y-4">
-                <details class="group bg-white p-6 rounded-2xl border border-slate-200 shadow-sm cursor-pointer">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center text-slate-900 mb-16 tracking-tight" data-aos="fade-up">Giải Quyết Mọi Nút Thắt</h2>
+            <div class="space-y-4" data-aos="fade-up" data-aos-delay="100">
+                <details class="group bg-white p-6 rounded-[1.5rem] border border-slate-200 shadow-sm cursor-pointer hover:shadow-md transition-all">
                     <summary class="font-bold text-lg text-slate-800 list-none flex justify-between items-center">
-                        Cam kết hoàn tiền áp dụng như thế nào?
-                        <span class="transition group-open:rotate-180 text-emerald-600">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        Điều kiện của "Cam kết hoàn tiền" là gì?
+                        <span class="transition-transform group-open:rotate-180 text-emerald-600 bg-emerald-50 rounded-full p-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
                         </span>
                     </summary>
-                    <p class="text-slate-600 mt-4 leading-relaxed font-medium">Cam kết có hiệu lực tuyệt đối khi bạn tuân thủ đúng lộ trình, hoàn thành các bài tập được giao và đạt KPI nộp đơn tối thiểu trên hệ thống Tracker.</p>
+                    <div class="mt-4 text-slate-600 leading-relaxed font-medium pl-2 border-l-2 border-emerald-200">
+Cam kết được áp dụng khi học viên tham gia đầy đủ các hoạt động của chương trình, hoàn thành các đầu việc được thống nhất và tuân thủ lộ trình đã xây dựng cùng mentor.                    </div>
                 </details>
-                <details class="group bg-white p-6 rounded-2xl border border-slate-200 shadow-sm cursor-pointer">
+                <details class="group bg-white p-6 rounded-[1.5rem] border border-slate-200 shadow-sm cursor-pointer hover:shadow-md transition-all">
                     <summary class="font-bold text-lg text-slate-800 list-none flex justify-between items-center">
-                        Lịch học 1-1 được sắp xếp ra sao?
-                        <span class="transition group-open:rotate-180 text-emerald-600">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        Lịch học 1-1 có linh hoạt không?
+                        <span class="transition-transform group-open:rotate-180 text-emerald-600 bg-emerald-50 rounded-full p-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
                         </span>
                     </summary>
-                    <p class="text-slate-600 mt-4 leading-relaxed font-medium">Lịch học linh hoạt hoàn toàn dựa trên sự thống nhất giữa bạn và Mentor, đảm bảo không xung đột với lịch chạy deadline trên trường hay giờ đi làm.</p>
+                    <div class="mt-4 text-slate-600 leading-relaxed font-medium pl-2 border-l-2 border-emerald-200">
+                        Chắc chắn. Lịch học được thống nhất trực tiếp giữa bạn và Mentor, đảm bảo không xung đột với giờ lên lớp hay lịch làm việc part-time của bạn.
+                    </div>
                 </details>
-                <details class="group bg-white p-6 rounded-2xl border border-slate-200 shadow-sm cursor-pointer">
+                <details class="group bg-white p-6 rounded-[1.5rem] border border-slate-200 shadow-sm cursor-pointer hover:shadow-md transition-all">
                     <summary class="font-bold text-lg text-slate-800 list-none flex justify-between items-center">
-                        Tôi chưa có kinh nghiệm thực tập thì sao?
-                        <span class="transition group-open:rotate-180 text-emerald-600">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        Profile trống trơn, chưa đi thực tập thì sao?
+                        <span class="transition-transform group-open:rotate-180 text-emerald-600 bg-emerald-50 rounded-full p-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
                         </span>
                     </summary>
-                    <p class="text-slate-600 mt-4 leading-relaxed font-medium">Lộ trình Cá nhân hóa sinh ra là để xử lý việc này. Mentor sẽ thiết kế các mini-project/Externship thực chiến để bạn lấp đầy CV trước khi mang đi săn job.</p>
+                    <div class="mt-4 text-slate-600 leading-relaxed font-medium pl-2 border-l-2 border-emerald-200">
+                       Mentor sẽ giúp bạn xây dựng lộ trình phát triển phù hợp, bao gồm các dự án thực tế, hoạt động phát triển kỹ năng và chiến lược tăng sức cạnh tranh cho hồ sơ.
+                    </div>
                 </details>
             </div>
         </div>
     </section>
 
-    <section id="tai-lieu" class="py-24 bg-emerald-100/50">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-white rounded-[2rem] p-8 md:p-12 shadow-xl shadow-emerald-900/5 border border-emerald-100 text-center">
-                <span class="bg-emerald-100 text-emerald-800 px-4 py-1.5 rounded-full font-bold text-sm uppercase tracking-wider mb-6 inline-block">Free Download</span>
-                <h2 class="text-3xl font-extrabold text-slate-900 mb-4 tracking-tight">Tải Bộ Bản Đồ Định Hướng MNC</h2>
-                <p class="text-slate-600 mb-10 font-medium max-w-2xl mx-auto">Chấm dứt sự mông lung. Tải ngay Lộ trình 4 năm Đại học và Bảng tiêu chí tuyển dụng ngách (Finance, Consulting, MKT & MT).</p>
-                <form class="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto">
-                    <input type="text" placeholder="Họ và tên của bạn" class="flex-1 px-5 py-4 rounded-xl border-2 border-slate-200 focus:outline-none focus:border-emerald-500 font-medium transition">
-                    <input type="email" placeholder="Email nhận tài liệu" class="flex-1 px-5 py-4 rounded-xl border-2 border-slate-200 focus:outline-none focus:border-emerald-500 font-medium transition">
-                    <button type="submit" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-4 px-8 rounded-xl transition-colors shadow-lg">GỬI TÀI LIỆU</button>
+    <section id="tai-lieu" class="py-24 bg-gradient-to-b from-slate-50 to-emerald-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8" data-aos="zoom-in">
+            <div class="bg-white rounded-[3rem] p-10 md:p-16 shadow-2xl shadow-emerald-900/5 border border-emerald-100 text-center relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-100 rounded-full blur-3xl"></div>
+                <div class="absolute bottom-0 left-0 w-32 h-32 bg-amber-50 rounded-full blur-3xl"></div>
+                
+                <span class="relative z-10 bg-slate-900 text-white px-5 py-2 rounded-full font-bold text-xs uppercase tracking-widest mb-8 inline-block shadow-lg">Free E-Book Download</span>
+                <h2 class="relative z-10 text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">Tải Miễn Phí Bộ Lộ Trình Đại Học Chuẩn MNC</h2>
+                <p class="relative z-10 text-slate-600 mb-10 font-medium text-lg max-w-2xl mx-auto">Nhận ngay lộ trình phát triển 4 năm đại học cùng bộ tiêu chí tuyển dụng dành cho Finance, Consulting, Marketing và Management Trainee.</p>
+                <form class="relative z-10 flex flex-col sm:flex-row gap-4 max-w-3xl mx-auto">
+                    <input type="text" placeholder="Họ và tên của bạn" class="flex-1 px-6 py-5 rounded-2xl border-2 border-slate-200 focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/20 font-medium text-lg transition-all">
+                    <input type="email" placeholder="Email nhận tài liệu" class="flex-1 px-6 py-5 rounded-2xl border-2 border-slate-200 focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/20 font-medium text-lg transition-all">
+                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white font-black py-5 px-10 rounded-2xl transition-all shadow-lg hover:shadow-xl hover:shadow-emerald-500/30 transform hover:-translate-y-1 text-lg">GỬI CHO TÔI</button>
                 </form>
             </div>
         </div>
@@ -439,32 +531,69 @@
 
     <section id="dang-ky" class="py-32 bg-emerald-950 text-white text-center relative overflow-hidden">
         <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <h2 class="text-4xl md:text-6xl font-black mb-6 leading-tight tracking-tight">Offer Không Chỉ Đến Từ Việc Nỗ Lực Nhiều Hơn.<br><span class="text-emerald-400">Offer đến từ việc đi đúng hướng</span></h2>
-            <p class="text-xl text-emerald-100/80 mb-12 max-w-2xl mx-auto font-medium">Nhận tư vấn cùng đội ngũ mentor đang làm việc tại các tập đoàn đa quốc gia và xây dựng lộ trình phát triển phù hợp với mục tiêu nghề nghiệp của bạn.</p>
-            <a href="#" class="inline-flex items-center justify-center bg-white hover:bg-emerald-50 text-emerald-900 px-12 py-5 rounded-full font-black text-xl shadow-2xl shadow-emerald-500/20 transition transform hover:-translate-y-1">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-800/30 rounded-full blur-[100px] pointer-events-none"></div>
+        
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10" data-aos="zoom-in" data-aos-duration="1000">
+            <h2 class="text-4xl md:text-6xl lg:text-7xl font-black mb-8 leading-[1.1] tracking-tight">Offer không phải phép màu.<br><span class="text-emerald-400">Nó Là Hệ Quả Của Tư Duy Đúng.</span></h2>
+            <p class="text-xl md:text-2xl text-emerald-100/80 mb-14 max-w-3xl mx-auto font-medium leading-relaxed">Nhận tư vấn cùng đội ngũ mentor đang làm việc tại các tập đoàn đa quốc gia và xây dựng lộ trình phát triển phù hợp với mục tiêu của bạn.</p>
+            <a href="#" class="inline-flex items-center justify-center bg-white hover:bg-emerald-50 text-emerald-900 px-14 py-6 rounded-full font-black text-2xl shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-all transform hover:scale-105 active:scale-95 hover:shadow-[0_0_60px_rgba(255,255,255,0.4)]">
                 ĐĂNG KÝ TƯ VẤN NGAY
             </a>
         </div>
     </section>
 
-    <footer class="bg-slate-950 text-slate-400 py-12 border-t border-slate-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="font-extrabold text-2xl text-white tracking-tighter">🎓 ROAD TO MNC</div>
-            <div class="flex gap-6 text-sm font-medium">
-                <a href="#" class="hover:text-white transition">Chính sách bảo mật</a>
-                <a href="#" class="hover:text-white transition">Điều khoản hoàn tiền</a>
-                <a href="#" class="hover:text-white transition">Liên hệ</a>
+    <footer class="bg-slate-950 text-slate-400 py-16 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
+                <div class="font-extrabold text-3xl text-white tracking-tighter">🎓 ROAD TO MNC</div>
+                <div class="flex flex-wrap justify-center gap-8 text-sm font-semibold">
+                    <a href="#" class="hover:text-emerald-400 transition-colors">Về chúng tôi</a>
+                    <a href="#" class="hover:text-emerald-400 transition-colors">Chính sách bảo mật</a>
+                    <a href="#" class="hover:text-emerald-400 transition-colors">Điều khoản hoàn tiền</a>
+                    <a href="#" class="hover:text-emerald-400 transition-colors">Liên hệ Admin</a>
+                </div>
             </div>
-            <div class="text-sm font-medium">© 2026 Road to MNC. All rights reserved.</div>
+            <div class="text-center text-sm font-medium text-slate-600 border-t border-slate-800 pt-8">
+                © 2026 Road to MNC. Built for high-achievers. All rights reserved.
+            </div>
         </div>
     </footer>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // Initialize AOS animations
+        AOS.init({
+            once: true, // Whether animation should happen only once - while scrolling down
+            offset: 50, // Offset (in px) from the original trigger point
+            duration: 800, // Values from 0 to 3000, with step 50ms
+            easing: 'ease-out-cubic', // Default easing for AOS animations
+        });
+
+        // Mobile Menu Toggle
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
         btn.addEventListener('click', () => {
             menu.classList.toggle('hidden');
+        });
+
+        // Dynamic Sticky Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        const navContainer = document.getElementById('nav-container');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                // Scrolled state
+                navbar.classList.add('bg-white/95', 'shadow-md', 'border-slate-200');
+                navbar.classList.remove('bg-white/50', 'border-transparent');
+                navContainer.classList.remove('h-20');
+                navContainer.classList.add('h-16'); // Shrink slightly on scroll
+            } else {
+                // Top state
+                navbar.classList.remove('bg-white/95', 'shadow-md', 'border-slate-200');
+                navbar.classList.add('bg-white/50', 'border-transparent');
+                navContainer.classList.remove('h-16');
+                navContainer.classList.add('h-20');
+            }
         });
     </script>
 </body>
