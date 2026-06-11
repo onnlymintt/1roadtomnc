@@ -1,600 +1,528 @@
 <!DOCTYPE html>
-<html lang="vi" class="scroll-smooth">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Road to MNC - Chương trình Luyện MT & Thực tập</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <title>ROAD TO MNC</title>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .hide-scroll-bar::-webkit-scrollbar { display: none; }
-        .hide-scroll-bar { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Nền pattern tinh tế cho Hero Section */
-        .bg-grid-pattern {
-            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-            background-size: 32px 32px;
+        /* Logo & Palette color [cite: 5, 6, 7, 8, 9] */
+        :root {
+            --black: #000000; /* [cite: 10] */
+            --dark-green: #173D2F; /* [cite: 11] */
+            --off-white: #FFFEF0; /* [cite: 12] */
+            --lime-green: #B9DF30; /* [cite: 13] */
+            --font-heading: 'Roboto Condensed', sans-serif; 
+            --font-body: 'Roboto', sans-serif; 
         }
 
-        /* Hiệu ứng trôi nổi (Floating) cho các khối Mockup */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-12px); }
-            100% { transform: translateY(0px); }
+        body {
+            font-family: var(--font-body);
+            background-color: var(--off-white);
+            color: var(--black);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
         }
-        .animate-float {
-            animation: float 5s ease-in-out infinite;
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            color: var(--dark-green);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
         }
-        
-        /* Hiệu ứng trôi nổi chậm hơn */
-        .animate-float-slow {
-            animation: float 7s ease-in-out infinite;
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--lime-green);
+            color: var(--black);
+            font-family: var(--font-heading);
+            font-weight: 700;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .cta-button:hover {
+            background-color: var(--black);
+            color: var(--lime-green);
+        }
+
+        section {
+            padding: 60px 0;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        .bg-dark {
+            background-color: var(--dark-green);
+            color: var(--off-white);
+        }
+        .bg-dark h1, .bg-dark h2, .bg-dark h3 {
+            color: var(--lime-green);
+        }
+        .bg-dark p, .bg-dark li {
+            color: var(--off-white);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid var(--lime-green);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            color: var(--black);
+        }
+
+        .table-custom {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+        }
+        .table-custom th, .table-custom td {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: left;
+            color: var(--black);
+        }
+        .table-custom th {
+            background-color: var(--dark-green);
+            color: var(--lime-green);
+            font-family: var(--font-heading);
+        }
+
+        .note-block {
+            background-color: #ffeaa7;
+            color: #d63031;
+            padding: 10px;
+            border-left: 5px solid #d63031;
+            font-weight: bold;
+            margin: 10px 0;
+            font-size: 0.9em;
         }
     </style>
 </head>
-<body class="text-slate-800 bg-slate-50 antialiased overflow-x-hidden">
+<body>
 
-    <nav id="navbar" class="fixed w-full top-0 z-50 bg-white/50 backdrop-blur-md border-b border-transparent transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20 transition-all duration-300" id="nav-container">
-                <div class="flex-shrink-0 flex items-center cursor-pointer transform transition hover:scale-105" onclick="window.scrollTo(0,0)">
-                    <span class="font-extrabold text-2xl text-emerald-900 tracking-tighter">🎓 ROAD TO MNC</span>
+    <header class="bg-dark text-center" style="padding: 60px 0;">
+        <div class="container">
+            <h1>ROAD TO MNC PROGRAM [cite: 29]</h1>
+            <p style="font-size: 1.2rem;">Giải pháp All-in-one phối hợp giữa Masterclass hệ thống và Mentoring 1-1 cá nhân hóa. [cite: 30]</p>
+            
+            <div style="text-align: left; max-width: 800px; margin: 30px auto; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 8px;">
+                <ul style="list-style-type: none; padding: 0;">
+                    <li>Bạn đã học nhiều khóa học. Nhưng vẫn chưa có Offer. [cite: 31]</li>
+                    <li>Bạn biết CV Harvard. [cite: 32]</li>
+                    <li>Bạn biết STAR Interview. [cite: 33]</li>
+                    <li>Bạn biết Business Case Framework. [cite: 34]</li>
+                    <li>Bạn biết Assessment Center diễn ra như thế nào. [cite: 35]</li>
+                </ul>
+                <p style="font-weight: bold; color: var(--lime-green);">Nhưng biết cách làm và thực sự vượt qua vòng tuyển dụng là hai câu chuyện hoàn toàn khác nhau. [cite: 36]</p>
+                <p>Trong khi phần lớn khóa học chỉ dừng lại ở việc cung cấp kiến thức, Road to MNC được xây dựng để giải quyết từng điểm nghẽn tuyển dụng thực tế của từng học viên thông qua mentoring 1-1. [cite: 37]</p>
+                <p>Mentor sẽ trực tiếp: [cite: 38]</p>
+                <ul>
+                    <li>• Xác định điểm yếu lớn nhất trong hồ sơ của bạn [cite: 39]</li>
+                    <li>• Xây lộ trình cá nhân hóa [cite: 40]</li>
+                    <li>• Feedback CV, Business Case và Interview [cite: 41]</li>
+                    <li>• Theo dõi tiến độ apply [cite: 42]</li>
+                    <li>• Đồng hành đến khi có Offer [cite: 43]</li>
+                </ul>
+                <p>Mentoring 1-1 kết hợp Masterclass chuyên sâu. [cite: 44] Một chương trình được thiết kế cho mục tiêu duy nhất: Giúp bạn nhận được Offer từ Internship, Management Trainee hoặc các tập đoàn đa quốc gia. [cite: 45]</p>
+            </div>
+            
+            <a href="#" class="cta-button">[CTA: ĐĂNG KÝ TƯ VẤN] [cite: 46]</a>
+        </div>
+    </header>
+
+    <section>
+        <div class="container">
+            <h2 style="text-align: center;">[leads in] CHÚNG TÔI KHÔNG CHỈ DẠY LÝ THUYẾT. CHÚNG TÔI ĐỒNG HÀNH TRONG TOÀN BỘ HÀNH TRÌNH NHẬN OFFER CỦA BẠN. [cite: 47]</h2>
+            <p style="text-align: center;">Chương trình không tập trung giảng dạy các lý thuyết chung về kinh doanh hay tiếp thị. [cite: 48] Thay vào đó, chúng tôi đồng hành cùng bạn trong toàn bộ quá trình ứng tuyển thực tế của bạn. [cite: 49]</p>
+            
+            <p>Mỗi học viên bước vào chương trình đều có một xuất phát điểm và rào cản riêng biệt: [cite: 50]</p>
+            <ul>
+                <li>Có ứng viên sở hữu điểm số (GPA) xuất sắc nhưng hồ sơ còn trống trải nghiệm thực tế. [cite: 51]</li>
+                <li>Có ứng viên đã tích lũy nhiều hoạt động nhưng chưa biết cách cấu trúc [cite: 52] câu chuyện cá nhân và lượng hóa thành tựu trong CV. [cite: 53]</li>
+                <li>Có ứng viên chuẩn bị kỹ càng, vượt qua các vòng đầu để vào tới Assessment Center nhưng chưa đạt kết quả ở vòng phỏng vấn cuối cùng. [cite: 54]</li>
+                <li>Có những bạn bắt đầu hoàn toàn từ con số không, chưa từng xây dựng CV hay tham gia một buổi phỏng vấn tiêu chuẩn nào. [cite: 55]</li>
+            </ul>
+            <p>Dù bạn đang ở bất kỳ vạch xuất phát nào, định hướng theo đuổi các khối ngành Commercial (Marketing, Sales/Business Development) hay Consulting , Mentor sẽ cùng bạn phân tích khoảng cách năng lực hiện tại so với tiêu chuẩn tuyển dụng, xây dựng chiến lược cá nhân hóa để từng bước chinh phục mục [cite: 56] tiêu. [cite: 57]</p>
+
+            <h3 style="margin-top: 40px;">[ SESSION 0] 3 ĐIỂM KHÁC BIỆT CỐT LÕI (USPS) [cite: 58]</h3>
+            <div class="grid-3">
+                <div class="card">
+                    <h4>• Cam kết bằng kết quả thực tế: [cite: 59]</h4>
+                    <p>Chương trình đồng hành chặt chẽ cùng học viên cho đến khi nhận được Offer. [cite: 59]</p>
                 </div>
-                <div class="hidden md:flex space-x-8 items-center">
-                    <a href="#chuong-trinh" class="text-slate-600 hover:text-emerald-600 font-semibold transition-colors">Khóa học & Lộ trình</a>
-                    <a href="#mentor" class="text-slate-600 hover:text-emerald-600 font-semibold transition-colors">Đội ngũ Mentor</a>
-                    <a href="#tai-lieu" class="text-slate-600 hover:text-emerald-600 font-semibold transition-colors">Tài liệu</a>
-                    <a href="#dang-ky" class="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2.5 rounded-full font-bold shadow-[0_0_15px_rgba(5,150,105,0.3)] hover:shadow-[0_0_25px_rgba(5,150,105,0.5)] transition-all transform hover:-translate-y-0.5">ĐĂNG KÝ TƯ VẤN</a>
+                <div class="card">
+                    <h4>• 100% Đội ngũ Mentor tiêu chuẩn cao: [cite: 60]</h4>
+                    <p>Toàn bộ Mentor tham gia giảng dạy và cố vấn đều là những nhân sự xuất sắc đã tốt nghiệp hoặc đang làm việc ở các vị trí Quản trị viên tập sự (Management Trainee) và Chuyên viên tư vấn chiến lược (Consultant) tại các tập đoàn đa quốc gia và các công ty tư vấn hàng đầu (MBB). [cite: 60] Họ là những chuyên gia [cite: 61] thường xuyên xuất hiện với vai trò diễn giả tại các webinar lớn, nay dành thời gian làm việc trực tiếp 1-1 cùng bạn. [cite: 62]</p>
                 </div>
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-emerald-900 focus:outline-none transition-transform hover:rotate-90">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                    </button>
+                <div class="card">
+                    <h4>Hỗ trợ vận hành All-in-one và tự động hóa cơ hội: [cite: 63]</h4>
+                    <p>Ban tổ chức chương trình chủ động tìm kiếm các cơ hội việc làm, liên tục cập nhật job listings tiềm năng và hỗ trợ nộp hồ sơ trực tiếp đến hơn 100 vị trí phù hợp với định hướng của học viên. [cite: 63] Ứng viên không phải tự tìm kiếm cơ hội hay thực hiện các bước ứng tuyển thủ công phức tạp. [cite: 64]</p>
                 </div>
             </div>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 px-4 pt-2 pb-6 space-y-2 shadow-2xl absolute w-full left-0 origin-top animate-fade-in-down">
-            <a href="#chuong-trinh" class="block px-4 py-3 text-slate-700 font-semibold hover:bg-emerald-50 hover:text-emerald-700 rounded-xl transition-colors">Khóa học & Lộ trình</a>
-            <a href="#mentor" class="block px-4 py-3 text-slate-700 font-semibold hover:bg-emerald-50 hover:text-emerald-700 rounded-xl transition-colors">Đội ngũ Mentor</a>
-            <a href="#tai-lieu" class="block px-4 py-3 text-slate-700 font-semibold hover:bg-emerald-50 hover:text-emerald-700 rounded-xl transition-colors">Tài liệu</a>
-            <a href="#dang-ky" class="block text-center mt-6 bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-4 rounded-xl font-bold shadow-lg">ĐĂNG KÝ TƯ VẤN</a>
-        </div>
-    </nav>
+    </section>
 
-    <section class="relative pt-32 pb-24 lg:pt-40 lg:pb-40 overflow-hidden bg-gradient-to-b from-emerald-50/50 to-white border-b border-slate-200">
-        <div class="absolute inset-0 bg-grid-pattern opacity-40 z-0"></div>
-        <div class="absolute top-20 left-10 w-72 h-72 bg-emerald-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float"></div>
-        <div class="absolute top-40 right-10 w-72 h-72 bg-emerald-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float-slow"></div>
+    <section class="bg-dark">
+        <div class="container">
+            <h2 style="text-align: center;">[SESSION 1.1] ĐỘI NGŨ MENTOR CHUYÊN GIA THỰC CHIẾN TỪ MBB & MNCS [cite: 65]</h2>
+            <p style="text-align: center;">(Học viên được đề xuất ghép cặp với những chuyên gia có kinh nghiệm từ 2 đến 5 năm tại chính khối ngành mục tiêu) [cite: 66]</p>
+            <div class="grid-3" style="margin-top: 40px;">
+                <div class="card">
+                    <h3 style="color: var(--dark-green)">• Harry Nguyễn: [cite: 67]</h3>
+                    <p>Digital Strategy & PMO Lead tại HEINEKEN | Cựu Trade Management Trainee tại British America Tobacco (BAT). [cite: 67]</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--dark-green)">Bùi Hà Phương: [cite: 68]</h3>
+                    <p>Cựu Consultant tại McKinsey & Company | [cite: 68] Tốt nghiệp bậc Thạc sĩ Quản trị Kinh doanh (MBA) tại Columbia Southern University. [cite: 69]</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--dark-green)">David Trần: [cite: 70]</h3>
+                    <p>Business Expansion Manager tại Prudential | Cựu Management Trainee tại tập đoàn Prudential. [cite: 70]</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--dark-green)">• Nguyễn Ngọc Thảo Ngân: [cite: 71]</h3>
+                    <p>Marketing Management Trainee tại Heineken | [cite: 71] Cựu nhân sự chuyên trách Marketing tại Shopee và Perfetti Van Melle. [cite: 72]</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--dark-green)">Vũ Trí Dũng: [cite: 73]</h3>
+                    <p>Commercial Management Trainee tại Heineken | Cựu trợ lý kiểm toán chuyên nghiệp (Audit Assistant) tại EY. [cite: 73]</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--dark-green)">Daniel Ngô: [cite: 74]</h3>
+                    <p>Brand Manager chuyên nghiệp tại tập đoàn Unilever | Cựu Marketing UFLP Management Trainee. [cite: 74]</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <h3>[SESSION 1.2] THÀNH TÍCH CỦA CÁC MENTEE [cite: 75]</h3>
+                <div class="note-block">Show ở đây - tên - offer - khoá [cite: 75]</div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2 style="color: var(--black)">[SESSION 2.1] [cite: 76] CHI TIẾT CHƯƠNG TRÌNH [cite: 77]</h2>
+            <h2>CHI TIẾT CHƯƠNG TRÌNH: 01 - HỆ THỐNG MASTERCLASS CHUYÊN SÂU [cite: 78]</h2>
+            <p>(Hệ thống gồm 7 chủ đề với 10 lớp học Masterclass, thời lượng 90 120 phút/buổi, cung cấp khối lượng kiến thức tiêu chuẩn và framework ứng dụng thực tế tại doanh nghiệp) [cite: 79]</p>
+            
+            <div class="note-block">[session dạng bảng - 3 cột: tên - nội dung - outcome] [cite: 80]</div>
+
+            <table class="table-custom">
+                <thead>
+                    <tr>
+                        <th>Tên Masterclass</th>
+                        <th>Nội dung chi tiết</th>
+                        <th>Outcome</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Masterclass 01: Recruitment Strategy & Recruiter Mindset [cite: 81]</strong></td>
+                        <td>
+                            • Nội dung chi tiết: [cite: 82]<br>
+                            Phân tích chi tiết cấu trúc phễu tuyển dụng tổng thể (Recruitment Funnel). [cite: 83]<br>
+                            Học viên trực tiếp tìm hiểu cách thức vận hành của hệ thống sàng lọc hồ sơ tự động và tiêu chí đánh giá năng lực của HR qua từng vòng. [cite: 84]
+                        </td>
+                        <td>Outcome: Hiểu rõ nguyên nhân cốt lõi khiến ứng viên thường bị loại, chủ động phòng tránh các lỗi sai trên hồ sơ và xây dựng được tư duy ứng tuyển chủ động. [cite: 85]</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Masterclass 02: Framework & Business Case Thinking [cite: 86]</strong></td>
+                        <td>
+                            • Nội dung chi tiết: [cite: 87]<br>
+                            Học phương pháp tiếp cận Business Case chuẩn mực thông qua các khâu: Problem Framing (Khoanh vùng vấn đề), Cấu trúc logic (Structure), Insight và Đề xuất giải pháp (Solution). [cite: 88]<br>
+                            Deep-dive vào các case study và case-cracking [cite: 89]
+                        </td>
+                        <td>Outcome: Sở hữu tư duy giải quyết vấn đề có cấu trúc chặt chẽ (Problem-Solving Foundation). [cite: 90] Thành thạo kỹ năng phân tích bối cảnh cạnh tranh thị trường để đưa ra các đề xuất chiến lược có tính khả thi cao. [cite: 91]</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Masterclass 03: Basic Data Analysis [cite: 92]</strong></td>
+                        <td>
+                            • [cite: 93] • Nội dung chi tiết: [cite: 94] O [cite: 95]<br>
+                            Chuẩn hóa quy trình xử lý và làm việc với tập dữ liệu thực tế trên Excel/Google Sheets thông qua 3 bước: Data Cleaning (Làm sạch), Exploring (Khám phá) và Visualizing (Trực quan hóa). [cite: 96]<br>
+                            Xây dựng tư duy dựa trên sự thật khách quan (Fact-based mindset) để loại bỏ hoàn toàn các thiên kiến chủ quan bằng cách phân biệt rõ ràng giữa Fact và Interpretation. [cite: 97]
+                        </td>
+                        <td>Outcome: Thành thạo kỹ năng trích xuất các thông tin có giá trị ứng dụng cao (Actionable Insights) từ những file số liệu phức tạp để phục vụ cho các bài toán kinh doanh. [cite: 98]</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Masterclass 04: LinkedIn & Networking Tactics [cite: 99]</strong></td>
+                        <td>
+                            • Nội dung chi tiết: [cite: 100]<br>
+                            Hướng dẫn từng bước thiết lập hồ sơ Linkedin chuẩn chuyên nghiệp để thu hút nhà tuyển dụng. [cite: 101]<br>
+                            Thực hành viết kịch bản nhắn tin tiếp cận chuyên gia (Cold Message), phương pháp lên lịch và điều phối một buổi trò chuyện trực tiếp (Coffee Chat) hiệu quả để mở rộng vòng kết nối. [cite: 102]
+                        </td>
+                        <td>Outcome: Tối ưu hóa hồ sơ cá nhân trên Linkedin, làm chủ kỹ năng thiết lập quan hệ chuyên nghiệp và xin Referral ứng tuyển trực tiếp từ người trong ngành. [cite: 103]</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Masterclass 05: Cultural Fit Interview & Live Feedback [cite: 104]</strong></td>
+                        <td>
+                            • Nội dung chi tiết: [cite: 105]<br>
+                            Tiếp cận các mô hình trả lời phỏng vấn tiêu chuẩn nhằm thể hiện giá trị cá nhân kết hợp mức độ tương thích văn hóa với doanh nghiệp. [cite: 106]<br>
+                            Học cách phân tích và đưa ra giải pháp cho các câu hỏi phỏng vấn tình huống (Situational Questions). [cite: 107]<br>
+                            Thực hiện hoạt động phỏng vấn xoay vòng (Rotation Interview) và nhận Live Feedback trực tiếp từ chuyên gia. [cite: 108]
+                        </td>
+                        <td>Outcome: Khắc phục các điểm yếu trong cách giao tiếp, tự tự tin làm chủ câu chuyện cá nhân và tối ưu hóa phong thái trong phỏng [cite: 109] vấn. [cite: 110]</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Masterclass 06: Assessment Center Simulation [cite: 111]</strong></td>
+                        <td>
+                            • Nội dung chi tiết: [cite: 112]<br>
+                            Giải mã toàn bộ tiêu chí đánh giá năng lực của Assessor tại vòng trung tâm đánh giá (Assessment Center). [cite: 113]<br>
+                            Học viên trực tiếp tham gia bài tập nhóm mô phỏng thực tế [cite: 114] (Group Exercises, Team Exercise, Group Discussion). [cite: 115]<br>
+                            Rèn luyện kỹ năng điều phối, quản trị xung đột nội bộ và quản lý thời gian. [cite: 116]
+                        </td>
+                        <td>Outcome: Thấu hiểu tiêu chí vòng AC, định vị rõ vai trò đóng góp phù hợp trong nhóm để thể hiện năng lực lãnh đạo (Leadership) một cách chừng mực, thuyết phục. [cite: 117]</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Masterclass 07: Effective Slides & Presentation [cite: 118]</strong></td>
+                        <td>
+                            • Nội dung chi tiết: [cite: 119]<br>
+                            Học các nguyên tắc thiết kế slide báo cáo rõ ràng, mạch lạc theo chuẩn phong cách quản trị chuyên nghiệp (Consulting Style). [cite: 120]<br>
+                            Ứng dụng kỹ thuật kể chuyện (Storytelling) vào cấu trúc bài thuyết trình giải pháp. [cite: 121]<br>
+                            Thực hành kỹ năng Delivery (Trình bày bài nói), kiểm soát ngôn ngữ cơ thể (Body Language) và các kỹ thuật xử lý câu hỏi hóc búa từ ban giám khảo trong phần Q&A. [cite: 122]
+                        </td>
+                        <td>Outcome: Nâng cao năng lực giao tiếp, làm chủ phong thái tự tin khi thuyết trình và bảo vệ ý tưởng. [cite: 123]</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="note-block">→ Show 1 cái slide trong từng masterclass trong deck sample/ trailer trong 30s buổi recording để mn hình dung ra masterclass sẽ học cụ thể gì [cite: 124]</div>
+        </div>
+    </section>
+
+    <section class="bg-dark">
+        <div class="container">
+            <h2>[SESSION 2.2] CHI TIẾT CHƯƠNG TRÌNH: 02 - LỘ TRÌNH MENTORING 1-1 THỰC CHIẾN [cite: 125]</h2>
+            <p>(Quy trình bao gồm 10 Module can thiệp sâu, Mentor trực tiếp đồng hành 1-1 nhằm giải quyết triệt để các bài toán cá nhân trên hồ sơ của từng Mentee) [cite: 126]</p>
+            
+            <div class="note-block">[Session dạng bảng - 3 cột: tên - nội dung - outcome] [cite: 127]</div>
+
+            <table class="table-custom" style="background-color: var(--off-white);">
+                <thead>
+                    <tr>
+                        <th>Tên Module</th>
+                        <th>Nội dung chi tiết</th>
+                        <th>Outcome</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Module 01 - Career Roadmap: [cite: 128]</strong></td>
+                        <td>Ο [cite: 129] Ο [cite: 130] Chi tiết: [cite: 131] Mentor rà soát và phân tích toàn diện các biến số hồ sơ hiện tại của ứng viên (GPA, Chuyên ngành, Kinh nghiệm thực tập, Hoạt động ngoại khóa). [cite: 132] Hai bên cùng hoàn thành Bản đồ sự nghiệp dài hạn và Kế hoạch hành động cụ thể trước tuần thứ 3 của lộ trình. [cite: 133]</td>
+                        <td>Outcome: Nhận diện rõ ràng các điểm mạnh cốt lõi, điểm yếu cần bổ sung và có một lộ trình hành động có mục tiêu cụ thể, cam kết bằng mốc thời gian rõ ràng. [cite: 134]</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Module 02 - Sửa & Feedback CV: [cite: 135]</strong></td>
+                        <td>Chi tiết: [cite: 136] Mentor thực hiện đánh giá chi tiết từng dòng thông tin trên CV của bạn. [cite: 137] Challenge trực tiếp các kinh nghiệm mang tính liệt kê nhiệm vụ (Task-based) để hướng dẫn bạn chuyển đổi toàn bộ thành kết quả đóng góp cho doanh nghiệp (Impact-based & Business Outcomes). [cite: 138] Tiến hành tối ưu hóa từ khóa chuyên ngành cho CV. [cite: 139]</td>
+                        <td>Outcome: Sở hữu bộ CV phiên bản hoàn chỉnh được cá nhân hoá riêng biệt cho từng vị trí ứng tuyển đặc thù. [cite: 140]</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Module 03 Aptitude Test Strategy: [cite: 141]</strong></td>
+                        <td>O [cite: 142] Chi tiết: [cite: 143] Mentor cung cấp kho tài liệu đề thi năng lực thực tế được thiết kế riêng theo từng nhóm ngành (Numerical, Verbal, Logical [cite: 144] Reasoning). [cite: 145] Định kỳ giám sát kết quả thi thử của Mentee, phân tích lỗi sai trong logic làm bài và điều chỉnh chiến thuật kiểm soát thời gian. [cite: 146]</td>
+                        <td>Outcome: Nâng cao tốc độ và phản xạ tư duy chính xác khi giải quyết các dạng bài kiểm tra Aptitude Test. [cite: 147]</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Module 04 - Cultural Fit Interview Mock round: [cite: 148]</strong></td>
+                        <td>O [cite: 149] Chi tiết: [cite: 150] Thực hiện các buổi phỏng vấn giả định 1-1 với mức độ mô phỏng sát thực tế. [cite: 151] Mentor huấn luyện bạn kỹ thuật tổ chức câu chuyện cá nhân theo cấu trúc S.T.A.R chuyên nghiệp. [cite: 152] Trực tiếp chia sẻ các trải nghiệm thực tế khó khăn trong ngành để giúp ứng viên hình thành tư duy đúng đắn và xây dựng câu trả lời chân thực. [cite: 153]</td>
+                        <td>Outcome: Hoàn thiện phản xạ trả lời phỏng vấn, hành vi tự nhiên, mạch lạc; [cite: 154] khắc phục các điểm yếu trong giao tiếp và làm chủ câu chuyện cá nhân thuyết phục. [cite: 155]</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Module 05 - List Vị trí & Công ty mục tiêu: [cite: 156]</strong></td>
+                        <td>Chi tiết [cite: 157] Mentor dựa vào hồ sơ năng lực thực tế để khoanh vùng, định hướng ngành nghề. [cite: 158] Xác định chi tiết từ 3-5 nhóm vị trí mục tiêu và thiết lập danh sách các công ty ưu tuyển (Target Companies) để tập trung nguồn lực apply. [cite: 159]</td>
+                        <td>Outcome: Có chiến lược tiếp cận thị trường khôn ngoan, tập trung đúng thế mạnh cạnh tranh cá nhân để nâng cao tỷ lệ đậu vòng hồ sơ. [cite: 160]</td>
+                    </tr>
+                    <tr>
+                        <td><strong>• [cite: 161] Module 06 - Linkedin & Networking Coaching: [cite: 162]</strong></td>
+                        <td>Ο Chi tiết: [cite: 163] Mentor trực tiếp phân tích, chỉnh sửa profile LinkedIn cá nhân của bạn, hướng dẫn cách tìm kiếm nhân sự chủ chốt (Hiring [cite: 164] Manager/HR). [cite: 165] Kiểm tra và tinh chỉnh kịch bản Cold Message thực tế của Mentee trước khi gửi đi. [cite: 166]</td>
+                        <td>Outcome: Sở hữu mạng lưới kết nối chất lượng với người trong ngành, nâng cao cơ hội tiếp cận thị trường việc làm thông qua giới thiệu nội bộ. [cite: 167]</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Module 07 - Externship / Project Development: [cite: 168]</strong></td>
+                        <td>O [cite: 169] Chi tiết: [cite: 170] Đối với học viên có profile chưa nhiều cọ xát, Mentor sẽ định hướng xây dựng các dự án thực tế ngắn hạn hoặc đề xuất hướng củng cố trải nghiệm chuyên môn. [cite: 171] Hướng dẫn cách thể hiện dự án thành một Portfolio ấn tượng. [cite: 172]</td>
+                        <td>Outcome: Lấp đầy các khoảng trống kinh nghiệm trong hồ sơ bằng những dự án có số liệu thực tế, gia tăng sức nặng cạnh tranh khi gửi CV. [cite: 173]</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Module 08 - Cuộc thi Business Case Coaching: [cite: 174]</strong></td>
+                        <td>Chi tiết: [cite: 175] Mentor định hướng các cuộc thi giải case phù hợp với trình độ của Mentee. [cite: 176] Trực tiếp cố vấn cấu trúc tư duy giải bài toán thực tế, phản biện các lỗ hổng trong logic lập luận và chỉnh sửa chi tiết flow thuyết trình nhóm cho Mentee. [cite: 177]</td>
+                        <td>Outcome: Phát triển tư duy Business Sense nhạy bén, tích lũy chứng nhận thành tích từ các cuộc thi để làm điểm nhấn cho hồ sơ ứng tuyển. [cite: 178]</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Module 09 - Mô phỏng Assessment Center 1-1 Feedback: [cite: 179]</strong></td>
+                        <td>Ο Chi tiết: [cite: 180] Sau khi tham gia mô phỏng AC tập trung, Mentor sẽ ngồi lại 1-1 để rà soát chi tiết hiệu suất thể hiện của Mentee. [cite: 181] Phân tích cụ thể các điểm yếu trong tương tác, giao tiếp, phản [cite: 182] xạ trong tình huống kinh doanh và lập phương án khắc phục. [cite: 183] O [cite: 184]</td>
+                        <td>Outcome: Học viên nhận diện rõ ràng điểm mù của bản thân khi làm việc nhóm dưới áp lực cao và có giải pháp tinh chỉnh hành vi kịp thời trước vòng thi thật. [cite: 185]</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Module 10 - Industry Knowledge Transfer: [cite: 186]</strong></td>
+                        <td>O [cite: 187] Chi tiết: [cite: 188] Mentor chia sẻ kiến thức thực tế tại thị trường và doanh nghiệp hiện tại (Bối cảnh ngành hàng, quy trình vận hành Supply Chain, Commercial Landscape thực tế...). [cite: 189]</td>
+                        <td>O Outcome: Học viên sở hữu tư duy nhạy bén về kinh doanh (Business Acumen) sâu sắc từ người làm nghề, có những insights thực tế. [cite: 190]</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="note-block">Tổng hợp feedback của mentee ở đây chung trong các module của mentoring 1:1  nó khác với học case chung ntn [cite: 191]</div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2 style="text-align: center;">[ SESSION 2.3] ROAD MAP PHỐI HỢP TOÀN DIỆN TRONG 5 GIAI ĐOẠN ỨNG TUYỂN [cite: 192]</h2>
+            <p style="text-align: center; margin-bottom: 40px;">(Hai trụ cột Masterclass và Mentoring 1-1 phối hợp đồng bộ trên một trục thời gian tuyến tính, bám sát theo từng điểm chạm của quá trình tuyển dụng thực tế) [cite: 193]</p>
+
+            <div style="background: #f4f4f4; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+                <p><strong>[Giai đoạn 01] Định hướng & Lập chiến lược [cite: 194]</strong><br>
+                - Đầu ra: Career Roadmap & KPI hành động [cite: 195]<br>
+                (Tích hợp: Masterclass 01, 04 + Mentoring Module 1, 5, 7) [cite: 196]</p>
+
+                <p><strong>[Giai đoạn 02] Xây dựng hồ sơ cạnh tranh [cite: 197]</strong><br>
+                Đầu ra: Bộ CV Customized & LinkedIn chuẩn [cite: 198]<br>
+                (Tích hợp: Masterclass 04 + Mentoring Module 2, 6) [cite: 199]</p>
+
+                <p><strong>[Giai đoạn 03] Vượt qua Online Assessment [cite: 200]</strong><br>
+                Đầu ra: Sẵn sàng phản xạ cho bài Test năng lực [cite: 201]<br>
+                (Tích hợp: Hệ thống Self-practice Tests của Organizer + Mentoring Module 3) [cite: 202]</p>
+
+                <p><strong>[Giai đoạn 04] Thực chiến Business Case & AC [cite: 203]</strong><br>
+                Đầu ra: Làm chủ tư duy giải Case & Kỹ năng nhóm [cite: 204]<br>
+                (Tích hợp: Masterclass 02, 03, 06, 07 + Mentoring Module 8, 9) [cite: 205]</p>
+
+                <p><strong>[Giai đoạn 05] Chuyển hóa Interview thành Offer [cite: 206]</strong><br>
+                Đầu ra: Sở hữu Answer Bank & Nhận Offer Letter [cite: 207]<br>
+                (Tích hợp: Masterclass 05 + Mentoring Module 4, 10 + Tracking Jobs Applying) [cite: 208]</p>
+            </div>
+
+            <h3>Cụ thể [cite: 209]</h3>
+            
+            <div style="margin-bottom: 20px; padding: 15px; border-left: 5px solid var(--lime-green);">
+                <h4 style="color: var(--dark-green)">GIAI ĐOẠN 01: ĐỊNH HƯỚNG NGHỀ NGHIỆP & THIẾT KẾ CHIẾN LƯỢC CÁ NHÂN [cite: 210]</h4>
+                <p>O [cite: 211] Làm gì: Mentor thực hiện đánh giá hồ sơ tổng thể qua Career Audit, cùng học viên xác định chính xác top ngành, vị trí mục tiêu và xây dựng Timeline ứng tuyển thực tế khớp với khung tuyển dụng của các doanh nghiệp. [cite: 212] Học viên kết hợp học kiến thức từ Masterclass 01 và 04. [cite: 213]</p>
+                <p>Outcome: Bản định hướng lộ trình nghề nghiệp chi tiết, định hình KPI ứng tuyển cho 6-12 tháng tới. [cite: 214]</p>
+            </div>
+
+            <div style="margin-bottom: 20px; padding: 15px; border-left: 5px solid var(--lime-green);">
+                <h4 style="color: var(--dark-green)">GIAI ĐOẠN 02: XÂY DỰNG HỒ SƠ CẠNH TRANH [cite: 215]</h4>
+                <p>Làm gì: Mentor rà soát chi tiết CV 1-1, lượng hóa toàn bộ thành tựu và hướng dẫn customize CV phù hợp theo từng loại JD đặc thù. [cite: 216] Đồng thời, chuẩn hóa profile Linkedin cá nhân dưới sự cố vấn của Mentor. [cite: 217]</p>
+                <p>Outcome: Bộ CV phiên bản hoàn chỉnh mang tính định lượng cao, tài khoản Linkedin tối ưu cùng kế hoạch Networking chủ động. [cite: 218]</p>
+            </div>
+
+            <div style="margin-bottom: 20px; padding: 15px; border-left: 5px solid var(--lime-green);">
+                <h4 style="color: var(--dark-green)">GIAI ĐOẠN 03: XÂY NỀN TẢNG KINH DOANH VÀ TƯ DUY TUYỂN DỤNG [cite: 219]</h4>
+                <p>Ο Làm gì: Học viên nâng cao kiến thức nền tảng chuyên sâu từ chuỗi Masterclass: Xử lý số liệu khoa học (Masterclass 03), xây dựng tư duy cấu trúc Business Case thực tế (Masterclass 02) và hiểu rõ Networking chuyên nghiệp (Masterclass 04). [cite: 219]</p>
+                <p>Outcome: Xây dựng vững chắc tư duy kinh doanh nhạy bén [cite: 220] (Business Acumen) và năng lực giải quyết vấn đề hệ thống [cite: 221] (Problem Solving Foundation). [cite: 221]</p>
+            </div>
+
+            <div style="margin-bottom: 20px; padding: 15px; border-left: 5px solid var(--lime-green);">
+                <h4 style="color: var(--dark-green)">GIAI ĐOẠN 04: THỰC CHIẾN CÁC VÒNG TUYỂN DỤNG [cite: 222]</h4>
+                <p>O [cite: 223] Làm gì: Ứng viên trực tiếp giải các đề Case thực tế dưới sự quan sát của Mentor (Mentoring Module 8). [cite: 224] Đồng thời tham gia vào các buổi thi thử bài tập nhóm mô phỏng thuộc vòng Assessment Center cùng các mentee khác (Mentoring Module 9). [cite: 225]</p>
+                <p>Outcome: Làm chủ kỹ năng giải case dưới áp lực, hoàn thiện tư duy cấu trúc làm slide và sẵn sàng về tâm lý vượt qua vòng AC phức tạp. [cite: 226]</p>
+            </div>
+
+            <div style="margin-bottom: 20px; padding: 15px; border-left: 5px solid var(--lime-green);">
+                <h4 style="color: var(--dark-green)">GIAI ĐOẠN 05: CHUYỂN HÓA INTERVIEW THÀNH OFFER [cite: 227]</h4>
+                <p>O [cite: 228] Làm gì: Mentor triển khai mock interview chuyên sâu 1-1 luyện tập Story bank với mentee [cite: 229] Mentee cập nhật dữ liệu ứng tuyển hàng ngày, đảm bảo KPI apply jobs và hoàn thành ứng tuyển trong vòng 12h kể từ khi job mở. [cite: 230]</p>
+                <p>Outcome: Sở hữu ngân hàng câu trả lời phỏng vấn cá nhân hóa, tự tin bước vào vòng Final để chuyển hóa thành công cơ hội thành Offer Letter chính thức. [cite: 231]</p>
+            </div>
+
+            <div class="note-block">
+                VISUALIZE CÁI NÀY NHMA DETAILED HƠN [cite: 232]<br>
+                Mentor and Organization Team accompany the Mentee throughout the entire recruitment process. [cite: 233]<br>
+                Career orientation & Career planning [cite: 234] -> CV [cite: 235] -> Online Assessment [cite: 236] -> HR Interview [cite: 237] -> Assessment Center Take-home Assignment Case interview [cite: 238] -> Final interview [cite: 239]<br>
+                Career Roadmap [cite: 240], CV feedback [cite: 241], Self-practice tests [cite: 242], Mock interview [cite: 243], List targeted [cite: 244] Find job listings [cite: 245] companies & positions [cite: 246], Masterclass - Theory [cite: 247], Industry knowledge [cite: 248], Networking/cold messaging [cite: 249]<br>
+                Mentor role [cite: 250], Organizer's role Both [cite: 251], Industry knowledge [cite: 252], Networking [cite: 253], Case competition [cite: 254], Practice AC [cite: 255], Practice Case interview [cite: 256], Mock interview [cite: 257]
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-dark">
+        <div class="container">
+            <h2 style="text-align: center;">[SESSION 2.4] CÁ NHÂN HÓA LỘ TRÌNH DỰA TRÊN MỤC TIÊU CỦA BẠN [cite: 258]</h2>
+            <p style="text-align: center;">Chúng tôi chủ động giới hạn số lượng học viên tiếp nhận hàng tháng để đảm bảo chất lượng dịch vụ và độ sâu sát của phiên cố vấn 1-1 (Service Adaptation). [cite: 258] Chương trình phân tách rõ ràng thành 2 lộ trình tối ưu: [cite: 259]</p>
+            
+            <div class="grid-2" style="margin-top: 40px;">
+                <div class="card" style="background-color: var(--off-white); color: var(--black);">
+                    <h3 style="color: var(--dark-green)">GÓI INTERNSHIP (THỜI GIAN ĐỒNG HÀNH: 4 THÁNG) [cite: 260]</h3>
+                    <p><strong>Đối tượng ứng tuyển:</strong> Sinh viên từ năm 2 đến năm 4 mong muốn cọ xát và tìm kiếm các kỳ thực tập lớn. [cite: 261]</p>
+                    <p><strong>Giải pháp trọng tâm:</strong> Tập trung phân tích khoảng trống trải nghiệm hồ sơ, định hướng hoàn thiện khung kỹ năng, xây dựng nền tảng CV chiến lược và rèn phản xạ xử lý các dạng bài Aptitude Test năng lực. [cite: 262]</p>
+                    <p><strong>• Quyền lợi nhận được:</strong> Lộ trình cố vấn Mentoring 1-1 chuyên sâu (tối đa 16 sessions cùng Mentor có 2-3 năm kinh nghiệm thực tế) kết hợp trọn vẹn khóa học 7 buổi Masterclass. [cite: 263]</p>
+                </div>
+                <div class="card" style="background-color: var(--off-white); color: var(--black);">
+                    <h3 style="color: var(--dark-green)">GÓI MANAGEMENT TRAINEE & ENTRY-LEVEL JOB (THỜI GIAN ĐỒNG HÀNH: 6 THÁNG) [cite: 264]</h3>
+                    <p><strong>Đối tượng ứng tuyển:</strong> Sinh viên năm 3-4 hoặc có dưới 2 năm kinh nghiệm thực tế (đã từng qua các vị trí thực tập) đặt mục tiêu chinh phục các chương trình MT hoặc vị trí Full-time. [cite: 265]</p>
+                    <p><strong>Giải pháp trọng tâm:</strong> Tập trung rèn luyện tư duy kinh doanh thực chiến, mài giữa năng lực phản biện giải quyết Business Case phức tạp, mô phỏng áp lực phòng AC và tối ưu hóa kĩ năng Storytelling để chinh phục vòng Final Interview. [cite: 266]</p>
+                    <p><strong>• Quyền lợi nhận được:</strong> Lộ trình cố vấn Mentoring 1-1 chuyên sâu (tối đa 24 sessions cùng Mentor có 4-5 năm kinh nghiệm quản lý thực tế) kết hợp trọn vẹn khóa học 7 buổi Masterclass. [cite: 267]</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2 style="text-align: center;">[SESSION CUỐI] CÂU HỎI THƯỜNG GẶP (FAQ) [cite: 268]</h2>
+            
+            <div style="margin-bottom: 30px;">
+                <h4 style="color: var(--dark-green);">Quá trình ghép cặp giữa Mentor và Học viên diễn ra cụ thể ra sao? [cite: 269] Có được chọn Mentor theo mong muốn không? [cite: 270]</h4>
+                <ul>
+                    <li><strong>Bước 1 (Đăng ký hồ sơ):</strong> Bạn hoàn thành form đăng ký chi tiết thông tin cá nhân bao gồm điểm số GPA, hoạt động ngoại khoá, khối ngành quan tâm và danh sách công ty mơ ước nhằm giúp team đánh giá mức độ phù hợp. [cite: 271]</li>
+                    <li><strong>Bước 2 (Ghép cặp chuyên gia):</strong> Dựa trên mục tiêu cụ thể của học viên, Ban tổ chức chủ động sàng lọc và đề xuất vị trí Mentor có kinh nghiệm thực tế gần nhất với định hướng của bạn (ví dụ: Bạn nhắm MT Marketing tại Heineken, team sẽ ưu tiên kết nối với các anh chị đang phụ trách Brand Manager hoặc cựu MT thuộc đúng ngành hàng FMCG). [cite: 272] Bạn sẽ được nhận hồ sơ Mentor (Profile, số năm kinh nghiệm, lĩnh vực chuyên môn sâu) để xem xét kỹ lưỡng trước khi bắt đầu. [cite: 273]</li>
+                    <li><strong>Bước 3 (Xác nhận & Khởi động):</strong> Sau khi hai bên đạt được sự đồng thuận hoàn toàn về việc ghép cặp, học viên hoàn tất thủ tục và tham gia session đầu tiên để thiết lập Career Roadmap chi tiết. [cite: 274]</li>
+                </ul>
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <h4 style="color: var(--dark-green);">Chương trình Meeting cùng Mentor có bắt buộc phải diễn ra đều đặn hàng tuần không? [cite: 275]</h4>
+                <ul>
+                    <li>• Lịch họp trực tiếp giữa Mentor và Mentee được thiết lập một cách linh hoạt, bám sát theo quá trình tuyển dụng thực tế của bạn chứ không ép buộc cố định một cách máy móc. [cite: 276]</li>
+                    <li>• Trong những giai đoạn bình thường (chưa có lịch thi), hai bên có thể duy trì giãn cách để tập trung làm bài tập phân tích dữ liệu hoặc xây dựng portfolio. [cite: 277] Tuy nhiên, bước vào các giai đoạn cao điểm (khi bạn nhận được take-home assignment từ doanh nghiệp, có lịch thi AC hoặc phỏng vấn đột xuất), Mentor và ứng viên có thể tăng cường số buổi mentoring lên 2-3 sessions/tuần để tập trung Mock Interview và sửa bài kịp thời chuẩn bị cho các vòng ứng tuyển. [cite: 278]</li>
+                </ul>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="#" class="cta-button">[CTA: ĐĂNG KÝ NHẬN TƯ VẤN LỘ TRÌNH RIÊNG] [cite: 279]</a>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background-color: var(--black); color: var(--off-white); text-align: center; padding: 40px 20px;">
+        <p>FOOTER [cite: 280]</p>
         
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div class="max-w-2xl" data-aos="fade-right" data-aos-duration="1000">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white text-emerald-800 font-bold text-sm mb-6 border border-emerald-200 shadow-sm hover:shadow-md transition-shadow cursor-default">
-                        <svg class="w-4 h-4 text-emerald-600 animate-pulse" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                        ĐỒNG HÀNH ĐẾN KHI CÓ OFFER
-                    </div>
-                    <h1 class="text-4xl lg:text-5xl xl:text-6xl font-extrabold text-slate-900 leading-[1.15] mb-6 tracking-tight">
-                        Học nhiều khóa Business nhưng <span class="text-emerald-600 relative inline-block">vẫn chưa có job<svg class="absolute w-full h-3 -bottom-1 left-0 text-emerald-200" viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0 15 Q 50 0 100 15" fill="none" stroke="currentColor" stroke-width="4"/></svg></span> như ý?
-                    </h1>
-                    <p class="text-lg text-slate-600 mb-8 leading-relaxed font-medium">
-                        Mentoring 1-1 kết hợp Masterclass tạo ra hệ sinh thái ứng tuyển toàn diện. Đập bỏ tư duy cũ, phát triển năng lực thực chiến để chinh phục các tập đoàn đa quốc gia.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="#dang-ky" class="inline-flex justify-center items-center bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-[0_10px_25px_rgba(5,150,105,0.3)] transition-all transform hover:-translate-y-1 hover:scale-105 active:scale-95">
-                            Nhận Phác Đồ Miễn Phí
-                        </a>
-                        <a href="#chuong-trinh" class="inline-flex justify-center items-center bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 px-8 py-4 rounded-xl font-bold text-lg shadow-sm hover:shadow-md transition-all">
-                            Xem Lộ Trình
-                        </a>
-                    </div>
-                </div>
-                <div class="hidden lg:block relative" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
-                    <div class="relative rounded-[2rem] shadow-2xl overflow-hidden bg-white border border-slate-200 transform rotate-2 hover:rotate-0 transition-transform duration-500 animate-float z-10">
-                        <div class="h-10 bg-slate-100/80 backdrop-blur border-b border-slate-200 flex items-center px-4 gap-2">
-                            <div class="w-3.5 h-3.5 rounded-full bg-red-400 hover:bg-red-500 cursor-pointer transition-colors"></div>
-                            <div class="w-3.5 h-3.5 rounded-full bg-amber-400 hover:bg-amber-500 cursor-pointer transition-colors"></div>
-                            <div class="w-3.5 h-3.5 rounded-full bg-green-400 hover:bg-green-500 cursor-pointer transition-colors"></div>
-                            <div class="ml-4 text-xs font-semibold text-slate-400">road-to-mnc-1-on-1-mentoring</div>
-                        </div>
-                        <div class="aspect-w-4 aspect-h-3 bg-slate-50 flex items-center justify-center p-8 relative group">
-                            <div class="absolute inset-0 bg-gradient-to-tr from-emerald-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                            <div class="text-center relative z-10 transform group-hover:scale-105 transition-transform duration-500">
-                                <div class="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner relative">
-                                    <div class="absolute inset-0 border-4 border-emerald-500 rounded-full animate-ping opacity-20"></div>
-                                    <svg class="w-12 h-12 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                                </div>
-                                <span class="text-slate-700 font-extrabold text-xl">Mô phỏng Phỏng Vấn </span>
-                                <p class="text-sm text-slate-500 mt-2 font-medium">Bật audio để nghe Mentor feedback</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="absolute -bottom-6 -left-6 w-24 h-24 bg-emerald-500 rounded-2xl shadow-xl transform -rotate-12 -z-10 animate-float-slow"></div>
-                    <div class="absolute -top-6 -right-6 w-32 h-32 bg-emerald-200 rounded-full shadow-lg -z-10 animate-float"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
-                <span class="text-emerald-600 font-bold uppercase tracking-wider text-sm mb-3 block">Chẩn đoán vấn đề</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">4 Quan niệm khiến bạn gặp khó khăn khi apply </h2>
-            </div>
-            <div class="grid md:grid-cols-2 gap-6 lg:gap-8">
-                <div class="bg-white p-8 rounded-[2rem] shadow-lg shadow-slate-200/50 border border-slate-100 hover:border-emerald-300 hover:shadow-2xl hover:shadow-emerald-900/10 transition-all duration-300 group transform hover:-translate-y-2 relative overflow-hidden" data-aos="fade-up" data-aos-delay="100">
-                    <div class="absolute -right-6 -top-6 text-9xl font-black text-slate-50 group-hover:text-emerald-50 transition-colors duration-500">1</div>
-                    <div class="relative z-10">
-                        <div class="w-12 h-12 bg-slate-100 group-hover:bg-emerald-100 rounded-xl flex items-center justify-center mb-6 transition-colors">
-                            <svg class="w-6 h-6 text-slate-500 group-hover:text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-emerald-800 transition-colors">Nghiên cứu học thuật quá nhiều</h3>
-                        <p class="text-slate-600 leading-relaxed font-medium">Đối với phần lớn vị trí Business, nhà tuyển dụng thường đánh giá cao trải nghiệm thực tập, hoạt động ngoại khóa và các dự án thực tế hơn là thành tích nghiên cứu.</p>
-                    </div>
-                </div>
-                <div class="bg-white p-8 rounded-[2rem] shadow-lg shadow-slate-200/50 border border-slate-100 hover:border-emerald-300 hover:shadow-2xl hover:shadow-emerald-900/10 transition-all duration-300 group transform hover:-translate-y-2 relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
-                    <div class="absolute -right-6 -top-6 text-9xl font-black text-slate-50 group-hover:text-emerald-50 transition-colors duration-500">2</div>
-                    <div class="relative z-10">
-                        <div class="w-12 h-12 bg-slate-100 group-hover:bg-emerald-100 rounded-xl flex items-center justify-center mb-6 transition-colors">
-                            <svg class="w-6 h-6 text-slate-500 group-hover:text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-emerald-800 transition-colors">Xem GPA là yếu tố quyết định</h3>
-                        <p class="text-slate-600 leading-relaxed font-medium">Với Business, GPA > 3.3/4.0 chỉ giúp bạn qua vòng hồ sơ. Các vòng sau đánh giá hoàn toàn dựa trên tư duy xử lý tình huống thực tế.</p>
-                    </div>
-                </div>
-                <div class="bg-white p-8 rounded-[2rem] shadow-lg shadow-slate-200/50 border border-slate-100 hover:border-emerald-300 hover:shadow-2xl hover:shadow-emerald-900/10 transition-all duration-300 group transform hover:-translate-y-2 relative overflow-hidden" data-aos="fade-up" data-aos-delay="300">
-                    <div class="absolute -right-6 -top-6 text-9xl font-black text-slate-50 group-hover:text-emerald-50 transition-colors duration-500">3</div>
-                    <div class="relative z-10">
-                        <div class="w-12 h-12 bg-slate-100 group-hover:bg-emerald-100 rounded-xl flex items-center justify-center mb-6 transition-colors">
-                            <svg class="w-6 h-6 text-slate-500 group-hover:text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-emerald-800 transition-colors">Chỉ tập trung vào một ngành nghề duy nhất</h3>
-                        <p class="text-slate-600 leading-relaxed font-medium">Việc giới hạn cơ hội trong một nhóm vị trí quá hẹp có thể khiến quá trình tìm việc kéo dài hơn. Một chiến lược ứng tuyển linh hoạt thường mang lại nhiều cơ hội hơn.</p>
-                    </div>
-                </div>
-                <div class="bg-white p-8 rounded-[2rem] shadow-lg shadow-slate-200/50 border border-slate-100 hover:border-emerald-300 hover:shadow-2xl hover:shadow-emerald-900/10 transition-all duration-300 group transform hover:-translate-y-2 relative overflow-hidden" data-aos="fade-up" data-aos-delay="400">
-                    <div class="absolute -right-6 -top-6 text-9xl font-black text-slate-50 group-hover:text-emerald-50 transition-colors duration-500">4</div>
-                    <div class="relative z-10">
-                        <div class="w-12 h-12 bg-slate-100 group-hover:bg-emerald-100 rounded-xl flex items-center justify-center mb-6 transition-colors">
-                            <svg class="w-6 h-6 text-slate-500 group-hover:text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-emerald-800 transition-colors">Cho rằng nộp vài chục đơn là đủ</h3>
-                        <p class="text-slate-600 leading-relaxed font-medium">Trong thị trường tuyển dụng cạnh tranh, việc ứng tuyển với số lượng lớn và chủ động kết nối với recruiter là điều hoàn toàn bình thường.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="mentor" class="py-24 bg-slate-50 overflow-hidden border-y border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
-                <span class="text-emerald-600 font-bold uppercase tracking-wider text-sm mb-3 block">Bảo chứng uy tín</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 tracking-tight">Đội Ngũ Mentor Trực Tiếp Từ MBB & Top MNCs</h2>
-                <p class="text-lg text-slate-600 font-medium">Họ đã trực tiếp trải qua những quy trình tuyển dụng cạnh tranh nhất thị trường. Với kinh nghiệm thực chiến từ Consulting, Management Trainee và MNC, các mentor sẽ giúp bạn rút ngắn đáng kể hành trình đến offer đầu tiên.</p>
-            </div>
-            
-            <div class="flex overflow-x-auto hide-scroll-bar snap-x snap-mandatory gap-6 pb-8 px-4 -mx-4 cursor-grab active:cursor-grabbing" id="mentor-slider" data-aos="fade-up" data-aos-delay="200">
-                <div class="snap-start shrink-0 w-[340px] bg-white border border-slate-200 rounded-3xl p-8 shadow-md hover:shadow-2xl hover:border-emerald-300 hover:-translate-y-2 transition-all duration-300">
-                    <div class="h-8 mb-6 font-black text-2xl text-emerald-900/20 tracking-tighter uppercase relative">
-                        <span class="absolute inset-0 bg-gradient-to-r from-emerald-800 to-emerald-500 bg-clip-text text-transparent">HEINEKEN</span>
-                    </div>
-                    <h4 class="text-2xl font-extrabold text-slate-900 mb-1">Harry Nguyễn</h4>
-                    <p class="text-sm font-bold text-emerald-600 mb-6 uppercase tracking-wide bg-emerald-50 inline-block px-3 py-1 rounded-md">Digital Strategy Lead</p>
-                    <ul class="text-sm text-slate-600 space-y-3 font-medium">
-                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Đang công tác tại Heineken</li>
-                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Cựu Trade MT tại BAT</li>
-                    </ul>
-                </div>
-                <div class="snap-start shrink-0 w-[340px] bg-white border border-slate-200 rounded-3xl p-8 shadow-md hover:shadow-2xl hover:border-emerald-300 hover:-translate-y-2 transition-all duration-300">
-                    <div class="h-8 mb-6 font-black text-2xl text-emerald-900/20 tracking-tighter uppercase relative">
-                        <span class="absolute inset-0 bg-gradient-to-r from-emerald-800 to-emerald-500 bg-clip-text text-transparent">McKinsey & Co.</span>
-                    </div>
-                    <h4 class="text-2xl font-extrabold text-slate-900 mb-1">Bùi Hà Phương</h4>
-                    <p class="text-sm font-bold text-emerald-600 mb-6 uppercase tracking-wide bg-emerald-50 inline-block px-3 py-1 rounded-md">Cựu Consultant</p>
-                    <ul class="text-sm text-slate-600 space-y-3 font-medium">
-                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Từng làm việc tại McKinsey</li>
-                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> MBA tại Columbia Southern Univ.</li>
-                    </ul>
-                </div>
-                <div class="snap-start shrink-0 w-[340px] bg-white border border-slate-200 rounded-3xl p-8 shadow-md hover:shadow-2xl hover:border-emerald-300 hover:-translate-y-2 transition-all duration-300">
-                    <div class="h-8 mb-6 font-black text-2xl text-emerald-900/20 tracking-tighter uppercase relative">
-                        <span class="absolute inset-0 bg-gradient-to-r from-emerald-800 to-emerald-500 bg-clip-text text-transparent">PRUDENTIAL</span>
-                    </div>
-                    <h4 class="text-2xl font-extrabold text-slate-900 mb-1">David Trấn</h4>
-                    <p class="text-sm font-bold text-emerald-600 mb-6 uppercase tracking-wide bg-emerald-50 inline-block px-3 py-1 rounded-md">Business Expansion Mgr</p>
-                    <ul class="text-sm text-slate-600 space-y-3 font-medium">
-                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Đang công tác tại Prudential</li>
-                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Cựu MT tại Prudential</li>
-                    </ul>
-                </div>
-                <div class="snap-start shrink-0 w-[340px] bg-white border border-slate-200 rounded-3xl p-8 shadow-md hover:shadow-2xl hover:border-emerald-300 hover:-translate-y-2 transition-all duration-300">
-                    <div class="h-8 mb-6 font-black text-2xl text-emerald-900/20 tracking-tighter uppercase relative">
-                        <span class="absolute inset-0 bg-gradient-to-r from-emerald-800 to-emerald-500 bg-clip-text text-transparent">UNILEVER</span>
-                    </div>
-                    <h4 class="text-2xl font-extrabold text-slate-900 mb-1">Daniel Ngô</h4>
-                    <p class="text-sm font-bold text-emerald-600 mb-6 uppercase tracking-wide bg-emerald-50 inline-block px-3 py-1 rounded-md">Brand Manager</p>
-                    <ul class="text-sm text-slate-600 space-y-3 font-medium">
-                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Đang công tác tại Unilever</li>
-                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Cựu Marketing UFLP MT</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="mt-8 flex justify-center items-center gap-4 hidden md:flex">
-                <button class="w-10 h-10 rounded-full border border-slate-300 flex items-center justify-center hover:bg-emerald-50 hover:border-emerald-500 hover:text-emerald-600 transition-colors" onclick="document.getElementById('mentor-slider').scrollBy({left: -350, behavior: 'smooth'})">
-                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                </button>
-                <button class="w-10 h-10 rounded-full border border-slate-300 flex items-center justify-center hover:bg-emerald-50 hover:border-emerald-500 hover:text-emerald-600 transition-colors" onclick="document.getElementById('mentor-slider').scrollBy({left: 350, behavior: 'smooth'})">
-                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 bg-emerald-950 text-white relative overflow-hidden">
-        <div class="absolute -top-40 -right-40 w-[500px] h-[500px] bg-emerald-800/40 rounded-full blur-3xl animate-float-slow"></div>
-        <div class="absolute -bottom-40 -left-40 w-[500px] h-[500px] bg-emerald-900/60 rounded-full blur-3xl animate-float"></div>
-        
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center max-w-3xl mx-auto mb-20" data-aos="zoom-in">
-                <h2 class="text-3xl md:text-5xl font-extrabold mb-6 tracking-tight leading-tight">Không Có Lộ Trình Mẫu.<br><span class="text-emerald-400">Chỉ Có Giải Pháp May Đo Tận Gốc.</span></h2>
-                <p class="text-emerald-100/80 text-lg">Hệ thống vận hành như một phòng khám chuyên khoa. Phân tích Profile, bẻ khóa điểm nghẽn và đưa ra phác đồ duy nhất dành cho bạn.</p>
-            </div>
-            
-            <div class="grid lg:grid-cols-3 gap-6">
-                <div class="bg-white/5 p-10 rounded-[2.5rem] border border-white/10 backdrop-blur-md hover:bg-white/10 transition-colors duration-500 group" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-16 h-16 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-emerald-500/30 transform group-hover:-rotate-6 transition-transform">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Kết Nối Chuyên Gia</h3>
-                    <p class="text-emerald-100/70 leading-relaxed font-medium">Mentor hỗ trợ mở rộng mạng lưới nghề nghiệp thông qua những kết nối phù hợp, giúp bạn hiểu rõ hơn về ngành nghề, doanh nghiệp và các cơ hội phát triển.</p>
-                </div>
-                <div class="bg-gradient-to-b from-emerald-600/20 to-white/5 p-10 rounded-[2.5rem] border border-emerald-500/30 backdrop-blur-md hover:border-emerald-400/60 transition-colors duration-500 group relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
-                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-300 to-emerald-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
-                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-8 shadow-xl shadow-white/10 transform group-hover:scale-110 transition-transform">
-                        <svg class="w-8 h-8 text-emerald-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4 text-emerald-50">Đồng Hành Theo Từng Vòng Tuyển Dụng</h3>
-                    <p class="text-emerald-100/80 leading-relaxed font-medium">Lộ trình được điều chỉnh theo những thử thách thực tế bạn đang đối mặt. Assessment Center, Case Interview hay Final Interview đều trở thành trọng tâm hỗ trợ khi cần thiết.</p>
-                </div>
-                <div class="bg-white/5 p-10 rounded-[2.5rem] border border-white/10 backdrop-blur-md hover:bg-white/10 transition-colors duration-500 group" data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-16 h-16 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-emerald-500/30 transform group-hover:rotate-6 transition-transform">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Cá Nhân Hóa Theo Năng Lực Và Mục Tiêu</h3>
-                    <p class="text-emerald-100/70 leading-relaxed font-medium">Ngay từ những buổi đầu tiên, mentor sẽ đánh giá hồ sơ hiện tại, xác định khoảng cách cần cải thiện và xây dựng kế hoạch phát triển phù hợp với mục tiêu nghề nghiệp của bạn.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-32 bg-white" id="chuong-trinh">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-20" data-aos="fade-up">
-                <span class="inline-block py-1 px-3 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-bold uppercase tracking-wider text-xs mb-4">Hệ Sinh Thái Khép Kín</span>
-                <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">Trọn Bộ 1 Chương Trình.<br>Đóng Gói Bằng 2 Trụ Cột Cốt Lõi.</h2>
-            </div>
-            
-            <div class="grid lg:grid-cols-2 gap-8 items-stretch relative">
-                
-                <div class="bg-slate-50 rounded-[2.5rem] p-10 md:p-12 border border-slate-200 hover:shadow-xl transition-shadow duration-300 relative group" data-aos="fade-right">
-                    <div class="absolute -top-5 left-12 bg-white border-2 border-emerald-200 text-emerald-800 px-6 py-2 rounded-full font-black text-sm uppercase tracking-widest shadow-md group-hover:scale-105 transition-transform">
-                        Nền tảng tư duy
-                    </div>
-                    <h3 class="text-3xl font-extrabold text-slate-900 mt-6 mb-4">7 Buổi Masterclass</h3>
-                    <p class="text-slate-600 mb-10 font-medium text-lg">Trang bị toàn bộ framework chuẩn chỉnh, mindset logic và kỹ năng hệ thống trước khi bước vào thực chiến.</p>
-                    
-                    <ul class="space-y-6 text-slate-700 font-semibold text-lg">
-                        <li class="flex gap-4 items-start group/item">
-                            <div class="w-8 h-8 rounded-full bg-white border border-emerald-200 shadow-sm text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-emerald-500 group-hover/item:text-white transition-colors"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg></div>
-                            <span class="group-hover/item:text-emerald-700 transition-colors">Framework giải quyết Business Case.</span>
-                        </li>
-                        <li class="flex gap-4 items-start group/item">
-                            <div class="w-8 h-8 rounded-full bg-white border border-emerald-200 shadow-sm text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-emerald-500 group-hover/item:text-white transition-colors"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg></div>
-                            <span class="group-hover/item:text-emerald-700 transition-colors">Mô phỏng Assessment Center (AC).</span>
-                        </li>
-                        <li class="flex gap-4 items-start group/item">
-                            <div class="w-8 h-8 rounded-full bg-white border border-emerald-200 shadow-sm text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-emerald-500 group-hover/item:text-white transition-colors"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg></div>
-                            <span class="group-hover/item:text-emerald-700 transition-colors">Tư duy Cultural Fit Interview (S.T.A.R).</span>
-                        </li>
-                        <li class="flex gap-4 items-start group/item">
-                            <div class="w-8 h-8 rounded-full bg-white border border-emerald-200 shadow-sm text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-emerald-500 group-hover/item:text-white transition-colors"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg></div>
-                            <span class="group-hover/item:text-emerald-700 transition-colors">Data Analysis & Rút Insight cơ bản.</span>
-                        </li>
-                        <li class="flex gap-4 items-start group/item">
-                            <div class="w-8 h-8 rounded-full bg-white border border-emerald-200 shadow-sm text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-emerald-500 group-hover/item:text-white transition-colors"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg></div>
-                            <span class="group-hover/item:text-emerald-700 transition-colors">Kỹ năng Làm Slide & Presentation.</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-emerald-500 hover:bg-emerald-600 rounded-full items-center justify-center shadow-[0_0_30px_rgba(5,150,105,0.4)] border-[6px] border-white z-10 text-white transform hover:scale-110 transition-all duration-300">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
-                </div>
-                <div class="lg:hidden flex justify-center -my-6 relative z-10">
-                    <div class="w-14 h-14 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg border-[6px] border-white text-white">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
-                    </div>
-                </div>
-
-                <div class="bg-emerald-950 rounded-[2.5rem] p-10 md:p-12 border border-emerald-900 shadow-2xl relative overflow-hidden group" data-aos="fade-left">
-                    <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-600/30 rounded-full blur-[80px] group-hover:bg-emerald-500/40 transition-colors duration-500"></div>
-                    
-                    <div class="absolute -top-5 left-12 bg-emerald-500 border border-emerald-400 text-white px-6 py-2 rounded-full font-black text-sm uppercase tracking-widest shadow-lg relative z-10 group-hover:scale-105 transition-transform">
-                        Thực chiến cá nhân
-                    </div>
-                    <h3 class="text-3xl font-extrabold text-white mt-6 mb-4 relative z-10">10 Học Phần Mentoring 1-1</h3>
-                    <p class="text-emerald-100/80 mb-10 font-medium text-lg relative z-10">Mỗi học viên được xây dựng lộ trình riêng dựa trên hồ sơ, mục tiêu và tiến độ phát triển thực tế.</p>
-                    
-                    <div class="grid sm:grid-cols-2 gap-x-6 gap-y-5 text-emerald-50 font-semibold relative z-10">
-                        <div class="flex gap-3 items-center hover:text-white transition-colors cursor-default">
-                            <span class="text-emerald-950 font-black bg-emerald-400 w-8 h-8 rounded-lg flex items-center justify-center text-sm shadow-inner">1</span> Career Roadmap
-                        </div>
-                        <div class="flex gap-3 items-center hover:text-white transition-colors cursor-default">
-                            <span class="text-emerald-400 font-black bg-emerald-900/80 border border-emerald-800 w-8 h-8 rounded-lg flex items-center justify-center text-sm">2</span> Tối ưu hóa CV
-                        </div>
-                        <div class="flex gap-3 items-center hover:text-white transition-colors cursor-default">
-                            <span class="text-emerald-400 font-black bg-emerald-900/80 border border-emerald-800 w-8 h-8 rounded-lg flex items-center justify-center text-sm">3</span> Luyện Test
-                        </div>
-                        <div class="flex gap-3 items-center hover:text-white transition-colors cursor-default">
-                            <span class="text-emerald-400 font-black bg-emerald-900/80 border border-emerald-800 w-8 h-8 rounded-lg flex items-center justify-center text-sm">4</span> Phỏng vấn Hành vi
-                        </div>
-                        <div class="flex gap-3 items-center hover:text-white transition-colors cursor-default">
-                            <span class="text-emerald-400 font-black bg-emerald-900/80 border border-emerald-800 w-8 h-8 rounded-lg flex items-center justify-center text-sm">5</span> Chốt Target List
-                        </div>
-                        <div class="flex gap-3 items-center hover:text-white transition-colors cursor-default">
-                            <span class="text-emerald-400 font-black bg-emerald-900/80 border border-emerald-800 w-8 h-8 rounded-lg flex items-center justify-center text-sm">6</span> Networking
-                        </div>
-                        <div class="flex gap-3 items-center hover:text-white transition-colors cursor-default">
-                            <span class="text-emerald-400 font-black bg-emerald-900/80 border border-emerald-800 w-8 h-8 rounded-lg flex items-center justify-center text-sm">7</span> Portfolio Build
-                        </div>
-                        <div class="flex gap-3 items-center hover:text-white transition-colors cursor-default">
-                            <span class="text-emerald-950 font-black bg-emerald-400 w-8 h-8 rounded-lg flex items-center justify-center text-sm shadow-[0_0_15px_rgba(52,211,153,0.5)]">8</span> Giải Case 1-1
-                        </div>
-                        <div class="flex gap-3 items-center hover:text-white transition-colors cursor-default">
-                            <span class="text-emerald-950 font-black bg-emerald-400 w-8 h-8 rounded-lg flex items-center justify-center text-sm shadow-[0_0_15px_rgba(52,211,153,0.5)]">9</span> Giả lập AC
-                        </div>
-                        <div class="flex gap-3 items-center hover:text-white transition-colors cursor-default">
-                            <span class="text-emerald-400 font-black bg-emerald-900/80 border border-emerald-800 w-8 h-8 rounded-lg flex items-center justify-center text-sm">10</span> Insider Insight
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 bg-slate-50 border-t border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 max-w-3xl mx-auto" data-aos="fade-up">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">Mọi Tiến Độ Đều Được Trình Bày Bằng Số Liệu</h2>
-                <p class="text-lg text-slate-600 font-medium">Chúng tôi không đánh giá bằng cảm tính. Sự tiến bộ của bạn được tracking chặt chẽ qua hệ thống quản lý độc lập.</p>
-            </div>
-            <div class="grid md:grid-cols-2 gap-10">
-                <div class="bg-white p-8 rounded-[2.5rem] border border-slate-200 shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group" data-aos="fade-right">
-                    <div class="bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden mb-8 transform group-hover:scale-[1.02] transition-transform duration-500">
-                        <div class="bg-slate-200/50 border-b border-slate-200 px-4 py-3 flex items-center gap-2">
-                            <div class="w-3 h-3 rounded-full bg-red-400"></div><div class="w-3 h-3 rounded-full bg-amber-400"></div><div class="w-3 h-3 rounded-full bg-green-400"></div>
-                            <div class="ml-3 text-xs font-bold text-slate-500 uppercase tracking-widest">App_Tracker.xls</div>
-                        </div>
-                        <div class="p-6 space-y-4">
-                            <div class="flex justify-between items-end mb-2">
-                                <div class="w-1/2 h-4 bg-slate-200 rounded"></div>
-                                <div class="w-16 h-8 bg-emerald-100 rounded text-emerald-600 flex items-center justify-center font-bold text-xs">+15/th</div>
-                            </div>
-                            <div class="h-3 bg-emerald-400 rounded-full w-full shadow-[0_0_10px_rgba(52,211,153,0.4)]"></div>
-                            <div class="h-3 bg-slate-200 rounded-full w-5/6"></div>
-                            <div class="h-3 bg-slate-200 rounded-full w-4/6"></div>
-                        </div>
-                    </div>
-                    <h3 class="text-2xl font-extrabold text-slate-900 mb-3">Application Tracker</h3>
-                    <p class="text-slate-600 font-medium leading-relaxed">Theo dõi toàn bộ hành trình ứng tuyển trên một hệ thống tập trung, từ số lượng đơn ứng tuyển đến tỷ lệ chuyển đổi ở từng vòng.</p>
-                </div>
-                <div class="bg-white p-8 rounded-[2.5rem] border border-slate-200 shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group" data-aos="fade-left">
-                    <div class="bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden mb-8 transform group-hover:scale-[1.02] transition-transform duration-500">
-                        <div class="bg-slate-200/50 border-b border-slate-200 px-4 py-3 flex items-center gap-2">
-                            <div class="w-3 h-3 rounded-full bg-red-400"></div><div class="w-3 h-3 rounded-full bg-amber-400"></div><div class="w-3 h-3 rounded-full bg-green-400"></div>
-                            <div class="ml-3 text-xs font-bold text-slate-500 uppercase tracking-widest">Mentor_Log.crm</div>
-                        </div>
-                        <div class="p-6 space-y-5">
-                            <div class="flex gap-4">
-                                <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">B1</div>
-                                <div class="space-y-2 w-full"><div class="h-3 bg-slate-300 rounded w-full"></div><div class="h-2 bg-slate-200 rounded w-2/3"></div></div>
-                            </div>
-                            <div class="flex gap-4">
-                                <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">B2</div>
-                                <div class="space-y-2 w-full"><div class="h-3 bg-slate-300 rounded w-full"></div><div class="h-2 bg-slate-200 rounded w-1/2"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                    <h3 class="text-2xl font-extrabold text-slate-900 mb-3">Hệ Thống Mentor Log</h3>
-                    <p class="text-slate-600 font-medium leading-relaxed">Sau mỗi buổi mentoring, mentor cập nhật nội dung làm việc, phản hồi và kế hoạch hành động tiếp theo nhằm đảm bảo sự đồng hành xuyên suốt và nhất quán.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-32 bg-slate-900 text-white relative overflow-hidden">
-        <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center mb-20" data-aos="fade-up">
-                <h2 class="text-4xl md:text-5xl font-black mb-6 tracking-tight">Định Vị Lại Bản Thân</h2>
-                <p class="text-slate-400 text-xl font-medium">Bất kể là gói nào, bạn đều sở hữu trọn bộ hệ sinh thái Masterclass + Mentoring 1-1.</p>
-            </div>
-            <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
-                <div class="bg-slate-800/80 backdrop-blur-xl border border-slate-700 rounded-[2.5rem] p-10 hover:border-emerald-500/50 hover:bg-slate-800 transition-all duration-500 flex flex-col group" data-aos="zoom-in" data-aos-delay="100">
-                    <h3 class="text-3xl font-black text-white mb-2 tracking-tight group-hover:text-emerald-50 transition-colors">GÓI INTERNSHIP</h3>
-                    <p class="text-emerald-400 font-bold mb-10 text-xl tracking-wide">Hành trình 4 tháng</p>
-                    <div class="space-y-6 text-slate-300 flex-grow mb-12 font-medium text-lg">
-                        <div class="flex gap-4 items-start"><svg class="w-6 h-6 text-slate-500 shrink-0 mt-0.5 group-hover:text-emerald-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> <span><strong class="text-white">Đối tượng:</strong> Sinh viên năm 2 - năm 4.</span></div>
-                        <div class="flex gap-4 items-start"><svg class="w-6 h-6 text-slate-500 shrink-0 mt-0.5 group-hover:text-emerald-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> <span><strong class="text-white">Mục tiêu:</strong> Lấy job thực tập danh giá đầu tiên, làm đẹp hồ sơ, mở rộng Network.</span></div>
-                    </div>
-                    <a href="#dang-ky" class="block w-full text-center bg-slate-700 hover:bg-emerald-600 text-white font-bold py-5 rounded-2xl transition-all hover:scale-[1.02] active:scale-95 text-lg">NHẬN TƯ VẤN</a>
-                </div>
-                <div class="bg-gradient-to-b from-emerald-900 to-emerald-950 border border-emerald-600 rounded-[2.5rem] p-10 relative flex flex-col shadow-[0_0_40px_rgba(5,150,105,0.2)] transform hover:-translate-y-2 transition-all duration-500" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="absolute -top-5 right-10 bg-emerald-400 text-emerald-950 text-sm font-black px-6 py-2 rounded-full tracking-widest uppercase shadow-[0_0_20px_rgba(52,211,153,0.5)]">Highly Recommended</div>
-                    <h3 class="text-3xl font-black text-white mb-2 tracking-tight">GÓI MT & ENTRY</h3>
-                    <p class="text-emerald-300 font-bold mb-10 text-xl tracking-wide">Hành trình 6 tháng</p>
-                    <div class="space-y-6 text-emerald-50/90 flex-grow mb-12 font-medium text-lg">
-                        <div class="flex gap-4 items-start"><svg class="w-6 h-6 text-emerald-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> <span><strong class="text-white">Đối tượng:</strong> Sinh viên năm 3-4 và < 2 năm kinh nghiệm (đã từng đi thực tập).</span></div>
-                        <div class="flex gap-4 items-start"><svg class="w-6 h-6 text-emerald-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> <span><strong class="text-white">Mục tiêu:</strong> Đánh bại tỷ lệ chọi 1/1000 của các kỳ thi MT khốc liệt nhất thị trường.</span></div>
-                    </div>
-                    <a href="#dang-ky" class="block w-full text-center bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-black py-5 rounded-2xl transition-all shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:shadow-[0_0_30px_rgba(16,185,129,0.6)] hover:scale-[1.02] active:scale-95 text-lg">CHỐT GÓI NÀY</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 bg-white">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-center text-slate-900 mb-16 tracking-tight" data-aos="fade-up">Bộ Lọc Học Viên</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-emerald-50/80 p-10 rounded-[2.5rem] border border-emerald-100 hover:shadow-xl hover:border-emerald-200 transition-all duration-300" data-aos="fade-right">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-black text-2xl shadow-inner">✓</div>
-                        <h4 class="font-extrabold text-2xl text-slate-900">Program dành cho:</h4>
-                    </div>
-                    <p class="text-slate-700 font-medium leading-relaxed text-lg">Những người chủ động học hỏi, sẵn sàng đầu tư thời gian cho việc phát triển bản thân và nghiêm túc với mục tiêu nghề nghiệp dài hạn.</p>
-                </div>
-                <div class="bg-red-50/80 p-10 rounded-[2.5rem] border border-red-100 hover:shadow-xl hover:border-red-200 transition-all duration-300" data-aos="fade-left">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 rounded-2xl bg-red-100 text-red-600 flex items-center justify-center font-black text-2xl shadow-inner">✕</div>
-                        <h4 class="font-extrabold text-2xl text-slate-900">Không dành cho:</h4>
-                    </div>
-                    <p class="text-slate-700 font-medium leading-relaxed text-lg">Những người tìm kiếm kết quả tức thời nhưng không sẵn sàng hành động, thực hành hoặc chủ động cải thiện năng lực của mình.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 bg-slate-50 border-t border-slate-200">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-center text-slate-900 mb-16 tracking-tight" data-aos="fade-up">Giải Quyết Mọi Nút Thắt</h2>
-            <div class="space-y-4" data-aos="fade-up" data-aos-delay="100">
-                <details class="group bg-white p-6 rounded-[1.5rem] border border-slate-200 shadow-sm cursor-pointer hover:shadow-md transition-all">
-                    <summary class="font-bold text-lg text-slate-800 list-none flex justify-between items-center">
-                        Điều kiện của "Cam kết hoàn tiền" là gì?
-                        <span class="transition-transform group-open:rotate-180 text-emerald-600 bg-emerald-50 rounded-full p-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
-                        </span>
-                    </summary>
-                    <div class="mt-4 text-slate-600 leading-relaxed font-medium pl-2 border-l-2 border-emerald-200">
-Cam kết được áp dụng khi học viên tham gia đầy đủ các hoạt động của chương trình, hoàn thành các đầu việc được thống nhất và tuân thủ lộ trình đã xây dựng cùng mentor.                    </div>
-                </details>
-                <details class="group bg-white p-6 rounded-[1.5rem] border border-slate-200 shadow-sm cursor-pointer hover:shadow-md transition-all">
-                    <summary class="font-bold text-lg text-slate-800 list-none flex justify-between items-center">
-                        Lịch học 1-1 có linh hoạt không?
-                        <span class="transition-transform group-open:rotate-180 text-emerald-600 bg-emerald-50 rounded-full p-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
-                        </span>
-                    </summary>
-                    <div class="mt-4 text-slate-600 leading-relaxed font-medium pl-2 border-l-2 border-emerald-200">
-                        Chắc chắn. Lịch học được thống nhất trực tiếp giữa bạn và Mentor, đảm bảo không xung đột với giờ lên lớp hay lịch làm việc part-time của bạn.
-                    </div>
-                </details>
-                <details class="group bg-white p-6 rounded-[1.5rem] border border-slate-200 shadow-sm cursor-pointer hover:shadow-md transition-all">
-                    <summary class="font-bold text-lg text-slate-800 list-none flex justify-between items-center">
-                        Profile trống trơn, chưa đi thực tập thì sao?
-                        <span class="transition-transform group-open:rotate-180 text-emerald-600 bg-emerald-50 rounded-full p-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
-                        </span>
-                    </summary>
-                    <div class="mt-4 text-slate-600 leading-relaxed font-medium pl-2 border-l-2 border-emerald-200">
-                       Mentor sẽ giúp bạn xây dựng lộ trình phát triển phù hợp, bao gồm các dự án thực tế, hoạt động phát triển kỹ năng và chiến lược tăng sức cạnh tranh cho hồ sơ.
-                    </div>
-                </details>
-            </div>
-        </div>
-    </section>
-
-    <section id="tai-lieu" class="py-24 bg-gradient-to-b from-slate-50 to-emerald-50">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8" data-aos="zoom-in">
-            <div class="bg-white rounded-[3rem] p-10 md:p-16 shadow-2xl shadow-emerald-900/5 border border-emerald-100 text-center relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-100 rounded-full blur-3xl"></div>
-                <div class="absolute bottom-0 left-0 w-32 h-32 bg-amber-50 rounded-full blur-3xl"></div>
-                
-                <span class="relative z-10 bg-slate-900 text-white px-5 py-2 rounded-full font-bold text-xs uppercase tracking-widest mb-8 inline-block shadow-lg">Free E-Book Download</span>
-                <h2 class="relative z-10 text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">Tải Miễn Phí Bộ Lộ Trình Đại Học Chuẩn MNC</h2>
-                <p class="relative z-10 text-slate-600 mb-10 font-medium text-lg max-w-2xl mx-auto">Nhận ngay lộ trình phát triển 4 năm đại học cùng bộ tiêu chí tuyển dụng dành cho Finance, Consulting, Marketing và Management Trainee.</p>
-                <form class="relative z-10 flex flex-col sm:flex-row gap-4 max-w-3xl mx-auto">
-                    <input type="text" placeholder="Họ và tên của bạn" class="flex-1 px-6 py-5 rounded-2xl border-2 border-slate-200 focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/20 font-medium text-lg transition-all">
-                    <input type="email" placeholder="Email nhận tài liệu" class="flex-1 px-6 py-5 rounded-2xl border-2 border-slate-200 focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/20 font-medium text-lg transition-all">
-                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white font-black py-5 px-10 rounded-2xl transition-all shadow-lg hover:shadow-xl hover:shadow-emerald-500/30 transform hover:-translate-y-1 text-lg">GỬI CHO TÔI</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <section id="dang-ky" class="py-32 bg-emerald-950 text-white text-center relative overflow-hidden">
-        <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-800/30 rounded-full blur-[100px] pointer-events-none"></div>
-        
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10" data-aos="zoom-in" data-aos-duration="1000">
-            <h2 class="text-4xl md:text-6xl lg:text-7xl font-black mb-8 leading-[1.1] tracking-tight">Offer không phải phép màu.<br><span class="text-emerald-400">Nó Là Hệ Quả Của Tư Duy Đúng.</span></h2>
-            <p class="text-xl md:text-2xl text-emerald-100/80 mb-14 max-w-3xl mx-auto font-medium leading-relaxed">Nhận tư vấn cùng đội ngũ mentor đang làm việc tại các tập đoàn đa quốc gia và xây dựng lộ trình phát triển phù hợp với mục tiêu của bạn.</p>
-            <a href="#" class="inline-flex items-center justify-center bg-white hover:bg-emerald-50 text-emerald-900 px-14 py-6 rounded-full font-black text-2xl shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-all transform hover:scale-105 active:scale-95 hover:shadow-[0_0_60px_rgba(255,255,255,0.4)]">
-                ĐĂNG KÝ TƯ VẤN NGAY
-            </a>
-        </div>
-    </section>
-
-    <footer class="bg-slate-950 text-slate-400 py-16 border-t border-slate-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
-                <div class="font-extrabold text-3xl text-white tracking-tighter">🎓 ROAD TO MNC</div>
-                <div class="flex flex-wrap justify-center gap-8 text-sm font-semibold">
-                    <a href="#" class="hover:text-emerald-400 transition-colors">Về chúng tôi</a>
-                    <a href="#" class="hover:text-emerald-400 transition-colors">Chính sách bảo mật</a>
-                    <a href="#" class="hover:text-emerald-400 transition-colors">Điều khoản hoàn tiền</a>
-                    <a href="#" class="hover:text-emerald-400 transition-colors">Liên hệ Admin</a>
-                </div>
-            </div>
-            <div class="text-center text-sm font-medium text-slate-600 border-t border-slate-800 pt-8">
-                © 2026 Road to MNC. Built for high-achievers. All rights reserved.
-            </div>
+        <div style="margin-top: 20px; border-top: 1px solid #333; padding-top: 20px;">
+            <p><strong>REFERENCE [cite: 21, 23] / TRÀ ĐÁ MENTOR [cite: 1]</strong></p>
+            <ul style="list-style-type: none; padding: 0;">
+                <li><a href="https://www.shengjiewu.info" style="color: var(--lime-green);">https://www.shengjiewu.info [cite: 24]</a></li>
+                <li><a href="https://www.thepush.com.au" style="color: var(--lime-green);">https://www.thepush.com.au [cite: 25]</a></li>
+                <li><a href="https://dbtm.tds.tu.ac.th" style="color: var(--lime-green);">https://dbtm.tds.tu.ac.th [cite: 26]</a></li>
+                <li><a href="https://loyalistcollege.com" style="color: var(--lime-green);">https://loyalistcollege.com [cite: 27]</a></li>
+            </ul>
         </div>
     </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        // Initialize AOS animations
-        AOS.init({
-            once: true, // Whether animation should happen only once - while scrolling down
-            offset: 50, // Offset (in px) from the original trigger point
-            duration: 800, // Values from 0 to 3000, with step 50ms
-            easing: 'ease-out-cubic', // Default easing for AOS animations
-        });
-
-        // Mobile Menu Toggle
-        const btn = document.getElementById('mobile-menu-btn');
-        const menu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-        });
-
-        // Dynamic Sticky Navbar Scroll Effect
-        const navbar = document.getElementById('navbar');
-        const navContainer = document.getElementById('nav-container');
-        
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 20) {
-                // Scrolled state
-                navbar.classList.add('bg-white/95', 'shadow-md', 'border-slate-200');
-                navbar.classList.remove('bg-white/50', 'border-transparent');
-                navContainer.classList.remove('h-20');
-                navContainer.classList.add('h-16'); // Shrink slightly on scroll
-            } else {
-                // Top state
-                navbar.classList.remove('bg-white/95', 'shadow-md', 'border-slate-200');
-                navbar.classList.add('bg-white/50', 'border-transparent');
-                navContainer.classList.remove('h-16');
-                navContainer.classList.add('h-20');
-            }
-        });
-    </script>
 </body>
 </html>
