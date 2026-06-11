@@ -30,7 +30,7 @@
             background-color: var(--off-white);
             color: var(--black);
             line-height: 1.6;
-            overflow-x: hidden;
+            overflow-x: hidden; /* Tránh thanh cuộn ngang khi animation */
         }
 
         h1, h2, h3, h4, .font-heading {
@@ -41,6 +41,7 @@
 
         a { text-decoration: none; }
 
+        /* --- ANIMATIONS --- */
         .marquee {
             width: 100vw;
             background-color: var(--lime-green);
@@ -64,6 +65,18 @@
             100% { transform: translate(-100%, 0); }
         }
 
+        /* Lướt đến đâu hiện đến đó */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- LAYOUT TỔNG --- */
         .container {
             max-width: 100%;
             margin: 0;
@@ -76,9 +89,7 @@
             grid-template-columns: 1fr;
         }
         @media(min-width: 768px) {
-            .grid-section {
-                grid-template-columns: 1fr 1fr;
-            }
+            .grid-section { grid-template-columns: 1fr 1fr; }
         }
 
         .border-right { border-right: 2px solid var(--black); }
@@ -104,6 +115,7 @@
             font-weight: 500;
         }
 
+        /* Nút bấm Hover Brutalism */
         .btn {
             display: inline-block;
             background-color: var(--black);
@@ -113,12 +125,14 @@
             font-weight: 700;
             text-transform: uppercase;
             border: 2px solid var(--black);
-            transition: all 0.3s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
             cursor: pointer;
         }
         .btn:hover {
             background-color: var(--lime-green);
             color: var(--black);
+            transform: translate(-4px, -4px);
+            box-shadow: 6px 6px 0px var(--dark-green);
         }
         .btn-green {
             background-color: var(--lime-green);
@@ -127,6 +141,7 @@
         .btn-green:hover {
             background-color: var(--black);
             color: var(--lime-green);
+            box-shadow: 6px 6px 0px var(--lime-green);
         }
 
         .bg-dark {
@@ -143,9 +158,7 @@
             padding: 15px 0;
             border-bottom: 1px solid rgba(0,0,0,0.1);
         }
-        ul.custom-list li:last-child {
-            border-bottom: none;
-        }
+        ul.custom-list li:last-child { border-bottom: none; }
 
         .tag {
             display: inline-block;
@@ -158,7 +171,15 @@
             font-family: var(--font-heading);
         }
 
-        /* Detail Modules */
+        /* Card Hover Effects */
+        .mentor-card {
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .mentor-card:hover {
+            background-color: var(--lime-green);
+            transform: translateY(-5px);
+        }
+
         .module-block {
             border: 2px solid var(--black);
             background: white;
@@ -166,7 +187,13 @@
             display: flex;
             flex-direction: column;
             color: var(--black);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+        .module-block:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 10px 10px 0px var(--black);
+        }
+
         @media(min-width: 768px) {
             .module-block { flex-direction: row; }
         }
@@ -179,6 +206,10 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            transition: background 0.3s ease;
+        }
+        .module-block:hover .module-header {
+            background: var(--black);
         }
         @media(min-width: 768px) {
             .module-header {
@@ -209,6 +240,11 @@
             border: 2px dashed var(--black);
             padding: 20px;
             margin-top: auto;
+            transition: background 0.3s ease;
+        }
+        .module-block:hover .outcome-box {
+            background: var(--lime-green);
+            border-style: solid;
         }
         .outcome-box h4 {
             color: var(--dark-green);
@@ -224,12 +260,12 @@
     </div>
 
     <div class="container grid-section">
-        <div class="pad-xl border-right">
+        <div class="pad-xl border-right reveal">
             <h1 class="title-hero">ROAD<br>TO MNC.</h1>
             <p class="text-lead" style="margin-bottom: 30px;">Giải pháp All-in-one phối hợp giữa Masterclass hệ thống và Mentoring 1-1 cá nhân hóa.</p>
             <a href="#" class="btn btn-green">ĐĂNG KÝ TƯ VẤN</a>
         </div>
-        <div class="pad-xl" style="background-color: var(--black); color: var(--off-white);">
+        <div class="pad-xl reveal" style="background-color: var(--black); color: var(--off-white); transition-delay: 0.2s;">
             <h3 style="color: var(--lime-green); font-size: 2rem; margin-bottom: 20px;">VẤN ĐỀ CỦA BẠN</h3>
             <ul style="list-style: none; margin-bottom: 30px; font-size: 1.1rem; line-height: 1.8;">
                 <li>• Bạn đã học nhiều khóa học. Nhưng vẫn chưa có Offer.</li>
@@ -243,12 +279,12 @@
         </div>
     </div>
 
-    <div class="container bg-dark pad-l text-center">
+    <div class="container bg-dark pad-l text-center reveal">
         <h2 class="title-section" style="max-width: 900px; margin: 0 auto;">CHÚNG TÔI KHÔNG CHỈ DẠY LÝ THUYẾT. CHÚNG TÔI ĐỒNG HÀNH TRONG TOÀN BỘ HÀNH TRÌNH NHẬN OFFER.</h2>
     </div>
 
     <div class="container grid-section">
-        <div class="pad-l border-right">
+        <div class="pad-l border-right reveal">
             <p class="text-lead">Mỗi học viên bước vào chương trình đều có một xuất phát điểm và rào cản riêng biệt:</p>
             <ul class="custom-list" style="margin-top: 20px;">
                 <li><strong>GPA Xuất sắc:</strong> Nhưng hồ sơ còn trống trải nghiệm thực tế.</li>
@@ -258,68 +294,69 @@
             </ul>
             <p>Dù bạn đang ở bất kỳ vạch xuất phát nào, định hướng theo đuổi các khối ngành Commercial (Marketing, Sales/Business Development) hay Consulting , Mentor sẽ cùng bạn phân tích khoảng cách năng lực hiện tại so với tiêu chuẩn tuyển dụng, xây dựng chiến lược cá nhân hóa để từng bước chinh phục mục tiêu.</p>
         </div>
-        <div class="pad-l" style="background: var(--lime-green);">
+        <div class="pad-l reveal" style="background: var(--lime-green); transition-delay: 0.2s;">
             <h3 style="font-size: 2rem; color: var(--black); margin-bottom: 20px;">3 ĐIỂM KHÁC BIỆT CỐT LÕI</h3>
-            <div style="margin-bottom: 20px; border: 2px solid var(--black); padding: 20px; background: white;">
+            <div style="margin-bottom: 20px; border: 2px solid var(--black); padding: 20px; background: white; transition: transform 0.2s ease;" onmouseover="this.style.transform='translateX(10px)'" onmouseout="this.style.transform='translateX(0)'">
                 <h4 style="color: var(--black); margin-bottom: 10px;">1. Cam kết bằng kết quả thực tế</h4>
                 <p>Chương trình đồng hành chặt chẽ cùng học viên cho đến khi nhận được Offer.</p>
             </div>
-            <div style="margin-bottom: 20px; border: 2px solid var(--black); padding: 20px; background: white;">
+            <div style="margin-bottom: 20px; border: 2px solid var(--black); padding: 20px; background: white; transition: transform 0.2s ease;" onmouseover="this.style.transform='translateX(10px)'" onmouseout="this.style.transform='translateX(0)'">
                 <h4 style="color: var(--black); margin-bottom: 10px;">2. 100% Đội ngũ Mentor tiêu chuẩn cao</h4>
                 <p>Toàn bộ Mentor tham gia giảng dạy và cố vấn đều là những nhân sự xuất sắc đã tốt nghiệp hoặc đang làm việc ở các vị trí Quản trị viên tập sự (Management Trainee) và Chuyên viên tư vấn chiến lược (Consultant) tại các tập đoàn đa quốc gia và các công ty tư vấn hàng đầu (MBB). Họ là những chuyên gia thường xuyên xuất hiện với vai trò diễn giả tại các webinar lớn, nay dành thời gian làm việc trực tiếp 1-1 cùng bạn.</p>
             </div>
-            <div style="border: 2px solid var(--black); padding: 20px; background: white;">
+            <div style="border: 2px solid var(--black); padding: 20px; background: white; transition: transform 0.2s ease;" onmouseover="this.style.transform='translateX(10px)'" onmouseout="this.style.transform='translateX(0)'">
                 <h4 style="color: var(--black); margin-bottom: 10px;">3. Tự động hóa cơ hội</h4>
                 <p>Ban tổ chức chương trình chủ động tìm kiếm các cơ hội việc làm, liên tục cập nhật job listings tiềm năng và hỗ trợ nộp hồ sơ trực tiếp đến hơn 100 vị trí phù hợp với định hướng của học viên. Ứng viên không phải tự tìm kiếm cơ hội hay thực hiện các bước ứng tuyển thủ công phức tạp.</p>
             </div>
         </div>
     </div>
 
-    <div class="container pad-xl text-center border-bottom">
+    <div class="container pad-xl text-center border-bottom reveal">
         <h2 class="title-section">ĐỘI NGŨ MENTOR CHUYÊN GIA</h2>
         <p class="text-lead">Thực chiến từ MBB & MNCS (Học viên được đề xuất ghép cặp với những chuyên gia có kinh nghiệm từ 2 đến 5 năm tại chính khối ngành mục tiêu)</p>
     </div>
     
     <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
-        <div class="pad-m border-right border-bottom">
+        <div class="pad-m border-right border-bottom mentor-card reveal">
             <span class="tag">HEINEKEN / BAT</span>
             <h3 style="margin-bottom: 10px;">Harry Nguyễn</h3>
             <p>Digital Strategy & PMO Lead tại HEINEKEN | Cựu Trade Management Trainee tại British America Tobacco (BAT).</p>
         </div>
-        <div class="pad-m border-right border-bottom">
+        <div class="pad-m border-right border-bottom mentor-card reveal" style="transition-delay: 0.1s;">
             <span class="tag">McKinsey & Company</span>
             <h3 style="margin-bottom: 10px;">Bùi Hà Phương</h3>
             <p>Cựu Consultant tại McKinsey & Company | Tốt nghiệp bậc Thạc sĩ Quản trị Kinh doanh (MBA) tại Columbia Southern University.</p>
         </div>
-        <div class="pad-m border-bottom">
+        <div class="pad-m border-bottom mentor-card reveal" style="transition-delay: 0.2s;">
             <span class="tag">PRUDENTIAL</span>
             <h3 style="margin-bottom: 10px;">David Trần</h3>
             <p>Business Expansion Manager tại Prudential | Cựu Management Trainee tại tập đoàn Prudential.</p>
         </div>
-        <div class="pad-m border-right">
+        <div class="pad-m border-right mentor-card reveal">
             <span class="tag">HEINEKEN / SHOPEE</span>
             <h3 style="margin-bottom: 10px;">Nguyễn Ngọc Thảo Ngân</h3>
             <p>Marketing Management Trainee tại Heineken | Cựu nhân sự chuyên trách Marketing tại Shopee và Perfetti Van Melle.</p>
         </div>
-        <div class="pad-m border-right">
+        <div class="pad-m border-right mentor-card reveal" style="transition-delay: 0.1s;">
             <span class="tag">HEINEKEN / EY</span>
             <h3 style="margin-bottom: 10px;">Vũ Trí Dũng</h3>
             <p>Commercial Management Trainee tại Heineken | Cựu trợ lý kiểm toán chuyên nghiệp (Audit Assistant) tại EY.</p>
         </div>
-        <div class="pad-m">
+        <div class="pad-m mentor-card reveal" style="transition-delay: 0.2s;">
             <span class="tag">UNILEVER</span>
             <h3 style="margin-bottom: 10px;">Daniel Ngô</h3>
             <p>Brand Manager chuyên nghiệp tại tập đoàn Unilever | Cựu Marketing UFLP Management Trainee.</p>
         </div>
     </div>
 
-    <div class="container pad-xl bg-dark text-center">
+    <div class="container pad-xl bg-dark text-center reveal">
         <h2 class="title-section">01. HỆ THỐNG MASTERCLASS CHUYÊN SÂU</h2>
         <p class="text-lead" style="max-width: 800px; margin: 0 auto;">Hệ thống gồm 7 chủ đề với 10 lớp học Masterclass, thời lượng 90 120 phút/buổi, cung cấp khối lượng kiến thức tiêu chuẩn và framework ứng dụng thực tế tại doanh nghiệp.</p>
     </div>
     
     <div class="container pad-l" style="background: var(--lime-green);">
-        <div class="module-block">
+        
+        <div class="module-block reveal">
             <div class="module-header">
                 <span style="font-size: 3rem; font-weight: bold; line-height: 1;">01</span>
                 <div class="module-title">Recruitment Strategy & Recruiter Mindset</div>
@@ -336,7 +373,7 @@
             </div>
         </div>
 
-        <div class="module-block">
+        <div class="module-block reveal">
             <div class="module-header">
                 <span style="font-size: 3rem; font-weight: bold; line-height: 1;">02</span>
                 <div class="module-title">Framework & Business Case Thinking</div>
@@ -353,7 +390,7 @@
             </div>
         </div>
 
-        <div class="module-block">
+        <div class="module-block reveal">
             <div class="module-header">
                 <span style="font-size: 3rem; font-weight: bold; line-height: 1;">03</span>
                 <div class="module-title">Basic Data Analysis</div>
@@ -370,7 +407,7 @@
             </div>
         </div>
 
-        <div class="module-block">
+        <div class="module-block reveal">
             <div class="module-header">
                 <span style="font-size: 3rem; font-weight: bold; line-height: 1;">04</span>
                 <div class="module-title">LinkedIn & Networking Tactics</div>
@@ -387,7 +424,7 @@
             </div>
         </div>
 
-        <div class="module-block">
+        <div class="module-block reveal">
             <div class="module-header">
                 <span style="font-size: 3rem; font-weight: bold; line-height: 1;">05</span>
                 <div class="module-title">Cultural Fit Interview & Live Feedback</div>
@@ -404,7 +441,7 @@
             </div>
         </div>
 
-        <div class="module-block">
+        <div class="module-block reveal">
             <div class="module-header">
                 <span style="font-size: 3rem; font-weight: bold; line-height: 1;">06</span>
                 <div class="module-title">Assessment Center Simulation</div>
@@ -421,7 +458,7 @@
             </div>
         </div>
 
-        <div class="module-block" style="margin-bottom: 0;">
+        <div class="module-block reveal" style="margin-bottom: 0;">
             <div class="module-header">
                 <span style="font-size: 3rem; font-weight: bold; line-height: 1;">07</span>
                 <div class="module-title">Effective Slides & Presentation</div>
@@ -439,13 +476,14 @@
         </div>
     </div>
 
-    <div class="container pad-xl bg-dark text-center" style="border-top: 2px solid var(--black);">
+    <div class="container pad-xl bg-dark text-center reveal" style="border-top: 2px solid var(--black);">
         <h2 class="title-section">02. LỘ TRÌNH MENTORING 1-1 THỰC CHIẾN</h2>
         <p class="text-lead" style="max-width: 800px; margin: 0 auto;">Quy trình bao gồm 10 Module can thiệp sâu, Mentor trực tiếp đồng hành 1-1 nhằm giải quyết triệt để các bài toán cá nhân trên hồ sơ của từng Mentee.</p>
     </div>
 
     <div class="container pad-l" style="background: var(--off-white);">
-        <div class="module-block">
+        
+        <div class="module-block reveal">
             <div class="module-header" style="background: var(--black);">
                 <span style="font-size: 3rem; font-weight: bold; line-height: 1;">01</span>
                 <div class="module-title" style="color: var(--off-white);">Career Roadmap</div>
@@ -462,7 +500,7 @@
             </div>
         </div>
 
-        <div class="module-block">
+        <div class="module-block reveal">
             <div class="module-header" style="background: var(--black);">
                 <span style="font-size: 3rem; font-weight: bold; line-height: 1;">02</span>
                 <div class="module-title" style="color: var(--off-white);">Sửa & Feedback CV</div>
@@ -479,7 +517,7 @@
             </div>
         </div>
 
-        <div class="module-block">
+        <div class="module-block reveal">
             <div class="module-header" style="background: var(--black);">
                 <span style="font-size: 3rem; font-weight: bold; line-height: 1;">03</span>
                 <div class="module-title" style="color: var(--off-white);">Aptitude Test Strategy</div>
@@ -496,7 +534,7 @@
             </div>
         </div>
 
-        <div class="module-block">
+        <div class="module-block reveal">
             <div class="module-header" style="background: var(--black);">
                 <span style="font-size: 3rem; font-weight: bold; line-height: 1;">04</span>
                 <div class="module-title" style="color: var(--off-white);">Cultural Fit Interview Mock Round</div>
@@ -513,7 +551,7 @@
             </div>
         </div>
 
-        <div class="module-block">
+        <div class="module-block reveal">
             <div class="module-header" style="background: var(--black);">
                 <span style="font-size: 3rem; font-weight: bold; line-height: 1;">05</span>
                 <div class="module-title" style="color: var(--off-white);">List Vị trí & Công ty mục tiêu</div>
@@ -530,7 +568,7 @@
             </div>
         </div>
 
-        <div class="module-block">
+        <div class="module-block reveal">
             <div class="module-header" style="background: var(--black);">
                 <span style="font-size: 3rem; font-weight: bold; line-height: 1;">06</span>
                 <div class="module-title" style="color: var(--off-white);">Linkedin & Networking Coaching</div>
@@ -547,7 +585,7 @@
             </div>
         </div>
 
-        <div class="module-block">
+        <div class="module-block reveal">
             <div class="module-header" style="background: var(--black);">
                 <span style="font-size: 3rem; font-weight: bold; line-height: 1;">07</span>
                 <div class="module-title" style="color: var(--off-white);">Externship / Project Development</div>
@@ -564,7 +602,7 @@
             </div>
         </div>
 
-        <div class="module-block">
+        <div class="module-block reveal">
             <div class="module-header" style="background: var(--black);">
                 <span style="font-size: 3rem; font-weight: bold; line-height: 1;">08</span>
                 <div class="module-title" style="color: var(--off-white);">Cuộc thi Business Case Coaching</div>
@@ -581,7 +619,7 @@
             </div>
         </div>
 
-        <div class="module-block">
+        <div class="module-block reveal">
             <div class="module-header" style="background: var(--black);">
                 <span style="font-size: 3rem; font-weight: bold; line-height: 1;">09</span>
                 <div class="module-title" style="color: var(--off-white);">Mô phỏng Assessment Center 1-1 Feedback</div>
@@ -598,7 +636,7 @@
             </div>
         </div>
 
-        <div class="module-block" style="margin-bottom: 0;">
+        <div class="module-block reveal" style="margin-bottom: 0;">
             <div class="module-header" style="background: var(--black);">
                 <span style="font-size: 3rem; font-weight: bold; line-height: 1;">10</span>
                 <div class="module-title" style="color: var(--off-white);">Industry Knowledge Transfer</div>
@@ -616,40 +654,40 @@
         </div>
     </div>
 
-    <div class="container pad-xl border-bottom text-center border-top">
+    <div class="container pad-xl border-bottom text-center border-top reveal">
         <h2 class="title-section">ROAD MAP TOÀN DIỆN TRONG 5 GIAI ĐOẠN</h2>
         <p class="text-lead">Hai trụ cột Masterclass và Mentoring 1-1 phối hợp đồng bộ trên một trục thời gian tuyến tính, bám sát theo từng điểm chạm của quá trình tuyển dụng thực tế.</p>
     </div>
     <div class="container grid-section">
-        <div class="pad-l border-right border-bottom">
+        <div class="pad-l border-right border-bottom reveal">
             <span class="tag">GĐ 01</span>
             <h3 style="margin-bottom: 10px;">Định hướng & Lập chiến lược</h3>
             <p><strong>Làm gì:</strong> Mentor thực hiện đánh giá hồ sơ tổng thể qua Career Audit, cùng học viên xác định chính xác top ngành, vị trí mục tiêu và xây dựng Timeline ứng tuyển thực tế khớp với khung tuyển dụng của các doanh nghiệp. Học viên kết hợp học kiến thức từ Masterclass 01 và 04.</p>
             <p><strong>Đầu ra:</strong> Career Roadmap & KPI hành động | Bản định hướng lộ trình nghề nghiệp chi tiết, định hình KPI ứng tuyển cho 6-12 tháng tới.</p>
             <p><em>(Tích hợp: Masterclass 01, 04 + Mentoring Module 1, 5, 7)</em></p>
         </div>
-        <div class="pad-l border-bottom">
+        <div class="pad-l border-bottom reveal" style="transition-delay: 0.1s;">
             <span class="tag">GĐ 02</span>
             <h3 style="margin-bottom: 10px;">Xây dựng hồ sơ cạnh tranh</h3>
             <p><strong>Làm gì:</strong> Mentor rà soát chi tiết CV 1-1, lượng hóa toàn bộ thành tựu và hướng dẫn customize CV phù hợp theo từng loại JD đặc thù. Đồng thời, chuẩn hóa profile Linkedin cá nhân dưới sự cố vấn của Mentor.</p>
             <p><strong>Đầu ra:</strong> Bộ CV Customized & LinkedIn chuẩn | Bộ CV phiên bản hoàn chỉnh mang tính định lượng cao, tài khoản Linkedin tối ưu cùng kế hoạch Networking chủ động.</p>
             <p><em>(Tích hợp: Masterclass 04 + Mentoring Module 2, 6)</em></p>
         </div>
-        <div class="pad-l border-right border-bottom">
+        <div class="pad-l border-right border-bottom reveal">
             <span class="tag">GĐ 03</span>
             <h3 style="margin-bottom: 10px;">Vượt qua Online Assessment (Xây nền tảng kinh doanh)</h3>
             <p><strong>Làm gì:</strong> Học viên nâng cao kiến thức nền tảng chuyên sâu từ chuỗi Masterclass: Xử lý số liệu khoa học (Masterclass 03), xây dựng tư duy cấu trúc Business Case thực tế (Masterclass 02) và hiểu rõ Networking chuyên nghiệp (Masterclass 04).</p>
             <p><strong>Đầu ra:</strong> Sẵn sàng phản xạ cho bài Test năng lực | Xây dựng vững chắc tư duy kinh doanh nhạy bén (Business Acumen) và năng lực giải quyết vấn đề hệ thống (Problem Solving Foundation).</p>
             <p><em>(Tích hợp: Hệ thống Self-practice Tests của Organizer + Mentoring Module 3)</em></p>
         </div>
-        <div class="pad-l border-bottom">
+        <div class="pad-l border-bottom reveal" style="transition-delay: 0.1s;">
             <span class="tag">GĐ 04</span>
             <h3 style="margin-bottom: 10px;">Thực chiến Business Case & AC</h3>
             <p><strong>Làm gì:</strong> Ứng viên trực tiếp giải các đề Case thực tế dưới sự quan sát của Mentor (Mentoring Module 8). Đồng thời tham gia vào các buổi thi thử bài tập nhóm mô phỏng thuộc vòng Assessment Center cùng các mentee khác (Mentoring Module 9).</p>
             <p><strong>Đầu ra:</strong> Làm chủ tư duy giải Case & Kỹ năng nhóm | Làm chủ kỹ năng giải case dưới áp lực, hoàn thiện tư duy cấu trúc làm slide và sẵn sàng về tâm lý vượt qua vòng AC phức tạp.</p>
             <p><em>(Tích hợp: Masterclass 02, 03, 06, 07 + Mentoring Module 8, 9)</em></p>
         </div>
-        <div class="pad-l border-right" style="grid-column: 1 / -1; background: var(--black); color: var(--lime-green); text-align: center;">
+        <div class="pad-l border-right reveal" style="grid-column: 1 / -1; background: var(--black); color: var(--lime-green); text-align: center;">
             <span class="tag" style="background: white; color: black;">GĐ 05</span>
             <h3 style="margin-bottom: 10px; color: var(--lime-green);">Chuyển hóa Interview thành Offer</h3>
             <p style="color: var(--off-white); margin-bottom: 15px;"><strong>Làm gì:</strong> Mentor triển khai mock interview chuyên sâu 1-1 luyện tập Story bank với mentee. Mentee cập nhật dữ liệu ứng tuyển hàng ngày, đảm bảo KPI apply jobs và hoàn thành ứng tuyển trong vòng 12h kể từ khi job mở.</p>
@@ -658,12 +696,12 @@
         </div>
     </div>
 
-    <div class="container pad-xl text-center bg-dark">
+    <div class="container pad-xl text-center bg-dark reveal">
         <h2 class="title-section">CÁ NHÂN HÓA LỘ TRÌNH DỰA TRÊN MỤC TIÊU CỦA BẠN</h2>
         <p class="text-lead" style="max-width: 800px; margin: 0 auto; margin-bottom: 40px;">Chúng tôi chủ động giới hạn số lượng học viên tiếp nhận hàng tháng để đảm bảo chất lượng dịch vụ và độ sâu sát của phiên cố vấn 1-1 (Service Adaptation). Chương trình phân tách rõ ràng thành 2 lộ trình tối ưu:</p>
         
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; text-align: left;">
-            <div style="background: white; color: black; padding: 40px; border: 2px solid var(--lime-green);">
+            <div class="reveal" style="background: white; color: black; padding: 40px; border: 2px solid var(--lime-green); transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translate(-5px, -5px)'; this.style.boxShadow='8px 8px 0px var(--lime-green)';" onmouseout="this.style.transform='translate(0, 0)'; this.style.boxShadow='none';">
                 <h3 style="font-size: 2rem; margin-bottom: 20px; color: var(--dark-green);">GÓI INTERNSHIP<br><span style="font-size: 1rem; color: #666;">(THỜI GIAN ĐỒNG HÀNH: 4 THÁNG)</span></h3>
                 <ul class="custom-list">
                     <li><strong>Đối tượng ứng tuyển:</strong> Sinh viên từ năm 2 đến năm 4 mong muốn cọ xát và tìm kiếm các kỳ thực tập lớn.</li>
@@ -671,7 +709,7 @@
                     <li><strong>Quyền lợi nhận được:</strong> Lộ trình cố vấn Mentoring 1-1 chuyên sâu (tối đa 16 sessions cùng Mentor có 2-3 năm kinh nghiệm thực tế) kết hợp trọn vẹn khóa học 7 buổi Masterclass.</li>
                 </ul>
             </div>
-            <div style="background: white; color: black; padding: 40px; border: 2px solid var(--lime-green);">
+            <div class="reveal" style="background: white; color: black; padding: 40px; border: 2px solid var(--lime-green); transition: transform 0.3s ease, box-shadow 0.3s ease; transition-delay: 0.1s;" onmouseover="this.style.transform='translate(-5px, -5px)'; this.style.boxShadow='8px 8px 0px var(--lime-green)';" onmouseout="this.style.transform='translate(0, 0)'; this.style.boxShadow='none';">
                 <h3 style="font-size: 2rem; margin-bottom: 20px; color: var(--dark-green);">GÓI MANAGEMENT TRAINEE & ENTRY-LEVEL JOB<br><span style="font-size: 1rem; color: #666;">(THỜI GIAN ĐỒNG HÀNH: 6 THÁNG)</span></h3>
                 <ul class="custom-list">
                     <li><strong>Đối tượng ứng tuyển:</strong> Sinh viên năm 3-4 hoặc có dưới 2 năm kinh nghiệm thực tế (đã từng qua các vị trí thực tập) đặt mục tiêu chinh phục các chương trình MT hoặc vị trí Full-time.</li>
@@ -682,7 +720,7 @@
         </div>
     </div>
 
-    <div class="container pad-xl">
+    <div class="container pad-xl reveal">
         <h2 class="title-section text-center" style="margin-bottom: 40px;">CÂU HỎI THƯỜNG GẶP (FAQ)</h2>
         
         <div style="margin-bottom: 40px; border-left: 4px solid var(--lime-green); padding-left: 20px;">
@@ -703,12 +741,40 @@
         </div>
     </div>
 
-    <footer class="bg-dark text-center pad-m">
+    <footer class="bg-dark text-center pad-m reveal">
         <h1 class="font-heading" style="color: var(--lime-green); font-size: 3rem; margin-bottom: 10px;">ROAD TO MNC.</h1>
         <p style="font-size: 0.9rem; margin-bottom: 20px;">© 2026. All rights reserved.</p>
         
-
+        <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px;">
+            <p style="color: var(--lime-green); font-weight: bold; margin-bottom: 10px;">REFERENCE</p>
+            <a href="https://www.shengjiewu.info" target="_blank" style="color: var(--off-white); margin: 0 10px; transition: color 0.3s;" onmouseover="this.style.color='var(--lime-green)'" onmouseout="this.style.color='var(--off-white)'">shengjiewu.info</a> | 
+            <a href="https://www.thepush.com.au" target="_blank" style="color: var(--off-white); margin: 0 10px; transition: color 0.3s;" onmouseover="this.style.color='var(--lime-green)'" onmouseout="this.style.color='var(--off-white)'">thepush.com.au</a> | 
+            <a href="https://dbtm.tds.tu.ac.th" target="_blank" style="color: var(--off-white); margin: 0 10px; transition: color 0.3s;" onmouseover="this.style.color='var(--lime-green)'" onmouseout="this.style.color='var(--off-white)'">dbtm.tds.tu.ac.th</a> | 
+            <a href="https://loyalistcollege.com" target="_blank" style="color: var(--off-white); margin: 0 10px; transition: color 0.3s;" onmouseover="this.style.color='var(--lime-green)'" onmouseout="this.style.color='var(--off-white)'">loyalistcollege.com</a>
+        </div>
     </footer>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const reveals = document.querySelectorAll(".reveal");
+
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                const elementVisible = 100; // Khoảng cách từ dưới lên trước khi trigger animation
+
+                reveals.forEach((reveal) => {
+                    const elementTop = reveal.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveal.classList.add("active");
+                    }
+                });
+            };
+
+            // Trigger ngay khi load trang
+            revealOnScroll();
+            // Trigger khi scroll
+            window.addEventListener("scroll", revealOnScroll);
+        });
+    </script>
 </body>
 </html>
