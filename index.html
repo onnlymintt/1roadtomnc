@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ROAD TO MNC</title>
     
+    <!-- Tích hợp Fonts: Roboto cho vỏ bọc, Nunito cho phần cute -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&family=Roboto+Condensed:wght@700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Thư viện Pháo hoa -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
         :root {
@@ -17,6 +21,12 @@
             --lime-green: #B9DF30; 
             --font-heading: 'Roboto Condensed', sans-serif; 
             --font-body: 'Roboto', sans-serif; 
+            
+            /* Màu cho popup sinh nhật cute */
+            --cute-purple: #c471ed;
+            --light-purple: #f8e8ff;
+            --pink-red: #ff758c;
+            --font-cute: 'Nunito', sans-serif;
         }
 
         * {
@@ -41,7 +51,7 @@
 
         a { text-decoration: none; }
 
-        /* --- ANIMATIONS --- */
+        /* --- ANIMATIONS CỦA VỎ BỌC --- */
         .marquee {
             width: 100vw;
             background-color: var(--lime-green);
@@ -159,99 +169,7 @@
         }
         ul.custom-list li:last-child { border-bottom: none; }
 
-        .tag {
-            display: inline-block;
-            background: var(--lime-green);
-            color: var(--black);
-            padding: 5px 10px;
-            font-weight: bold;
-            font-size: 0.8rem;
-            margin-bottom: 15px;
-            font-family: var(--font-heading);
-        }
-
-        /* Card Hover Effects */
-        .mentor-card {
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-        .mentor-card:hover {
-            background-color: var(--lime-green);
-            transform: translateY(-5px);
-        }
-
-        .module-block {
-            border: 2px solid var(--black);
-            background: white;
-            margin-bottom: 30px;
-            display: flex;
-            flex-direction: column;
-            color: var(--black);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .module-block:hover {
-            transform: translate(-4px, -4px);
-            box-shadow: 10px 10px 0px var(--black);
-        }
-
-        @media(min-width: 768px) {
-            .module-block { flex-direction: row; }
-        }
-        .module-header {
-            background: var(--dark-green);
-            color: var(--lime-green);
-            padding: 30px;
-            width: 100%;
-            border-bottom: 2px solid var(--black);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            transition: background 0.3s ease;
-        }
-        .module-block:hover .module-header {
-            background: var(--black);
-        }
-        @media(min-width: 768px) {
-            .module-header {
-                width: 35%;
-                border-bottom: none;
-                border-right: 2px solid var(--black);
-            }
-        }
-        .module-content {
-            padding: 30px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        @media(min-width: 768px) {
-            .module-content { width: 65%; }
-        }
-        .module-title {
-            font-family: var(--font-heading);
-            font-size: 2rem;
-            text-transform: uppercase;
-            line-height: 1.1;
-            margin-bottom: 10px;
-        }
-        .outcome-box {
-            background: var(--off-white);
-            border: 2px dashed var(--black);
-            padding: 20px;
-            margin-top: auto;
-            transition: background 0.3s ease;
-        }
-        .module-block:hover .outcome-box {
-            background: var(--lime-green);
-            border-style: solid;
-        }
-        .outcome-box h4 {
-            color: var(--dark-green);
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-
-        /* --- SURPRISE MODAL CSS --- */
+        /* --- SURPRISE MODAL (GIAO DIỆN CUTE) --- */
         #birthday-surprise {
             display: none;
             position: fixed;
@@ -259,16 +177,14 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: var(--off-white);
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
             z-index: 99999;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             padding: 20px;
-            background-image: radial-gradient(circle, var(--lime-green) 10%, transparent 11%),radial-gradient(circle, var(--lime-green) 10%, transparent 11%);
-            background-size: 60px 60px;
-            background-position: 0 0, 30px 30px;
         }
         
         #birthday-surprise.show {
@@ -276,64 +192,135 @@
         }
 
         .surprise-box {
-            background: white;
-            border: 4px solid var(--black);
-            padding: 50px 30px;
-            max-width: 700px;
-            box-shadow: 15px 15px 0px var(--dark-green);
-            border-radius: 20px;
+            font-family: var(--font-cute);
+            background: var(--light-purple);
+            border: 4px dashed var(--cute-purple);
+            padding: 40px 30px;
+            max-width: 600px;
+            border-radius: 30px;
+            box-shadow: 0 15px 30px rgba(196, 113, 237, 0.3);
+            position: relative;
+        }
+
+        /* Chỗ up ảnh Thư */
+        .avatar-thu {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid white;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            margin: -90px auto 20px auto; /* Kéo ảnh nổi lên viền trên của box */
+            display: block;
+            background-color: #fff;
+        }
+
+        .cute-title {
+            font-family: var(--font-cute);
+            font-size: 2.2rem;
+            color: var(--cute-purple);
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-transform: none; /* Trả về chữ thường, không bắt buộc in hoa */
+        }
+
+        .cute-text {
+            font-family: var(--font-cute);
+            font-size: 1.2rem;
+            color: #4a4a4a;
+            margin-bottom: 15px;
+            line-height: 1.7;
+            font-weight: 600;
+        }
+
+        .highlight-text {
+            color: var(--cute-purple);
+            font-weight: 800;
+            font-size: 1.3rem;
+            margin-bottom: 35px;
         }
 
         .btn-birthday {
+            font-family: var(--font-cute);
             font-size: 1.2rem;
-            padding: 15px 40px;
-            border: 3px solid var(--black);
-            font-family: var(--font-heading);
-            font-weight: bold;
+            padding: 12px 35px;
+            border: none;
+            font-weight: 800;
             cursor: pointer;
             border-radius: 50px;
-            transition: transform 0.1s;
+            transition: all 0.2s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         #btn-yes {
-            background-color: var(--dark-green);
-            color: var(--lime-green);
+            background: linear-gradient(135deg, var(--cute-purple), #9b59b6);
+            color: white;
         }
         #btn-yes:hover {
-            transform: scale(1.1);
-            background-color: var(--black);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(196, 113, 237, 0.5);
         }
 
         #btn-no {
-            background-color: #ff4d4d;
+            background-color: var(--pink-red);
             color: white;
-            position: relative; /* Sẽ bị JS đổi thành fixed khi hover */
+            position: relative; /* JS sẽ đổi thành absolute khi di chuột */
+        }
+
+        /* Nút Music Toggle Tinh tế góc phải */
+        .music-toggle {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: white;
+            border: 2px solid var(--cute-purple);
+            color: var(--cute-purple);
+            border-radius: 50px;
+            padding: 5px 15px;
+            font-family: var(--font-cute);
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .music-toggle:hover {
+            background: var(--cute-purple);
+            color: white;
         }
     </style>
 </head>
 <body>
 
-    <!-- MÀN HÌNH CHÚC MỪNG SINH NHẬT (Ẩn mặc định) -->
+    <!-- THẺ AUDIO CHỨA NHẠC (Bạn cần up file nhac.mp3) -->
+    <audio id="bg-music" loop>
+        <source src="nhac.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- MÀN HÌNH CHÚC MỪNG SINH NHẬT -->
     <div id="birthday-surprise">
         <div class="surprise-box">
-            <h1 style="font-size: 3.5rem; color: var(--dark-green); margin-bottom: 20px;">TÉN TÈN TEN! 🎉</h1>
-            <h2 style="font-size: 2rem; color: var(--black); margin-bottom: 20px;">Chúc mừng sinh nhật Thư Huỳnh! 🎂</h2>
+            <button id="btn-music" class="music-toggle">🎵 Tắt nhạc</button>
             
-            <p style="font-size: 1.3rem; margin-bottom: 15px; font-weight: 500;">
-                Á nhon, lại một năm nữa lại bên nhau, i enjoy every moment were together (dù cũng đ nói chiện j lắm haha, nhma rất comfortable to me).
+            <!-- ẢNH CỦA THƯ: Đổi tên ảnh trên máy tính thành thu.jpg rồi up lên Github nhé -->
+            <img src="thu.jpg" class="avatar-thu" alt="Hình của Thư nè" onerror="this.src='https://via.placeholder.com/160?text=Loi+Anh'">
+            
+            <h1 class="cute-title">Tén tèn ten! Chúc mừng sinh nhật Thư Huỳnh 🎂</h1>
+            
+            <p class="cute-text">
+                Á nhon, lại một năm nữa lại bên nhau, i enjoy every moment were together (dù cũng đ nói chiện j lắm haha, nhma rất comfortable to me 🥰).
             </p>
-            <p style="font-size: 1.3rem; margin-bottom: 40px; font-weight: bold; color: var(--dark-green);">
+            <p class="cute-text highlight-text">
                 Năm nay Thy mời Thư đi coi phim gì đó nhẹ với Thy nha (chả biết phim rì, chắc cứ ra rạp lựa thôi haha 🎬🍿).
             </p>
 
-            <div style="display: flex; gap: 30px; justify-content: center; align-items: center; min-height: 80px;">
+            <div style="display: flex; gap: 20px; justify-content: center; align-items: center; min-height: 60px;">
                 <button id="btn-yes" class="btn-birthday">YESSS (ĐI LÙN!)</button>
                 <button id="btn-no" class="btn-birthday">NO (CHÊ)</button>
             </div>
         </div>
     </div>
-    <!-- END MÀN HÌNH CHÚC MỪNG -->
 
+    <!-- NỘI DUNG VỎ BỌC ROAD TO MNC BÊN DƯỚI -->
     <div class="marquee">
         <span>ROAD TO MNC PROGRAM • ROAD TO MNC PROGRAM • ROAD TO MNC PROGRAM • ROAD TO MNC PROGRAM • ROAD TO MNC PROGRAM •</span>
     </div>
@@ -342,7 +329,7 @@
         <div class="pad-xl border-right reveal">
             <h1 class="title-hero">ROAD<br>TO MNC.</h1>
             <p class="text-lead" style="margin-bottom: 30px;">Giải pháp All-in-one phối hợp giữa Masterclass hệ thống và Mentoring 1-1 cá nhân hóa.</p>
-            <!-- Thêm class prank-trigger vào các nút bấm -->
+            <!-- NÚT MỒI: THÊM CLASS prank-trigger ĐỂ KÍCH HOẠT LỪA ĐẢO -->
             <a href="#" class="btn btn-green prank-trigger">ĐĂNG KÝ TƯ VẤN</a>
         </div>
         <div class="pad-xl reveal" style="background-color: var(--black); color: var(--off-white); transition-delay: 0.2s;">
@@ -351,11 +338,7 @@
                 <li>• Bạn đã học nhiều khóa học. Nhưng vẫn chưa có Offer.</li>
                 <li>• Bạn biết CV Harvard.</li>
                 <li>• Bạn biết STAR Interview.</li>
-                <li>• Bạn biết Business Case Framework.</li>
-                <li>• Bạn biết Assessment Center diễn ra như thế nào.</li>
             </ul>
-            <p style="color: var(--lime-green); font-weight: bold; font-size: 1.2rem;">Nhưng biết cách làm và thực sự vượt qua vòng tuyển dụng là hai câu chuyện hoàn toàn khác nhau.</p>
-            <p style="margin-top: 15px;">Trong khi phần lớn khóa học chỉ dừng lại ở việc cung cấp kiến thức, Road to MNC được xây dựng để giải quyết từng điểm nghẽn tuyển dụng thực tế của từng học viên thông qua mentoring 1-1.</p>
         </div>
     </div>
 
@@ -363,39 +346,9 @@
         <h2 class="title-section" style="max-width: 900px; margin: 0 auto;">CHÚNG TÔI KHÔNG CHỈ DẠY LÝ THUYẾT. CHÚNG TÔI ĐỒNG HÀNH TRONG TOÀN BỘ HÀNH TRÌNH NHẬN OFFER.</h2>
     </div>
 
-    <div class="container grid-section">
-        <div class="pad-l border-right reveal">
-            <p class="text-lead">Mỗi học viên bước vào chương trình đều có một xuất phát điểm và rào cản riêng biệt:</p>
-            <ul class="custom-list" style="margin-top: 20px;">
-                <li><strong>GPA Xuất sắc:</strong> Nhưng hồ sơ còn trống trải nghiệm thực tế.</li>
-                <li><strong>Nhiều hoạt động:</strong> Nhưng chưa biết cách cấu trúc câu chuyện cá nhân và lượng hóa thành tựu trong CV.</li>
-                <li><strong>Thiếu kỹ năng Final:</strong> Chuẩn bị kỹ càng, vượt qua các vòng đầu để vào tới Assessment Center nhưng chưa đạt kết quả ở vòng phỏng vấn cuối cùng.</li>
-                <li><strong>Từ con số 0:</strong> Chưa từng xây dựng CV hay tham gia một buổi phỏng vấn tiêu chuẩn nào.</li>
-            </ul>
-        </div>
-        <div class="pad-l reveal" style="background: var(--lime-green); transition-delay: 0.2s;">
-            <h3 style="font-size: 2rem; color: var(--black); margin-bottom: 20px;">3 ĐIỂM KHÁC BIỆT CỐT LÕI</h3>
-            <div style="margin-bottom: 20px; border: 2px solid var(--black); padding: 20px; background: white; transition: transform 0.2s ease;" onmouseover="this.style.transform='translateX(10px)'" onmouseout="this.style.transform='translateX(0)'">
-                <h4 style="color: var(--black); margin-bottom: 10px;">1. Cam kết bằng kết quả thực tế</h4>
-                <p>Chương trình đồng hành chặt chẽ cùng học viên cho đến khi nhận được Offer.</p>
-            </div>
-            <div style="margin-bottom: 20px; border: 2px solid var(--black); padding: 20px; background: white; transition: transform 0.2s ease;" onmouseover="this.style.transform='translateX(10px)'" onmouseout="this.style.transform='translateX(0)'">
-                <h4 style="color: var(--black); margin-bottom: 10px;">2. 100% Đội ngũ Mentor tiêu chuẩn cao</h4>
-                <p>Toàn bộ Mentor tham gia giảng dạy và cố vấn đều là những nhân sự xuất sắc đã tốt nghiệp hoặc đang làm việc ở các vị trí Quản trị viên tập sự tại các tập đoàn đa quốc gia.</p>
-            </div>
-            <div style="border: 2px solid var(--black); padding: 20px; background: white; transition: transform 0.2s ease;" onmouseover="this.style.transform='translateX(10px)'" onmouseout="this.style.transform='translateX(0)'">
-                <h4 style="color: var(--black); margin-bottom: 10px;">3. Tự động hóa cơ hội</h4>
-                <p>Ban tổ chức chương trình chủ động tìm kiếm các cơ hội việc làm, liên tục cập nhật job listings tiềm năng và hỗ trợ nộp hồ sơ.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- ... CÁC SECTION KHÁC ĐƯỢC GIỮ NGUYÊN BÊN DƯỚI ... -->
-
-    <div class="container pad-xl text-center bg-dark reveal" style="border-top: 2px solid var(--black);">
-        <h2 class="title-section text-center" style="margin-bottom: 40px; color: var(--off-white);">CÁ NHÂN HÓA LỘ TRÌNH DỰA TRÊN MỤC TIÊU CỦA BẠN</h2>
-        
-        <div style="text-align: center; margin-top: 60px;">
+    <div class="container pad-xl text-center reveal" style="border-top: 2px solid var(--black);">
+        <div style="text-align: center; margin-top: 20px;">
+            <!-- NÚT MỒI THỨ 2 -->
             <a href="#" class="btn btn-green prank-trigger" style="font-size: 1.5rem; padding: 20px 40px;">ĐĂNG KÝ NHẬN TƯ VẤN LỘ TRÌNH RIÊNG</a>
         </div>
     </div>
@@ -407,7 +360,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // Hiệu ứng cuộn trang cũ
+            // Hiệu ứng cuộn trang
             const reveals = document.querySelectorAll(".reveal");
             const revealOnScroll = () => {
                 const windowHeight = window.innerHeight;
@@ -423,40 +376,93 @@
             window.addEventListener("scroll", revealOnScroll);
 
             // ==========================================
-            // CODE PRANK SINH NHẬT THƯ HUỲNH
+            // LOGIC LỪA ĐẢO & CHÚC MỪNG SINH NHẬT
             // ==========================================
             const prankTriggers = document.querySelectorAll('.prank-trigger');
             const surpriseModal = document.getElementById('birthday-surprise');
             const btnYes = document.getElementById('btn-yes');
             const btnNo = document.getElementById('btn-no');
+            const bgMusic = document.getElementById('bg-music');
+            const btnMusicToggle = document.getElementById('btn-music');
+            let isMusicPlaying = false;
 
-            // Mở modal khi bấm nút Đăng ký
+            // Hàm bắn pháo hoa
+            const fireConfetti = () => {
+                const duration = 3000;
+                const end = Date.now() + duration;
+
+                (function frame() {
+                    confetti({
+                        particleCount: 5,
+                        angle: 60,
+                        spread: 55,
+                        origin: { x: 0 },
+                        colors: ['#c471ed', '#ff758c', '#b9df30']
+                    });
+                    confetti({
+                        particleCount: 5,
+                        angle: 120,
+                        spread: 55,
+                        origin: { x: 1 },
+                        colors: ['#c471ed', '#ff758c', '#b9df30']
+                    });
+
+                    if (Date.now() < end) {
+                        requestAnimationFrame(frame);
+                    }
+                }());
+            };
+
+            // Mở modal và BẬT NHẠC khi bấm Đăng ký
             prankTriggers.forEach(btn => {
                 btn.addEventListener('click', (e) => {
-                    e.preventDefault(); // Ngăn trang web nhảy lên đầu
+                    e.preventDefault(); 
                     surpriseModal.classList.add('show');
+                    
+                    // Phát nhạc (trình duyệt chỉ cho phép sau khi user click)
+                    bgMusic.play().then(() => {
+                        isMusicPlaying = true;
+                        btnMusicToggle.innerText = "🎵 Tắt nhạc";
+                    }).catch((error) => {
+                        console.log("Auto-play bị chặn, user cần tự bấm nút bật nhạc.");
+                        btnMusicToggle.innerText = "🎵 Bật nhạc";
+                    });
                 });
             });
 
-            // Nút YES
-            btnYes.addEventListener('click', () => {
-                alert("Chốt kèo nha! Chuẩn bị lên đồ đi chơi thôiiii 💖");
+            // Logic Tắt/Bật nhạc thủ công
+            btnMusicToggle.addEventListener('click', () => {
+                if (isMusicPlaying) {
+                    bgMusic.pause();
+                    btnMusicToggle.innerText = "🎵 Bật nhạc";
+                } else {
+                    bgMusic.play();
+                    btnMusicToggle.innerText = "🎵 Tắt nhạc";
+                }
+                isMusicPlaying = !isMusicPlaying;
             });
 
-            // Nút NO lươn lẹo
+            // Nút YES -> Bắn pháo hoa
+            btnYes.addEventListener('click', () => {
+                fireConfetti();
+                setTimeout(() => {
+                    alert("Chốt kèo nha! Lên đồ đi chơi thôiiii 💖");
+                }, 1000);
+            });
+
+            // Nút NO lươn lẹo chạy trốn
             btnNo.addEventListener('mouseover', function() {
-                // Lấy kích thước của nút
                 const btnWidth = this.offsetWidth;
                 const btnHeight = this.offsetHeight;
+                
+                // Trừ hao kích thước để nút không văng ra ngoài màn hình
+                const maxX = window.innerWidth - btnWidth - 50;
+                const maxY = window.innerHeight - btnHeight - 50;
 
-                // Tính toán tọa độ ngẫu nhiên không bị tràn màn hình
-                const maxX = window.innerWidth - btnWidth - 20;
-                const maxY = window.innerHeight - btnHeight - 20;
+                // Random toạ độ
+                const randomX = Math.max(20, Math.random() * maxX);
+                const randomY = Math.max(20, Math.random() * maxY);
 
-                const randomX = Math.random() * maxX;
-                const randomY = Math.random() * maxY;
-
-                // Chuyển nút sang absolute/fixed để chạy
                 this.style.position = 'fixed';
                 this.style.left = randomX + 'px';
                 this.style.top = randomY + 'px';
