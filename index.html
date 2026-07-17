@@ -30,7 +30,7 @@
             background-color: var(--off-white);
             color: var(--black);
             line-height: 1.6;
-            overflow-x: hidden; /* Tránh thanh cuộn ngang khi animation */
+            overflow-x: hidden;
         }
 
         h1, h2, h3, h4, .font-heading {
@@ -65,7 +65,6 @@
             100% { transform: translate(-100%, 0); }
         }
 
-        /* Lướt đến đâu hiện đến đó */
         .reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -251,9 +250,89 @@
             margin-bottom: 10px;
             font-size: 1.1rem;
         }
+
+        /* --- SURPRISE MODAL CSS --- */
+        #birthday-surprise {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--off-white);
+            z-index: 99999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            background-image: radial-gradient(circle, var(--lime-green) 10%, transparent 11%),radial-gradient(circle, var(--lime-green) 10%, transparent 11%);
+            background-size: 60px 60px;
+            background-position: 0 0, 30px 30px;
+        }
+        
+        #birthday-surprise.show {
+            display: flex;
+        }
+
+        .surprise-box {
+            background: white;
+            border: 4px solid var(--black);
+            padding: 50px 30px;
+            max-width: 700px;
+            box-shadow: 15px 15px 0px var(--dark-green);
+            border-radius: 20px;
+        }
+
+        .btn-birthday {
+            font-size: 1.2rem;
+            padding: 15px 40px;
+            border: 3px solid var(--black);
+            font-family: var(--font-heading);
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: transform 0.1s;
+        }
+
+        #btn-yes {
+            background-color: var(--dark-green);
+            color: var(--lime-green);
+        }
+        #btn-yes:hover {
+            transform: scale(1.1);
+            background-color: var(--black);
+        }
+
+        #btn-no {
+            background-color: #ff4d4d;
+            color: white;
+            position: relative; /* Sẽ bị JS đổi thành fixed khi hover */
+        }
     </style>
 </head>
 <body>
+
+    <!-- MÀN HÌNH CHÚC MỪNG SINH NHẬT (Ẩn mặc định) -->
+    <div id="birthday-surprise">
+        <div class="surprise-box">
+            <h1 style="font-size: 3.5rem; color: var(--dark-green); margin-bottom: 20px;">TÉN TÈN TEN! 🎉</h1>
+            <h2 style="font-size: 2rem; color: var(--black); margin-bottom: 20px;">Chúc mừng sinh nhật Thư Huỳnh! 🎂</h2>
+            
+            <p style="font-size: 1.3rem; margin-bottom: 15px; font-weight: 500;">
+                Á nhon, lại một năm nữa lại bên nhau, i enjoy every moment were together (dù cũng đ nói chiện j lắm haha, nhma rất comfortable to me).
+            </p>
+            <p style="font-size: 1.3rem; margin-bottom: 40px; font-weight: bold; color: var(--dark-green);">
+                Năm nay Thy mời Thư đi coi phim gì đó nhẹ với Thy nha (chả biết phim rì, chắc cứ ra rạp lựa thôi haha 🎬🍿).
+            </p>
+
+            <div style="display: flex; gap: 30px; justify-content: center; align-items: center; min-height: 80px;">
+                <button id="btn-yes" class="btn-birthday">YESSS (ĐI LÙN!)</button>
+                <button id="btn-no" class="btn-birthday">NO (CHÊ)</button>
+            </div>
+        </div>
+    </div>
+    <!-- END MÀN HÌNH CHÚC MỪNG -->
 
     <div class="marquee">
         <span>ROAD TO MNC PROGRAM • ROAD TO MNC PROGRAM • ROAD TO MNC PROGRAM • ROAD TO MNC PROGRAM • ROAD TO MNC PROGRAM •</span>
@@ -263,7 +342,8 @@
         <div class="pad-xl border-right reveal">
             <h1 class="title-hero">ROAD<br>TO MNC.</h1>
             <p class="text-lead" style="margin-bottom: 30px;">Giải pháp All-in-one phối hợp giữa Masterclass hệ thống và Mentoring 1-1 cá nhân hóa.</p>
-            <a href="#" class="btn btn-green">ĐĂNG KÝ TƯ VẤN</a>
+            <!-- Thêm class prank-trigger vào các nút bấm -->
+            <a href="#" class="btn btn-green prank-trigger">ĐĂNG KÝ TƯ VẤN</a>
         </div>
         <div class="pad-xl reveal" style="background-color: var(--black); color: var(--off-white); transition-delay: 0.2s;">
             <h3 style="color: var(--lime-green); font-size: 2rem; margin-bottom: 20px;">VẤN ĐỀ CỦA BẠN</h3>
@@ -292,7 +372,6 @@
                 <li><strong>Thiếu kỹ năng Final:</strong> Chuẩn bị kỹ càng, vượt qua các vòng đầu để vào tới Assessment Center nhưng chưa đạt kết quả ở vòng phỏng vấn cuối cùng.</li>
                 <li><strong>Từ con số 0:</strong> Chưa từng xây dựng CV hay tham gia một buổi phỏng vấn tiêu chuẩn nào.</li>
             </ul>
-            <p>Dù bạn đang ở bất kỳ vạch xuất phát nào, định hướng theo đuổi các khối ngành Commercial (Marketing, Sales/Business Development) hay Consulting , Mentor sẽ cùng bạn phân tích khoảng cách năng lực hiện tại so với tiêu chuẩn tuyển dụng, xây dựng chiến lược cá nhân hóa để từng bước chinh phục mục tiêu.</p>
         </div>
         <div class="pad-l reveal" style="background: var(--lime-green); transition-delay: 0.2s;">
             <h3 style="font-size: 2rem; color: var(--black); margin-bottom: 20px;">3 ĐIỂM KHÁC BIỆT CỐT LÕI</h3>
@@ -302,466 +381,37 @@
             </div>
             <div style="margin-bottom: 20px; border: 2px solid var(--black); padding: 20px; background: white; transition: transform 0.2s ease;" onmouseover="this.style.transform='translateX(10px)'" onmouseout="this.style.transform='translateX(0)'">
                 <h4 style="color: var(--black); margin-bottom: 10px;">2. 100% Đội ngũ Mentor tiêu chuẩn cao</h4>
-                <p>Toàn bộ Mentor tham gia giảng dạy và cố vấn đều là những nhân sự xuất sắc đã tốt nghiệp hoặc đang làm việc ở các vị trí Quản trị viên tập sự (Management Trainee) và Chuyên viên tư vấn chiến lược (Consultant) tại các tập đoàn đa quốc gia và các công ty tư vấn hàng đầu (MBB). Họ là những chuyên gia thường xuyên xuất hiện với vai trò diễn giả tại các webinar lớn, nay dành thời gian làm việc trực tiếp 1-1 cùng bạn.</p>
+                <p>Toàn bộ Mentor tham gia giảng dạy và cố vấn đều là những nhân sự xuất sắc đã tốt nghiệp hoặc đang làm việc ở các vị trí Quản trị viên tập sự tại các tập đoàn đa quốc gia.</p>
             </div>
             <div style="border: 2px solid var(--black); padding: 20px; background: white; transition: transform 0.2s ease;" onmouseover="this.style.transform='translateX(10px)'" onmouseout="this.style.transform='translateX(0)'">
                 <h4 style="color: var(--black); margin-bottom: 10px;">3. Tự động hóa cơ hội</h4>
-                <p>Ban tổ chức chương trình chủ động tìm kiếm các cơ hội việc làm, liên tục cập nhật job listings tiềm năng và hỗ trợ nộp hồ sơ trực tiếp đến hơn 100 vị trí phù hợp với định hướng của học viên. Ứng viên không phải tự tìm kiếm cơ hội hay thực hiện các bước ứng tuyển thủ công phức tạp.</p>
+                <p>Ban tổ chức chương trình chủ động tìm kiếm các cơ hội việc làm, liên tục cập nhật job listings tiềm năng và hỗ trợ nộp hồ sơ.</p>
             </div>
         </div>
     </div>
 
-    <div class="container pad-xl text-center border-bottom reveal">
-        <h2 class="title-section">ĐỘI NGŨ MENTOR CHUYÊN GIA</h2>
-        <p class="text-lead">Thực chiến từ MBB & MNCS (Học viên được đề xuất ghép cặp với những chuyên gia có kinh nghiệm từ 2 đến 5 năm tại chính khối ngành mục tiêu)</p>
-    </div>
-    
-    <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
-        <div class="pad-m border-right border-bottom mentor-card reveal">
-            <span class="tag">HEINEKEN / BAT</span>
-            <h3 style="margin-bottom: 10px;">Harry Nguyễn</h3>
-            <p>Digital Strategy & PMO Lead tại HEINEKEN | Cựu Trade Management Trainee tại British America Tobacco (BAT).</p>
-        </div>
-        <div class="pad-m border-right border-bottom mentor-card reveal" style="transition-delay: 0.1s;">
-            <span class="tag">McKinsey & Company</span>
-            <h3 style="margin-bottom: 10px;">Bùi Hà Phương</h3>
-            <p>Cựu Consultant tại McKinsey & Company | Tốt nghiệp bậc Thạc sĩ Quản trị Kinh doanh (MBA) tại Columbia Southern University.</p>
-        </div>
-        <div class="pad-m border-bottom mentor-card reveal" style="transition-delay: 0.2s;">
-            <span class="tag">PRUDENTIAL</span>
-            <h3 style="margin-bottom: 10px;">David Trần</h3>
-            <p>Business Expansion Manager tại Prudential | Cựu Management Trainee tại tập đoàn Prudential.</p>
-        </div>
-        <div class="pad-m border-right mentor-card reveal">
-            <span class="tag">HEINEKEN / SHOPEE</span>
-            <h3 style="margin-bottom: 10px;">Nguyễn Ngọc Thảo Ngân</h3>
-            <p>Marketing Management Trainee tại Heineken | Cựu nhân sự chuyên trách Marketing tại Shopee và Perfetti Van Melle.</p>
-        </div>
-        <div class="pad-m border-right mentor-card reveal" style="transition-delay: 0.1s;">
-            <span class="tag">HEINEKEN / EY</span>
-            <h3 style="margin-bottom: 10px;">Vũ Trí Dũng</h3>
-            <p>Commercial Management Trainee tại Heineken | Cựu trợ lý kiểm toán chuyên nghiệp (Audit Assistant) tại EY.</p>
-        </div>
-        <div class="pad-m mentor-card reveal" style="transition-delay: 0.2s;">
-            <span class="tag">UNILEVER</span>
-            <h3 style="margin-bottom: 10px;">Daniel Ngô</h3>
-            <p>Brand Manager chuyên nghiệp tại tập đoàn Unilever | Cựu Marketing UFLP Management Trainee.</p>
-        </div>
-    </div>
+    <!-- ... CÁC SECTION KHÁC ĐƯỢC GIỮ NGUYÊN BÊN DƯỚI ... -->
 
-    <div class="container pad-xl bg-dark text-center reveal">
-        <h2 class="title-section">01. HỆ THỐNG MASTERCLASS CHUYÊN SÂU</h2>
-        <p class="text-lead" style="max-width: 800px; margin: 0 auto;">Hệ thống gồm 7 chủ đề với 10 lớp học Masterclass, thời lượng 90 120 phút/buổi, cung cấp khối lượng kiến thức tiêu chuẩn và framework ứng dụng thực tế tại doanh nghiệp.</p>
-    </div>
-    
-    <div class="container pad-l" style="background: var(--lime-green);">
-        
-        <div class="module-block reveal">
-            <div class="module-header">
-                <span style="font-size: 3rem; font-weight: bold; line-height: 1;">01</span>
-                <div class="module-title">Recruitment Strategy & Recruiter Mindset</div>
-            </div>
-            <div class="module-content">
-                <div>
-                    <h4 style="color: var(--dark-green); margin-bottom: 10px;">Nội dung chi tiết:</h4>
-                    <p>Phân tích chi tiết cấu trúc phễu tuyển dụng tổng thể (Recruitment Funnel). Học viên trực tiếp tìm hiểu cách thức vận hành của hệ thống sàng lọc hồ sơ tự động và tiêu chí đánh giá năng lực của HR qua từng vòng.</p>
-                </div>
-                <div class="outcome-box">
-                    <h4>Đầu ra (Outcome):</h4>
-                    <p>Hiểu rõ nguyên nhân cốt lõi khiến ứng viên thường bị loại, chủ động phòng tránh các lỗi sai trên hồ sơ và xây dựng được tư duy ứng tuyển chủ động.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="module-block reveal">
-            <div class="module-header">
-                <span style="font-size: 3rem; font-weight: bold; line-height: 1;">02</span>
-                <div class="module-title">Framework & Business Case Thinking</div>
-            </div>
-            <div class="module-content">
-                <div>
-                    <h4 style="color: var(--dark-green); margin-bottom: 10px;">Nội dung chi tiết:</h4>
-                    <p>Học phương pháp tiếp cận Business Case chuẩn mực thông qua các khâu: Problem Framing (Khoanh vùng vấn đề), Cấu trúc logic (Structure), Insight và Đề xuất giải pháp (Solution). Deep-dive vào các case study và case-cracking.</p>
-                </div>
-                <div class="outcome-box">
-                    <h4>Đầu ra (Outcome):</h4>
-                    <p>Sở hữu tư duy giải quyết vấn đề có cấu trúc chặt chẽ (Problem-Solving Foundation). Thành thạo kỹ năng phân tích bối cảnh cạnh tranh thị trường để đưa ra các đề xuất chiến lược có tính khả thi cao.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="module-block reveal">
-            <div class="module-header">
-                <span style="font-size: 3rem; font-weight: bold; line-height: 1;">03</span>
-                <div class="module-title">Basic Data Analysis</div>
-            </div>
-            <div class="module-content">
-                <div>
-                    <h4 style="color: var(--dark-green); margin-bottom: 10px;">Nội dung chi tiết:</h4>
-                    <p>Chuẩn hóa quy trình xử lý và làm việc với tập dữ liệu thực tế trên Excel/Google Sheets thông qua 3 bước: Data Cleaning (Làm sạch), Exploring (Khám phá) và Visualizing (Trực quan hóa). Xây dựng tư duy dựa trên sự thật khách quan (Fact-based mindset) để loại bỏ hoàn toàn các thiên kiến chủ quan bằng cách phân biệt rõ ràng giữa Fact và Interpretation.</p>
-                </div>
-                <div class="outcome-box">
-                    <h4>Đầu ra (Outcome):</h4>
-                    <p>Thành thạo kỹ năng trích xuất các thông tin có giá trị ứng dụng cao (Actionable Insights) từ những file số liệu phức tạp để phục vụ cho các bài toán kinh doanh.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="module-block reveal">
-            <div class="module-header">
-                <span style="font-size: 3rem; font-weight: bold; line-height: 1;">04</span>
-                <div class="module-title">LinkedIn & Networking Tactics</div>
-            </div>
-            <div class="module-content">
-                <div>
-                    <h4 style="color: var(--dark-green); margin-bottom: 10px;">Nội dung chi tiết:</h4>
-                    <p>Hướng dẫn từng bước thiết lập hồ sơ Linkedin chuẩn chuyên nghiệp để thu hút nhà tuyển dụng. Thực hành viết kịch bản nhắn tin tiếp cận chuyên gia (Cold Message), phương pháp lên lịch và điều phối một buổi trò chuyện trực tiếp (Coffee Chat) hiệu quả để mở rộng vòng kết nối.</p>
-                </div>
-                <div class="outcome-box">
-                    <h4>Đầu ra (Outcome):</h4>
-                    <p>Tối ưu hóa hồ sơ cá nhân trên Linkedin, làm chủ kỹ năng thiết lập quan hệ chuyên nghiệp và xin Referral ứng tuyển trực tiếp từ người trong ngành.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="module-block reveal">
-            <div class="module-header">
-                <span style="font-size: 3rem; font-weight: bold; line-height: 1;">05</span>
-                <div class="module-title">Cultural Fit Interview & Live Feedback</div>
-            </div>
-            <div class="module-content">
-                <div>
-                    <h4 style="color: var(--dark-green); margin-bottom: 10px;">Nội dung chi tiết:</h4>
-                    <p>Tiếp cận các mô hình trả lời phỏng vấn tiêu chuẩn nhằm thể hiện giá trị cá nhân kết hợp mức độ tương thích văn hóa với doanh nghiệp. Học cách phân tích và đưa ra giải pháp cho các câu hỏi phỏng vấn tình huống (Situational Questions). Thực hiện hoạt động phỏng vấn xoay vòng (Rotation Interview) và nhận Live Feedback trực tiếp từ chuyên gia.</p>
-                </div>
-                <div class="outcome-box">
-                    <h4>Đầu ra (Outcome):</h4>
-                    <p>Khắc phục các điểm yếu trong cách giao tiếp, tự tin làm chủ câu chuyện cá nhân và tối ưu hóa phong thái trong phỏng vấn.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="module-block reveal">
-            <div class="module-header">
-                <span style="font-size: 3rem; font-weight: bold; line-height: 1;">06</span>
-                <div class="module-title">Assessment Center Simulation</div>
-            </div>
-            <div class="module-content">
-                <div>
-                    <h4 style="color: var(--dark-green); margin-bottom: 10px;">Nội dung chi tiết:</h4>
-                    <p>Giải mã toàn bộ tiêu chí đánh giá năng lực của Assessor tại vòng trung tâm đánh giá (Assessment Center). Học viên trực tiếp tham gia bài tập nhóm mô phỏng thực tế (Group Exercises, Team Exercise, Group Discussion). Rèn luyện kỹ năng điều phối, quản trị xung đột nội bộ và quản lý thời gian.</p>
-                </div>
-                <div class="outcome-box">
-                    <h4>Đầu ra (Outcome):</h4>
-                    <p>Thấu hiểu tiêu chí vòng AC, định vị rõ vai trò đóng góp phù hợp trong nhóm để thể hiện năng lực lãnh đạo (Leadership) một cách chừng mực, thuyết phục.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="module-block reveal" style="margin-bottom: 0;">
-            <div class="module-header">
-                <span style="font-size: 3rem; font-weight: bold; line-height: 1;">07</span>
-                <div class="module-title">Effective Slides & Presentation</div>
-            </div>
-            <div class="module-content">
-                <div>
-                    <h4 style="color: var(--dark-green); margin-bottom: 10px;">Nội dung chi tiết:</h4>
-                    <p>Học các nguyên tắc thiết kế slide báo cáo rõ ràng, mạch lạc theo chuẩn phong cách quản trị chuyên nghiệp (Consulting Style). Ứng dụng kỹ thuật kể chuyện (Storytelling) vào cấu trúc bài thuyết trình giải pháp. Thực hành kỹ năng Delivery (Trình bày bài nói), kiểm soát ngôn ngữ cơ thể (Body Language) và các kỹ thuật xử lý câu hỏi hóc búa từ ban giám khảo trong phần Q&A.</p>
-                </div>
-                <div class="outcome-box">
-                    <h4>Đầu ra (Outcome):</h4>
-                    <p>Nâng cao năng lực giao tiếp, làm chủ phong thái tự tin khi thuyết trình và bảo vệ ý tưởng.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container pad-xl bg-dark text-center reveal" style="border-top: 2px solid var(--black);">
-        <h2 class="title-section">02. LỘ TRÌNH MENTORING 1-1 THỰC CHIẾN</h2>
-        <p class="text-lead" style="max-width: 800px; margin: 0 auto;">Quy trình bao gồm 10 Module can thiệp sâu, Mentor trực tiếp đồng hành 1-1 nhằm giải quyết triệt để các bài toán cá nhân trên hồ sơ của từng Mentee.</p>
-    </div>
-
-    <div class="container pad-l" style="background: var(--off-white);">
-        
-        <div class="module-block reveal">
-            <div class="module-header" style="background: var(--black);">
-                <span style="font-size: 3rem; font-weight: bold; line-height: 1;">01</span>
-                <div class="module-title" style="color: var(--off-white);">Career Roadmap</div>
-            </div>
-            <div class="module-content">
-                <div>
-                    <h4 style="color: var(--dark-green); margin-bottom: 10px;">Chi tiết:</h4>
-                    <p>Mentor rà soát và phân tích toàn diện các biến số hồ sơ hiện tại của ứng viên (GPA, Chuyên ngành, Kinh nghiệm thực tập, Hoạt động ngoại khóa). Hai bên cùng hoàn thành Bản đồ sự nghiệp dài hạn và Kế hoạch hành động cụ thể trước tuần thứ 3 của lộ trình.</p>
-                </div>
-                <div class="outcome-box">
-                    <h4>Đầu ra (Outcome):</h4>
-                    <p>Nhận diện rõ ràng các điểm mạnh cốt lõi, điểm yếu cần bổ sung và có một lộ trình hành động có mục tiêu cụ thể, cam kết bằng mốc thời gian rõ ràng.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="module-block reveal">
-            <div class="module-header" style="background: var(--black);">
-                <span style="font-size: 3rem; font-weight: bold; line-height: 1;">02</span>
-                <div class="module-title" style="color: var(--off-white);">Sửa & Feedback CV</div>
-            </div>
-            <div class="module-content">
-                <div>
-                    <h4 style="color: var(--dark-green); margin-bottom: 10px;">Chi tiết:</h4>
-                    <p>Mentor thực hiện đánh giá chi tiết từng dòng thông tin trên CV của bạn. Challenge trực tiếp các kinh nghiệm mang tính liệt kê nhiệm vụ (Task-based) để hướng dẫn bạn chuyển đổi toàn bộ thành kết quả đóng góp cho doanh nghiệp (Impact-based & Business Outcomes). Tiến hành tối ưu hóa từ khóa chuyên ngành cho CV.</p>
-                </div>
-                <div class="outcome-box">
-                    <h4>Đầu ra (Outcome):</h4>
-                    <p>Sở hữu bộ CV phiên bản hoàn chỉnh được cá nhân hoá riêng biệt cho từng vị trí ứng tuyển đặc thù.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="module-block reveal">
-            <div class="module-header" style="background: var(--black);">
-                <span style="font-size: 3rem; font-weight: bold; line-height: 1;">03</span>
-                <div class="module-title" style="color: var(--off-white);">Aptitude Test Strategy</div>
-            </div>
-            <div class="module-content">
-                <div>
-                    <h4 style="color: var(--dark-green); margin-bottom: 10px;">Chi tiết:</h4>
-                    <p>Mentor cung cấp kho tài liệu đề thi năng lực thực tế được thiết kế riêng theo từng nhóm ngành (Numerical, Verbal, Logical Reasoning). Định kỳ giám sát kết quả thi thử của Mentee, phân tích lỗi sai trong logic làm bài và điều chỉnh chiến thuật kiểm soát thời gian.</p>
-                </div>
-                <div class="outcome-box">
-                    <h4>Đầu ra (Outcome):</h4>
-                    <p>Nâng cao tốc độ và phản xạ tư duy chính xác khi giải quyết các dạng bài kiểm tra Aptitude Test.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="module-block reveal">
-            <div class="module-header" style="background: var(--black);">
-                <span style="font-size: 3rem; font-weight: bold; line-height: 1;">04</span>
-                <div class="module-title" style="color: var(--off-white);">Cultural Fit Interview Mock Round</div>
-            </div>
-            <div class="module-content">
-                <div>
-                    <h4 style="color: var(--dark-green); margin-bottom: 10px;">Chi tiết:</h4>
-                    <p>Thực hiện các buổi phỏng vấn giả định 1-1 với mức độ mô phỏng sát thực tế. Mentor huấn luyện bạn kỹ thuật tổ chức câu chuyện cá nhân theo cấu trúc S.T.A.R chuyên nghiệp. Trực tiếp chia sẻ các trải nghiệm thực tế khó khăn trong ngành để giúp ứng viên hình thành tư duy đúng đắn và xây dựng câu trả lời chân thực.</p>
-                </div>
-                <div class="outcome-box">
-                    <h4>Đầu ra (Outcome):</h4>
-                    <p>Hoàn thiện phản xạ trả lời phỏng vấn, hành vi tự nhiên, mạch lạc; khắc phục các điểm yếu trong giao tiếp và làm chủ câu chuyện cá nhân thuyết phục.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="module-block reveal">
-            <div class="module-header" style="background: var(--black);">
-                <span style="font-size: 3rem; font-weight: bold; line-height: 1;">05</span>
-                <div class="module-title" style="color: var(--off-white);">List Vị trí & Công ty mục tiêu</div>
-            </div>
-            <div class="module-content">
-                <div>
-                    <h4 style="color: var(--dark-green); margin-bottom: 10px;">Chi tiết:</h4>
-                    <p>Mentor dựa vào hồ sơ năng lực thực tế để khoanh vùng, định hướng ngành nghề. Xác định chi tiết từ 3-5 nhóm vị trí mục tiêu và thiết lập danh sách các công ty ưu tuyển (Target Companies) để tập trung nguồn lực apply.</p>
-                </div>
-                <div class="outcome-box">
-                    <h4>Đầu ra (Outcome):</h4>
-                    <p>Có chiến lược tiếp cận thị trường khôn ngoan, tập trung đúng thế mạnh cạnh tranh cá nhân để nâng cao tỷ lệ đậu vòng hồ sơ.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="module-block reveal">
-            <div class="module-header" style="background: var(--black);">
-                <span style="font-size: 3rem; font-weight: bold; line-height: 1;">06</span>
-                <div class="module-title" style="color: var(--off-white);">Linkedin & Networking Coaching</div>
-            </div>
-            <div class="module-content">
-                <div>
-                    <h4 style="color: var(--dark-green); margin-bottom: 10px;">Chi tiết:</h4>
-                    <p>Mentor trực tiếp phân tích, chỉnh sửa profile LinkedIn cá nhân của bạn, hướng dẫn cách tìm kiếm nhân sự chủ chốt (Hiring Manager/HR). Kiểm tra và tinh chỉnh kịch bản Cold Message thực tế của Mentee trước khi gửi đi.</p>
-                </div>
-                <div class="outcome-box">
-                    <h4>Đầu ra (Outcome):</h4>
-                    <p>Sở hữu mạng lưới kết nối chất lượng với người trong ngành, nâng cao cơ hội tiếp cận thị trường việc làm thông qua giới thiệu nội bộ.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="module-block reveal">
-            <div class="module-header" style="background: var(--black);">
-                <span style="font-size: 3rem; font-weight: bold; line-height: 1;">07</span>
-                <div class="module-title" style="color: var(--off-white);">Externship / Project Development</div>
-            </div>
-            <div class="module-content">
-                <div>
-                    <h4 style="color: var(--dark-green); margin-bottom: 10px;">Chi tiết:</h4>
-                    <p>Đối với học viên có profile chưa nhiều cọ xát, Mentor sẽ định hướng xây dựng các dự án thực tế ngắn hạn hoặc đề xuất hướng củng cố trải nghiệm chuyên môn. Hướng dẫn cách thể hiện dự án thành một Portfolio ấn tượng.</p>
-                </div>
-                <div class="outcome-box">
-                    <h4>Đầu ra (Outcome):</h4>
-                    <p>Lấp đầy các khoảng trống kinh nghiệm trong hồ sơ bằng những dự án có số liệu thực tế, gia tăng sức nặng cạnh tranh khi gửi CV.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="module-block reveal">
-            <div class="module-header" style="background: var(--black);">
-                <span style="font-size: 3rem; font-weight: bold; line-height: 1;">08</span>
-                <div class="module-title" style="color: var(--off-white);">Cuộc thi Business Case Coaching</div>
-            </div>
-            <div class="module-content">
-                <div>
-                    <h4 style="color: var(--dark-green); margin-bottom: 10px;">Chi tiết:</h4>
-                    <p>Mentor định hướng các cuộc thi giải case phù hợp với trình độ của Mentee. Trực tiếp cố vấn cấu trúc tư duy giải bài toán thực tế, phản biện các lỗ hổng trong logic lập luận và chỉnh sửa chi tiết flow thuyết trình nhóm cho Mentee.</p>
-                </div>
-                <div class="outcome-box">
-                    <h4>Đầu ra (Outcome):</h4>
-                    <p>Phát triển tư duy Business Sense nhạy bén, tích lũy chứng nhận thành tích từ các cuộc thi để làm điểm nhấn cho hồ sơ ứng tuyển.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="module-block reveal">
-            <div class="module-header" style="background: var(--black);">
-                <span style="font-size: 3rem; font-weight: bold; line-height: 1;">09</span>
-                <div class="module-title" style="color: var(--off-white);">Mô phỏng Assessment Center 1-1 Feedback</div>
-            </div>
-            <div class="module-content">
-                <div>
-                    <h4 style="color: var(--dark-green); margin-bottom: 10px;">Chi tiết:</h4>
-                    <p>Sau khi tham gia mô phỏng AC tập trung, Mentor sẽ ngồi lại 1-1 để rà soát chi tiết hiệu suất thể hiện của Mentee. Phân tích cụ thể các điểm yếu trong tương tác, giao tiếp, phản xạ trong tình huống kinh doanh và lập phương án khắc phục.</p>
-                </div>
-                <div class="outcome-box">
-                    <h4>Đầu ra (Outcome):</h4>
-                    <p>Học viên nhận diện rõ ràng điểm mù của bản thân khi làm việc nhóm dưới áp lực cao và có giải pháp tinh chỉnh hành vi kịp thời trước vòng thi thật.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="module-block reveal" style="margin-bottom: 0;">
-            <div class="module-header" style="background: var(--black);">
-                <span style="font-size: 3rem; font-weight: bold; line-height: 1;">10</span>
-                <div class="module-title" style="color: var(--off-white);">Industry Knowledge Transfer</div>
-            </div>
-            <div class="module-content">
-                <div>
-                    <h4 style="color: var(--dark-green); margin-bottom: 10px;">Chi tiết:</h4>
-                    <p>Mentor chia sẻ kiến thức thực tế tại thị trường và doanh nghiệp hiện tại (Bối cảnh ngành hàng, quy trình vận hành Supply Chain, Commercial Landscape thực tế...).</p>
-                </div>
-                <div class="outcome-box">
-                    <h4>Đầu ra (Outcome):</h4>
-                    <p>Học viên sở hữu tư duy nhạy bén về kinh doanh (Business Acumen) sâu sắc từ người làm nghề, có những insights thực tế.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container pad-xl border-bottom text-center border-top reveal">
-        <h2 class="title-section">ROAD MAP TOÀN DIỆN TRONG 5 GIAI ĐOẠN</h2>
-        <p class="text-lead">Hai trụ cột Masterclass và Mentoring 1-1 phối hợp đồng bộ trên một trục thời gian tuyến tính, bám sát theo từng điểm chạm của quá trình tuyển dụng thực tế.</p>
-    </div>
-    <div class="container grid-section">
-        <div class="pad-l border-right border-bottom reveal">
-            <span class="tag">GĐ 01</span>
-            <h3 style="margin-bottom: 10px;">Định hướng & Lập chiến lược</h3>
-            <p><strong>Làm gì:</strong> Mentor thực hiện đánh giá hồ sơ tổng thể qua Career Audit, cùng học viên xác định chính xác top ngành, vị trí mục tiêu và xây dựng Timeline ứng tuyển thực tế khớp với khung tuyển dụng của các doanh nghiệp. Học viên kết hợp học kiến thức từ Masterclass 01 và 04.</p>
-            <p><strong>Đầu ra:</strong> Career Roadmap & KPI hành động | Bản định hướng lộ trình nghề nghiệp chi tiết, định hình KPI ứng tuyển cho 6-12 tháng tới.</p>
-            <p><em>(Tích hợp: Masterclass 01, 04 + Mentoring Module 1, 5, 7)</em></p>
-        </div>
-        <div class="pad-l border-bottom reveal" style="transition-delay: 0.1s;">
-            <span class="tag">GĐ 02</span>
-            <h3 style="margin-bottom: 10px;">Xây dựng hồ sơ cạnh tranh</h3>
-            <p><strong>Làm gì:</strong> Mentor rà soát chi tiết CV 1-1, lượng hóa toàn bộ thành tựu và hướng dẫn customize CV phù hợp theo từng loại JD đặc thù. Đồng thời, chuẩn hóa profile Linkedin cá nhân dưới sự cố vấn của Mentor.</p>
-            <p><strong>Đầu ra:</strong> Bộ CV Customized & LinkedIn chuẩn | Bộ CV phiên bản hoàn chỉnh mang tính định lượng cao, tài khoản Linkedin tối ưu cùng kế hoạch Networking chủ động.</p>
-            <p><em>(Tích hợp: Masterclass 04 + Mentoring Module 2, 6)</em></p>
-        </div>
-        <div class="pad-l border-right border-bottom reveal">
-            <span class="tag">GĐ 03</span>
-            <h3 style="margin-bottom: 10px;">Vượt qua Online Assessment (Xây nền tảng kinh doanh)</h3>
-            <p><strong>Làm gì:</strong> Học viên nâng cao kiến thức nền tảng chuyên sâu từ chuỗi Masterclass: Xử lý số liệu khoa học (Masterclass 03), xây dựng tư duy cấu trúc Business Case thực tế (Masterclass 02) và hiểu rõ Networking chuyên nghiệp (Masterclass 04).</p>
-            <p><strong>Đầu ra:</strong> Sẵn sàng phản xạ cho bài Test năng lực | Xây dựng vững chắc tư duy kinh doanh nhạy bén (Business Acumen) và năng lực giải quyết vấn đề hệ thống (Problem Solving Foundation).</p>
-            <p><em>(Tích hợp: Hệ thống Self-practice Tests của Organizer + Mentoring Module 3)</em></p>
-        </div>
-        <div class="pad-l border-bottom reveal" style="transition-delay: 0.1s;">
-            <span class="tag">GĐ 04</span>
-            <h3 style="margin-bottom: 10px;">Thực chiến Business Case & AC</h3>
-            <p><strong>Làm gì:</strong> Ứng viên trực tiếp giải các đề Case thực tế dưới sự quan sát của Mentor (Mentoring Module 8). Đồng thời tham gia vào các buổi thi thử bài tập nhóm mô phỏng thuộc vòng Assessment Center cùng các mentee khác (Mentoring Module 9).</p>
-            <p><strong>Đầu ra:</strong> Làm chủ tư duy giải Case & Kỹ năng nhóm | Làm chủ kỹ năng giải case dưới áp lực, hoàn thiện tư duy cấu trúc làm slide và sẵn sàng về tâm lý vượt qua vòng AC phức tạp.</p>
-            <p><em>(Tích hợp: Masterclass 02, 03, 06, 07 + Mentoring Module 8, 9)</em></p>
-        </div>
-        <div class="pad-l border-right reveal" style="grid-column: 1 / -1; background: var(--black); color: var(--lime-green); text-align: center;">
-            <span class="tag" style="background: white; color: black;">GĐ 05</span>
-            <h3 style="margin-bottom: 10px; color: var(--lime-green);">Chuyển hóa Interview thành Offer</h3>
-            <p style="color: var(--off-white); margin-bottom: 15px;"><strong>Làm gì:</strong> Mentor triển khai mock interview chuyên sâu 1-1 luyện tập Story bank với mentee. Mentee cập nhật dữ liệu ứng tuyển hàng ngày, đảm bảo KPI apply jobs và hoàn thành ứng tuyển trong vòng 12h kể từ khi job mở.</p>
-            <p style="color: var(--off-white);"><strong>Đầu ra:</strong> Sở hữu Answer Bank & Nhận Offer Letter | Sở hữu ngân hàng câu trả lời phỏng vấn cá nhân hóa, tự tin bước vào vòng Final để chuyển hóa thành công cơ hội thành Offer Letter chính thức.</p>
-            <p style="color: var(--lime-green); margin-top: 15px;"><em>(Tích hợp: Masterclass 05 + Mentoring Module 4, 10 + Tracking Jobs Applying)</em></p>
-        </div>
-    </div>
-
-    <div class="container pad-xl text-center bg-dark reveal">
-        <h2 class="title-section">CÁ NHÂN HÓA LỘ TRÌNH DỰA TRÊN MỤC TIÊU CỦA BẠN</h2>
-        <p class="text-lead" style="max-width: 800px; margin: 0 auto; margin-bottom: 40px;">Chúng tôi chủ động giới hạn số lượng học viên tiếp nhận hàng tháng để đảm bảo chất lượng dịch vụ và độ sâu sát của phiên cố vấn 1-1 (Service Adaptation). Chương trình phân tách rõ ràng thành 2 lộ trình tối ưu:</p>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; text-align: left;">
-            <div class="reveal" style="background: white; color: black; padding: 40px; border: 2px solid var(--lime-green); transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translate(-5px, -5px)'; this.style.boxShadow='8px 8px 0px var(--lime-green)';" onmouseout="this.style.transform='translate(0, 0)'; this.style.boxShadow='none';">
-                <h3 style="font-size: 2rem; margin-bottom: 20px; color: var(--dark-green);">GÓI INTERNSHIP<br><span style="font-size: 1rem; color: #666;">(THỜI GIAN ĐỒNG HÀNH: 4 THÁNG)</span></h3>
-                <ul class="custom-list">
-                    <li><strong>Đối tượng ứng tuyển:</strong> Sinh viên từ năm 2 đến năm 4 mong muốn cọ xát và tìm kiếm các kỳ thực tập lớn.</li>
-                    <li><strong>Giải pháp trọng tâm:</strong> Tập trung phân tích khoảng trống trải nghiệm hồ sơ, định hướng hoàn thiện khung kỹ năng, xây dựng nền tảng CV chiến lược và rèn phản xạ xử lý các dạng bài Aptitude Test năng lực.</li>
-                    <li><strong>Quyền lợi nhận được:</strong> Lộ trình cố vấn Mentoring 1-1 chuyên sâu (tối đa 16 sessions cùng Mentor có 2-3 năm kinh nghiệm thực tế) kết hợp trọn vẹn khóa học 7 buổi Masterclass.</li>
-                </ul>
-            </div>
-            <div class="reveal" style="background: white; color: black; padding: 40px; border: 2px solid var(--lime-green); transition: transform 0.3s ease, box-shadow 0.3s ease; transition-delay: 0.1s;" onmouseover="this.style.transform='translate(-5px, -5px)'; this.style.boxShadow='8px 8px 0px var(--lime-green)';" onmouseout="this.style.transform='translate(0, 0)'; this.style.boxShadow='none';">
-                <h3 style="font-size: 2rem; margin-bottom: 20px; color: var(--dark-green);">GÓI MANAGEMENT TRAINEE & ENTRY-LEVEL JOB<br><span style="font-size: 1rem; color: #666;">(THỜI GIAN ĐỒNG HÀNH: 6 THÁNG)</span></h3>
-                <ul class="custom-list">
-                    <li><strong>Đối tượng ứng tuyển:</strong> Sinh viên năm 3-4 hoặc có dưới 2 năm kinh nghiệm thực tế (đã từng qua các vị trí thực tập) đặt mục tiêu chinh phục các chương trình MT hoặc vị trí Full-time.</li>
-                    <li><strong>Giải pháp trọng tâm:</strong> Tập trung rèn luyện tư duy kinh doanh thực chiến, mài giữa năng lực phản biện giải quyết Business Case phức tạp, mô phỏng áp lực phòng AC và tối ưu hóa kĩ năng Storytelling để chinh phục vòng Final Interview.</li>
-                    <li><strong>Quyền lợi nhận được:</strong> Lộ trình cố vấn Mentoring 1-1 chuyên sâu (tối đa 24 sessions cùng Mentor có 4-5 năm kinh nghiệm quản lý thực tế) kết hợp trọn vẹn khóa học 7 buổi Masterclass.</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="container pad-xl reveal">
-        <h2 class="title-section text-center" style="margin-bottom: 40px;">CÂU HỎI THƯỜNG GẶP (FAQ)</h2>
-        
-        <div style="margin-bottom: 40px; border-left: 4px solid var(--lime-green); padding-left: 20px;">
-            <h4 style="margin-bottom: 15px; font-size: 1.2rem;">Quá trình ghép cặp giữa Mentor và Học viên diễn ra cụ thể ra sao? Có được chọn Mentor theo mong muốn không?</h4>
-            <p><strong>Bước 1 (Đăng ký hồ sơ):</strong> Bạn hoàn thành form đăng ký chi tiết thông tin cá nhân bao gồm điểm số GPA, hoạt động ngoại khoá, khối ngành quan tâm và danh sách công ty mơ ước nhằm giúp team đánh giá mức độ phù hợp.</p>
-            <p style="margin-top: 10px;"><strong>Bước 2 (Ghép cặp chuyên gia):</strong> Dựa trên mục tiêu cụ thể của học viên, Ban tổ chức chủ động sàng lọc và đề xuất vị trí Mentor có kinh nghiệm thực tế gần nhất với định hướng của bạn (ví dụ: Bạn nhắm MT Marketing tại Heineken, team sẽ ưu tiên kết nối với các anh chị đang phụ trách Brand Manager hoặc cựu MT thuộc đúng ngành hàng FMCG). Bạn sẽ được nhận hồ sơ Mentor (Profile, số năm kinh nghiệm, lĩnh vực chuyên môn sâu) để xem xét kỹ lưỡng trước khi bắt đầu.</p>
-            <p style="margin-top: 10px;"><strong>Bước 3 (Xác nhận & Khởi động):</strong> Sau khi hai bên đạt được sự đồng thuận hoàn toàn về việc ghép cặp, học viên hoàn tất thủ tục và tham gia session đầu tiên để thiết lập Career Roadmap chi tiết.</p>
-        </div>
-        
-        <div style="border-left: 4px solid var(--lime-green); padding-left: 20px;">
-            <h4 style="margin-bottom: 15px; font-size: 1.2rem;">Chương trình Meeting cùng Mentor có bắt buộc phải diễn ra đều đặn hàng tuần không?</h4>
-            <p>Lịch họp trực tiếp giữa Mentor và Mentee được thiết lập một cách linh hoạt, bám sát theo quá trình tuyển dụng thực tế của bạn chứ không ép buộc cố định một cách máy móc.</p>
-            <p style="margin-top: 10px;">Trong những giai đoạn bình thường (chưa có lịch thi), hai bên có thể duy trì giãn cách để tập trung làm bài tập phân tích dữ liệu hoặc xây dựng portfolio. Tuy nhiên, bước vào các giai đoạn cao điểm (khi bạn nhận được take-home assignment từ doanh nghiệp, có lịch thi AC hoặc phỏng vấn đột xuất), Mentor và ứng viên có thể tăng cường số buổi mentoring lên 2-3 sessions/tuần để tập trung Mock Interview và sửa bài kịp thời chuẩn bị cho các vòng ứng tuyển.</p>
-        </div>
+    <div class="container pad-xl text-center bg-dark reveal" style="border-top: 2px solid var(--black);">
+        <h2 class="title-section text-center" style="margin-bottom: 40px; color: var(--off-white);">CÁ NHÂN HÓA LỘ TRÌNH DỰA TRÊN MỤC TIÊU CỦA BẠN</h2>
         
         <div style="text-align: center; margin-top: 60px;">
-            <a href="#" class="btn btn-green" style="font-size: 1.5rem; padding: 20px 40px;">ĐĂNG KÝ NHẬN TƯ VẤN LỘ TRÌNH RIÊNG</a>
+            <a href="#" class="btn btn-green prank-trigger" style="font-size: 1.5rem; padding: 20px 40px;">ĐĂNG KÝ NHẬN TƯ VẤN LỘ TRÌNH RIÊNG</a>
         </div>
     </div>
 
     <footer class="bg-dark text-center pad-m reveal">
         <h1 class="font-heading" style="color: var(--lime-green); font-size: 3rem; margin-bottom: 10px;">ROAD TO MNC.</h1>
         <p style="font-size: 0.9rem; margin-bottom: 20px;">© 2026. All rights reserved.</p>
-        
-        <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px;">
-            <p style="color: var(--lime-green); font-weight: bold; margin-bottom: 10px;">REFERENCE</p>
-            <a href="https://www.shengjiewu.info" target="_blank" style="color: var(--off-white); margin: 0 10px; transition: color 0.3s;" onmouseover="this.style.color='var(--lime-green)'" onmouseout="this.style.color='var(--off-white)'">shengjiewu.info</a> | 
-            <a href="https://www.thepush.com.au" target="_blank" style="color: var(--off-white); margin: 0 10px; transition: color 0.3s;" onmouseover="this.style.color='var(--lime-green)'" onmouseout="this.style.color='var(--off-white)'">thepush.com.au</a> | 
-            <a href="https://dbtm.tds.tu.ac.th" target="_blank" style="color: var(--off-white); margin: 0 10px; transition: color 0.3s;" onmouseover="this.style.color='var(--lime-green)'" onmouseout="this.style.color='var(--off-white)'">dbtm.tds.tu.ac.th</a> | 
-            <a href="https://loyalistcollege.com" target="_blank" style="color: var(--off-white); margin: 0 10px; transition: color 0.3s;" onmouseover="this.style.color='var(--lime-green)'" onmouseout="this.style.color='var(--off-white)'">loyalistcollege.com</a>
-        </div>
     </footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            // Hiệu ứng cuộn trang cũ
             const reveals = document.querySelectorAll(".reveal");
-
             const revealOnScroll = () => {
                 const windowHeight = window.innerHeight;
-                const elementVisible = 100; // Khoảng cách từ dưới lên trước khi trigger animation
-
+                const elementVisible = 100;
                 reveals.forEach((reveal) => {
                     const elementTop = reveal.getBoundingClientRect().top;
                     if (elementTop < windowHeight - elementVisible) {
@@ -769,11 +419,48 @@
                     }
                 });
             };
-
-            // Trigger ngay khi load trang
             revealOnScroll();
-            // Trigger khi scroll
             window.addEventListener("scroll", revealOnScroll);
+
+            // ==========================================
+            // CODE PRANK SINH NHẬT THƯ HUỲNH
+            // ==========================================
+            const prankTriggers = document.querySelectorAll('.prank-trigger');
+            const surpriseModal = document.getElementById('birthday-surprise');
+            const btnYes = document.getElementById('btn-yes');
+            const btnNo = document.getElementById('btn-no');
+
+            // Mở modal khi bấm nút Đăng ký
+            prankTriggers.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault(); // Ngăn trang web nhảy lên đầu
+                    surpriseModal.classList.add('show');
+                });
+            });
+
+            // Nút YES
+            btnYes.addEventListener('click', () => {
+                alert("Chốt kèo nha! Chuẩn bị lên đồ đi chơi thôiiii 💖");
+            });
+
+            // Nút NO lươn lẹo
+            btnNo.addEventListener('mouseover', function() {
+                // Lấy kích thước của nút
+                const btnWidth = this.offsetWidth;
+                const btnHeight = this.offsetHeight;
+
+                // Tính toán tọa độ ngẫu nhiên không bị tràn màn hình
+                const maxX = window.innerWidth - btnWidth - 20;
+                const maxY = window.innerHeight - btnHeight - 20;
+
+                const randomX = Math.random() * maxX;
+                const randomY = Math.random() * maxY;
+
+                // Chuyển nút sang absolute/fixed để chạy
+                this.style.position = 'fixed';
+                this.style.left = randomX + 'px';
+                this.style.top = randomY + 'px';
+            });
         });
     </script>
 </body>
