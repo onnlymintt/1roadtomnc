@@ -8,12 +8,13 @@
     <!-- Tích hợp Fonts: Roboto cho vỏ bọc, Nunito cho phần cute -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&family=Roboto+Condensed:wght@700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800;900&family=Roboto+Condensed:wght@700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
     <!-- Thư viện Pháo hoa -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
+        
         :root {
             --black: #000000; 
             --dark-green: #173D2F; 
@@ -22,10 +23,10 @@
             --font-heading: 'Roboto Condensed', sans-serif; 
             --font-body: 'Roboto', sans-serif; 
             
-            /* Màu cho popup sinh nhật cute */
-            --cute-purple: #c471ed;
-            --light-purple: #f8e8ff;
-            --pink-red: #ff758c;
+            /* Tone màu pastel siêu cute cho popup */
+            --cute-pink: #ff9a9e;
+            --cute-purple: #fecfef;
+            --text-cute: #ff4d79;
             --font-cute: 'Nunito', sans-serif;
         }
 
@@ -169,7 +170,10 @@
         }
         ul.custom-list li:last-child { border-bottom: none; }
 
-        /* --- SURPRISE MODAL (GIAO DIỆN CUTE) --- */
+
+        /* ========================================= */
+        /* --- SURPRISE MODAL (GIAO DIỆN SIÊU CUTE) --- */
+        /* ========================================= */
         #birthday-surprise {
             display: none;
             position: fixed;
@@ -177,143 +181,217 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(8px);
+            /* Background mờ sương, màu loang pastel */
+            background: linear-gradient(135deg, rgba(255, 154, 158, 0.9), rgba(254, 207, 239, 0.9));
+            backdrop-filter: blur(12px);
             z-index: 99999;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             padding: 20px;
+            overflow: hidden; /* Để tim không rớt ra ngoài */
         }
         
         #birthday-surprise.show {
             display: flex;
         }
 
-        .surprise-box {
-            font-family: var(--font-cute);
-            background: var(--light-purple);
-            border: 4px dashed var(--cute-purple);
-            padding: 40px 30px;
-            max-width: 600px;
-            border-radius: 30px;
-            box-shadow: 0 15px 30px rgba(196, 113, 237, 0.3);
-            position: relative;
+        /* Hoạt ảnh nảy lên siêu đáng yêu */
+        @keyframes bounceIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            60% { transform: scale(1.05); opacity: 1; }
+            80% { transform: scale(0.95); }
+            100% { transform: scale(1); }
         }
 
-        /* Chỗ up ảnh Thư */
+        .surprise-box {
+            font-family: var(--font-cute);
+            /* Hiệu ứng Glassmorphism */
+            background: rgba(255, 255, 255, 0.85);
+            border: 4px solid white;
+            padding: 50px 40px 40px 40px;
+            max-width: 650px;
+            border-radius: 40px;
+            box-shadow: 0 20px 50px rgba(255, 77, 121, 0.3);
+            position: relative;
+            animation: bounceIn 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            z-index: 10;
+        }
+
+        /* Khung ảnh Thư xịn xò hơn */
+        .avatar-wrapper {
+            position: relative;
+            width: 170px;
+            height: 170px;
+            margin: -100px auto 25px auto;
+        }
+
         .avatar-thu {
-            width: 160px;
-            height: 160px;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 6px solid white;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-            margin: -90px auto 20px auto; /* Kéo ảnh nổi lên viền trên của box */
-            display: block;
+            border: 8px solid white;
+            box-shadow: 0 10px 25px rgba(255, 77, 121, 0.4);
             background-color: #fff;
+        }
+
+        /* Thêm vương miện giả cho cute */
+        .avatar-wrapper::after {
+            content: '👑';
+            font-size: 3rem;
+            position: absolute;
+            top: -20px;
+            right: 15px;
+            transform: rotate(15deg);
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+            animation: float 2s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(15deg); }
+            50% { transform: translateY(-10px) rotate(25deg); }
         }
 
         .cute-title {
             font-family: var(--font-cute);
-            font-size: 2.2rem;
-            color: var(--cute-purple);
-            font-weight: 800;
-            margin-bottom: 15px;
-            text-transform: none; /* Trả về chữ thường, không bắt buộc in hoa */
+            font-size: 2.5rem;
+            color: var(--text-cute);
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-transform: none; 
+            letter-spacing: -1px;
+            text-shadow: 2px 2px 0px white;
         }
 
         .cute-text {
             font-family: var(--font-cute);
-            font-size: 1.2rem;
-            color: #4a4a4a;
-            margin-bottom: 15px;
-            line-height: 1.7;
-            font-weight: 600;
+            font-size: 1.25rem;
+            color: #5a5a5a;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-weight: 700;
         }
 
         .highlight-text {
-            color: var(--cute-purple);
+            background: #ffe3e3;
+            color: var(--text-cute);
+            padding: 15px;
+            border-radius: 20px;
             font-weight: 800;
             font-size: 1.3rem;
             margin-bottom: 35px;
+            display: inline-block;
+            border: 2px dashed var(--cute-pink);
         }
 
         .btn-birthday {
             font-family: var(--font-cute);
-            font-size: 1.2rem;
-            padding: 12px 35px;
+            font-size: 1.25rem;
+            padding: 15px 40px;
             border: none;
-            font-weight: 800;
+            font-weight: 900;
             cursor: pointer;
             border-radius: 50px;
-            transition: all 0.2s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Hiệu ứng nhịp tim (pulse) cho nút YES */
+        @keyframes pulseBtn {
+            0% { box-shadow: 0 0 0 0 rgba(255, 77, 121, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(255, 77, 121, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 77, 121, 0); }
         }
 
         #btn-yes {
-            background: linear-gradient(135deg, var(--cute-purple), #9b59b6);
+            background: linear-gradient(135deg, #ff4d79, #ff758c);
             color: white;
+            box-shadow: 0 8px 20px rgba(255, 77, 121, 0.4);
+            animation: pulseBtn 2s infinite;
         }
         #btn-yes:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 20px rgba(196, 113, 237, 0.5);
+            transform: translateY(-5px) scale(1.05);
+            background: linear-gradient(135deg, #ff758c, #ff4d79);
         }
 
         #btn-no {
-            background-color: var(--pink-red);
-            color: white;
-            position: relative; /* JS sẽ đổi thành absolute khi di chuột */
+            background-color: #d1d8e0;
+            color: #4b6584;
+            position: relative; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
 
-        /* Nút Music Toggle Tinh tế góc phải */
         .music-toggle {
             position: absolute;
-            top: 15px;
-            right: 15px;
+            top: 20px;
+            right: 20px;
             background: white;
-            border: 2px solid var(--cute-purple);
-            color: var(--cute-purple);
+            border: none;
+            color: var(--text-cute);
             border-radius: 50px;
-            padding: 5px 15px;
+            padding: 8px 20px;
             font-family: var(--font-cute);
-            font-weight: 700;
-            font-size: 0.9rem;
+            font-weight: 800;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.2s;
+            box-shadow: 0 4px 10px rgba(255, 77, 121, 0.2);
+            z-index: 100;
         }
         .music-toggle:hover {
-            background: var(--cute-purple);
+            background: var(--text-cute);
             color: white;
+            transform: translateY(-2px);
+        }
+
+        /* --- HIỆU ỨNG TRÁI TIM BAY (CSS + JS) --- */
+        .floating-heart {
+            position: absolute;
+            bottom: -50px;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.7);
+            animation: flyUp 4s linear infinite;
+            z-index: 1;
+            user-select: none;
+        }
+        @keyframes flyUp {
+            0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0; }
+            20% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) rotate(360deg) scale(1.5); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <!-- THẺ AUDIO CHỨA NHẠC (Bạn cần up file nhac.mp3) -->
+    <!-- THẺ AUDIO CHỨA NHẠC -->
     <audio id="bg-music" loop>
         <source src="nhac.mp3" type="audio/mpeg">
     </audio>
 
     <!-- MÀN HÌNH CHÚC MỪNG SINH NHẬT -->
     <div id="birthday-surprise">
+        <!-- Vùng chứa các trái tim bay (sẽ được tạo bằng JS) -->
+        <div id="hearts-container"></div>
+
         <div class="surprise-box">
             <button id="btn-music" class="music-toggle">🎵 Tắt nhạc</button>
             
-            <!-- ẢNH CỦA THƯ: Đổi tên ảnh trên máy tính thành thu.jpg rồi up lên Github nhé -->
-            <img src="thu.jpg" class="avatar-thu" alt="Hình của Thư nè" onerror="this.src='https://via.placeholder.com/160?text=Loi+Anh'">
+            <div class="avatar-wrapper">
+                <!-- ẢNH CỦA THƯ: Nhớ đổi tên ảnh thành thu.jpg -->
+                <img src="thu.jpg" class="avatar-thu" alt="Hình của Thư nè" onerror="this.src='https://via.placeholder.com/170?text=Loi+Anh'">
+            </div>
             
-            <h1 class="cute-title">Tén tèn ten! Chúc mừng sinh nhật Thư Huỳnh 🎂</h1>
+            <h1 class="cute-title">Tén tèn ten! <br>Chúc mừng sinh nhật Thư Huỳnh 🎂</h1>
             
             <p class="cute-text">
                 Á nhon, lại một năm nữa lại bên nhau, i enjoy every moment were together (dù cũng đ nói chiện j lắm haha, nhma rất comfortable to me 🥰).
             </p>
-            <p class="cute-text highlight-text">
+            <div class="highlight-text">
                 Năm nay Thy mời Thư đi coi phim gì đó nhẹ với Thy nha (chả biết phim rì, chắc cứ ra rạp lựa thôi haha 🎬🍿).
-            </p>
+            </div>
 
-            <div style="display: flex; gap: 20px; justify-content: center; align-items: center; min-height: 60px;">
+            <div style="display: flex; gap: 20px; justify-content: center; align-items: center; min-height: 70px;">
                 <button id="btn-yes" class="btn-birthday">YESSS (ĐI LÙN!)</button>
                 <button id="btn-no" class="btn-birthday">NO (CHÊ)</button>
             </div>
@@ -329,7 +407,7 @@
         <div class="pad-xl border-right reveal">
             <h1 class="title-hero">ROAD<br>TO MNC.</h1>
             <p class="text-lead" style="margin-bottom: 30px;">Giải pháp All-in-one phối hợp giữa Masterclass hệ thống và Mentoring 1-1 cá nhân hóa.</p>
-            <!-- NÚT MỒI: THÊM CLASS prank-trigger ĐỂ KÍCH HOẠT LỪA ĐẢO -->
+            <!-- NÚT MỒI: THÊM CLASS prank-trigger -->
             <a href="#" class="btn btn-green prank-trigger">ĐĂNG KÝ TƯ VẤN</a>
         </div>
         <div class="pad-xl reveal" style="background-color: var(--black); color: var(--off-white); transition-delay: 0.2s;">
@@ -360,7 +438,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // Hiệu ứng cuộn trang
+            // Hiệu ứng cuộn trang của vỏ bọc
             const reveals = document.querySelectorAll(".reveal");
             const revealOnScroll = () => {
                 const windowHeight = window.innerHeight;
@@ -384,7 +462,27 @@
             const btnNo = document.getElementById('btn-no');
             const bgMusic = document.getElementById('bg-music');
             const btnMusicToggle = document.getElementById('btn-music');
+            const heartsContainer = document.getElementById('hearts-container');
+            
             let isMusicPlaying = false;
+            let heartsInterval;
+
+            // Hàm tạo trái tim bay
+            const createHeart = () => {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.innerHTML = ['💖', '💕', '🌸', '✨'][Math.floor(Math.random() * 4)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 3) + 's'; // 3s đến 6s
+                heart.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
+                
+                heartsContainer.appendChild(heart);
+                
+                // Xóa trái tim sau khi bay xong để nhẹ máy
+                setTimeout(() => {
+                    heart.remove();
+                }, 6000);
+            };
 
             // Hàm bắn pháo hoa
             const fireConfetti = () => {
@@ -393,18 +491,18 @@
 
                 (function frame() {
                     confetti({
-                        particleCount: 5,
+                        particleCount: 7,
                         angle: 60,
-                        spread: 55,
+                        spread: 60,
                         origin: { x: 0 },
-                        colors: ['#c471ed', '#ff758c', '#b9df30']
+                        colors: ['#ff9a9e', '#ff4d79', '#fecfef']
                     });
                     confetti({
-                        particleCount: 5,
+                        particleCount: 7,
                         angle: 120,
-                        spread: 55,
+                        spread: 60,
                         origin: { x: 1 },
-                        colors: ['#c471ed', '#ff758c', '#b9df30']
+                        colors: ['#ff9a9e', '#ff4d79', '#fecfef']
                     });
 
                     if (Date.now() < end) {
@@ -413,13 +511,18 @@
                 }());
             };
 
-            // Mở modal và BẬT NHẠC khi bấm Đăng ký
+            // Mở modal, bật nhạc và thả tim
             prankTriggers.forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.preventDefault(); 
                     surpriseModal.classList.add('show');
                     
-                    // Phát nhạc (trình duyệt chỉ cho phép sau khi user click)
+                    // Thả tim liên tục
+                    if(!heartsInterval) {
+                        heartsInterval = setInterval(createHeart, 300);
+                    }
+
+                    // Phát nhạc
                     bgMusic.play().then(() => {
                         isMusicPlaying = true;
                         btnMusicToggle.innerText = "🎵 Tắt nhạc";
@@ -459,13 +562,13 @@
                 const maxX = window.innerWidth - btnWidth - 50;
                 const maxY = window.innerHeight - btnHeight - 50;
 
-                // Random toạ độ
                 const randomX = Math.max(20, Math.random() * maxX);
                 const randomY = Math.max(20, Math.random() * maxY);
 
                 this.style.position = 'fixed';
                 this.style.left = randomX + 'px';
                 this.style.top = randomY + 'px';
+                this.style.zIndex = '999999';
             });
         });
     </script>
